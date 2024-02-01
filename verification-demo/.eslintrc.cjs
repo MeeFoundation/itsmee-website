@@ -24,12 +24,13 @@ module.exports = {
         },
     },
     rules: {
-        'prettier/prettier': 'error',
         'react/react-in-jsx-scope': 'off',
+        'max-len': ['error', { code: 100, ignoreStrings: true }],
     },
     settings: {
         react: {
             version: 'detect',
         },
     },
+    parser: '@typescript-eslint/parser',
 };

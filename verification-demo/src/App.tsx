@@ -1,8 +1,11 @@
+import { StrictMode } from 'react';
+import { Navigation } from './Navigation';
+
 function App() {
     return (
-        <div className="flex w-full flex-col justify-center items-center h-full">
-            <p>Untied Airlines Demo</p>
-        </div>
+        <StrictMode>
+            <Navigation />
+        </StrictMode>
     );
 }
 
