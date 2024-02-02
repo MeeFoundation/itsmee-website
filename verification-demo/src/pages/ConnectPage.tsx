@@ -6,8 +6,10 @@ import FacebookLogo from '../assets/images/facebookLogo.svg';
 import PasskeyLogo from '../assets/images/passkeyLogo.svg';
 import PhoneNumberLogo from '../assets/images/phoneNumberLogo.svg';
 import { ConnectButton } from '../components/ConnectButton';
+import { useNavigate } from 'react-router-dom';
 
 export const ConnectPage: React.FC = () => {
+    const navigate = useNavigate();
     const buttons = [
         {
             image: GoogleLogo,
@@ -27,12 +29,12 @@ export const ConnectPage: React.FC = () => {
         {
             image: PhoneNumberLogo,
             text: 'Connect with phone number',
-            onClick: () => console.log('clicked'),
+            onClick: () => navigate('/connect/phone'),
         },
     ];
 
     return (
-        <div className="px-4 pt-6 flex flex-col items-center">
+        <div className="px-4 pt-6 flex flex-col items-center max-w-150 mx-auto">
             <div className="mb-6">
                 <img src={UntiedAirlinesLogo} alt="untied airlines logo" />
             </div>

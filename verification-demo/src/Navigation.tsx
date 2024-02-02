@@ -2,28 +2,17 @@ import { Footer } from './components/Footer';
 import { ConnectPage } from './pages/ConnectPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { HashRouter, Route, Routes } from 'react-router-dom';
+import { PhoneConnectPage } from './pages/PhoneConnectPage';
 
 export const Navigation = () => {
-    const routes = [
-        {
-            path: '/connect',
-            element: <ConnectPage />,
-        },
-        {
-            path: '*',
-            element: <NotFoundPage />,
-        },
-    ];
     return (
         <HashRouter>
             <Routes>
-                {routes.map((route) => (
-                    <Route
-                        key={route.path}
-                        path={route.path}
-                        element={route.element}
-                    />
-                ))}
+                <Route path="connect">
+                    <Route index element={<ConnectPage />} />
+                    <Route path="phone" element={<PhoneConnectPage />} />
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer />
         </HashRouter>

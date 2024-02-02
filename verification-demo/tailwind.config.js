@@ -8,13 +8,23 @@ export default {
                 highlightedText: '#1414D2',
                 secondaryText: '#3F484A',
                 lightGray: '#F8FAFA',
-                gray: '#CAC4D0'
+                gray: '#CAC4D0',
+                inactive: '#1D1B201F',
+                meeColor: '#447F88'
             },
             fontFamily: {
                 sans: ['Public Sans', 'sans-serif'],
             },
             spacing: {
                 17: '4.25rem',
+                150: '37.5rem',
+            },
+            borderRadius: {
+                '10': '10px',
+                '4': '4px',
+            },
+            borderWidth: {
+                '3': '3px',
             },
         },
     },

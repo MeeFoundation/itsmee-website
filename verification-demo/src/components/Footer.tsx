@@ -7,7 +7,7 @@ interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = () => {
     return (
-        <footer className="mt-17 px-4">
+        <footer className="mt-17 px-4 max-w-150 mx-auto">
             <ExplanationText>
                 Continuing, Mee will send your name, email address, language
                 preferences, and profile image to Untied Airlines. Before using
