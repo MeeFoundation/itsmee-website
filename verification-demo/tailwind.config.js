@@ -10,7 +10,9 @@ export default {
                 lightGray: '#F8FAFA',
                 gray: '#CAC4D0',
                 inactive: '#1D1B201F',
-                meeColor: '#447F88'
+                disabled: '#79747E1F',
+                meeColor: '#447F88',
+                borderInactive: '#6F797A'
             },
             fontFamily: {
                 sans: ['Public Sans', 'sans-serif'],
