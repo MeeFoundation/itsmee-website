@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import UntiedAirlinesLogo from '../assets/images/untiedAirlinesLogo.svg';
+import MeeLogo from '../assets/images/meeLogo.svg';
 import { NormalText } from '../components/NormalText';
 import { CodeInput } from '../components/CodeInput';
 import { useNavigate } from 'react-router-dom'; // Add this
@@ -27,11 +27,7 @@ export const SmsCodePage: React.FC = () => {
 
     return (
         <div className="flex flex-col justify-start items-center pt-6 px-4 w-full max-w-150 mx-auto">
-            <img
-                className="w-8 h-8"
-                src={UntiedAirlinesLogo}
-                alt="Untied Airlines"
-            />
+            <img className="w-17" src={MeeLogo} alt="mee logo" />
             <div className="pt-6 mb-6">
                 <NormalText semiBold centered>
                     Enter code from SMS

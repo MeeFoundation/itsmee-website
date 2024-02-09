@@ -1,6 +1,6 @@
 import React from 'react';
 import { Title } from '../components/Title';
-import UntiedAirlinesLogo from '../assets/images/untiedAirlinesLogo.svg';
+import MeeLogo from '../assets/images/meeLogo.svg';
 import GoogleLogo from '../assets/images/googleLogo.svg';
 import FacebookLogo from '../assets/images/facebookLogo.svg';
 import PasskeyLogo from '../assets/images/passkeyLogo.svg';
@@ -36,14 +36,14 @@ export const ConnectPage: React.FC = () => {
     return (
         <div className="px-4 pt-6 flex flex-col items-center max-w-150 mx-auto">
             <div className="mb-6">
-                <img src={UntiedAirlinesLogo} alt="untied airlines logo" />
+                <img className="w-17" src={MeeLogo} alt="mee logo" />
             </div>
             <div className="mb-6">
                 <Title centered>
                     <span className="text-highlightedText">
                         Untied Airlines
                     </span>{' '}
-                    would like to access information from your Mee smartwallet
+                    would like to access information from Mee
                 </Title>
             </div>
             <div className="w-full">

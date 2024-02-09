@@ -9,9 +9,8 @@ export const Footer: React.FC<FooterProps> = () => {
     return (
         <footer className="mt-17 px-4 max-w-150 mx-auto">
             <ExplanationText>
-                Continuing, Mee will send your name, email address, language
-                preferences, and profile image to Untied Airlines. Before using
-                this app, you can examine the{' '}
+                By continuing, Mee will send your credit card information to
+                Untied Airlines. Before using this app, you can examine the{' '}
                 <span className="text-highlightedText">privacy policy</span> and{' '}
                 <span className="text-highlightedText">service terms</span> of
                 Untied Airlines.

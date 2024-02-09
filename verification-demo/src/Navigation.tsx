@@ -1,6 +1,5 @@
 import { Footer } from './components/Footer';
 import { ConnectPage } from './pages/ConnectPage';
-import { NotFoundPage } from './pages/NotFoundPage';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { PhoneConnectPage } from './pages/PhoneConnectPage';
 import { SmsCodePage } from './pages/SmsCodePage';
@@ -18,7 +17,7 @@ export const Navigation = () => {
                         <Route path="redirect" element={<RedirectPage />} />
                     </Route>
                 </Route>
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="*" element={<PhoneConnectPage />} />
             </Routes>
             <Footer />
         </HashRouter>

@@ -43,11 +43,11 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({ value, setValue }) => {
         });
     }
     return (
-        <div className="w-full relative pt-2">
-            <p className="absolute ml-3 px-1 left-0 top-0 text-xs text-meeColor z-10 bg-white">
+        <div className="w-full relative pt-2 text-secondaryText focus-within:text-meeColor">
+            <p className="absolute ml-3 px-1 left-0 top-0 text-xs z-10 bg-white">
                 Phone number
             </p>
-            <div className="border-3 rounded-4 border-meeColor w-full z-0 px-4 flex flex-row gap-4 items-center">
+            <div className="border borderInactive focus-within:border-3 rounded-4 focus-within:border-meeColor w-full z-0 px-4 focus-within:ml-0 ml-[2px] flex flex-row gap-4 items-center">
                 <img className="w-8" src={UsaFlag} alt="usa flag" />
                 <NormalText>+1</NormalText>
                 <input
@@ -55,7 +55,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({ value, setValue }) => {
                     onChange={formatPhone}
                     value={value ?? ''}
                     placeholder="(XXX) XXX-XXXX"
-                    className="text-base py-3 w-full outline-none"
+                    className="text-base text-basicText py-[14px] focus:py-3 w-full outline-none"
                 />
             </div>
         </div>
