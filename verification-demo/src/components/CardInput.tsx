@@ -28,7 +28,7 @@ export const CardInput: React.FC<CardInputProps> = ({
                 <input
                     onChange={(e) => setCard(e.currentTarget.value)}
                     value={card ?? ''}
-                    className="text-base text-basicText py-[14px] focus:py-3  outline-none"
+                    className="text-base text-basicText py-[14px] w-40 focus:py-3  outline-none"
                 />
                 <input
                     onChange={(e) => setExp(e.currentTarget.value)}
@@ -38,7 +38,7 @@ export const CardInput: React.FC<CardInputProps> = ({
                 <input
                     onChange={(e) => setCvv(e.currentTarget.value)}
                     value={cvv ?? ''}
-                    className="text-base text-basicText py-[14px] w-11 focus:py-3 outline-none"
+                    className="text-base text-basicText py-[14px] w-9 focus:py-3 outline-none"
                 />
             </div>
         </div>
