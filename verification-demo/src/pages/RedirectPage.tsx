@@ -21,10 +21,10 @@ export const RedirectPage: React.FC = () => {
             <img className="w-17" src={MeeLogo} alt="mee logo" />
             <div className="pt-6 mb-6">
                 <NormalText semiBold centered>
-                    The following information will be shared with
-                </NormalText>
-                <NormalText semiBold centered>
-                    <span className="text-meeColor">Untied Airlines</span>
+                    The following information will be shared with{' '}
+                    <span className="text-highlightedText">
+                        Untied Airlines
+                    </span>
                 </NormalText>
             </div>
             <div className="pb-6 w-full">
@@ -45,15 +45,16 @@ export const RedirectPage: React.FC = () => {
                     setValue={setNameOnCard}
                 />
             </div>
-            <div className="pb-6 w-full">
-                <ActionButton secondary text="Cancel" onClick={() => {}} />
+            <div className="pb-2 w-full">
+                <ActionButton
+                    text="Continue"
+                    onClick={() => {
+                        window.location.href = 'meeuntied://redirect';
+                    }}
+                />
             </div>
-            <ActionButton
-                text="Continue"
-                onClick={() => {
-                    window.location.href = 'meeuntied://redirect';
-                }}
-            />
+
+            <ActionButton secondary text="Cancel" onClick={() => {}} />
         </div>
     );
 };

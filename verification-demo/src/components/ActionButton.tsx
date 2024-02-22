@@ -25,7 +25,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
                 disabled && !secondary && 'bg-inactive',
                 !disabled && secondary && 'text-meeColor',
                 !disabled && !secondary && 'bg-meeColor text-white',
-                'w-full flex items-center justify-center py-2.5 rounded-10 border-2'
+                'w-full flex items-center justify-center py-2.5 rounded-10'
             )}
             onClick={onClick}
         >
