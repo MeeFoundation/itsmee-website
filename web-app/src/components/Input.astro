@@ -1,0 +1,47 @@
+---
+interface Props {
+  className?: string;
+  id: string;
+  label: string;
+  required?: boolean;
+  type:
+    | "button"
+    | "checkbox"
+    | "color"
+    | "date"
+    | "datetime-local"
+    | "email"
+    | "file"
+    | "hidden"
+    | "image"
+    | "month"
+    | "number"
+    | "password"
+    | "radio"
+    | "range"
+    | "reset"
+    | "search"
+    | "submit"
+    | "tel"
+    | "text"
+    | "time"
+    | "url"
+    | "week";
+}
+
+const { className, id, type, label, required = false } = Astro.props;
+---
+
+<div class:list={[className]}>
+  <label
+    for={id}
+    class="mb-2 block text-sm font-medium text-primary"
+    >{label}</label
+  >
+  <input
+    type={type}
+    id={id}
+    class="block w-full rounded-lg border border-primary bg-white p-2.5 text-sm text-primary focus:ring-primary focus-visible:ring-primary"
+    required={required}
+  />
+</div>
