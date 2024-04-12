@@ -1,0 +1,105 @@
+---
+import Button from "@components/Button.astro";
+import Header from "@components/Header.astro";
+import Input from "@components/Input.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Sign Up">
+  <main class="h-screen w-screen">
+    <Header activePage="sign-up" />
+    <div
+      class="relative z-50 flex h-full flex-col items-center justify-center p-6"
+    >
+      <form
+        class="mx-auto flex max-w-sm flex-col items-center gap-6"
+        id="sign-up-form"
+        autocomplete="off"
+      >
+        <Input
+          className="w-64"
+          id="email"
+          type="email"
+          label="Email"
+          placeholder="Enter an email"
+          autocomplete="off"
+          required
+        />
+        <Input
+          className="w-64"
+          id="tel"
+          type="tel"
+          label="Phone number"
+          placeholder="Enter a phone number"
+          autocomplete="off"
+          pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
+        />
+        <Input
+          className="w-64"
+          id="password"
+          type="password"
+          label="Password"
+          placeholder="Enter a password"
+          autocomplete="off"
+          required
+        />
+        <Input
+          className="w-64"
+          id="confirm_password"
+          type="password"
+          label="Confirm password"
+          placeholder="Confirm a password"
+          autocomplete="off"
+          required
+        />
+        <Button type="submit" id="sign-up">Submit</Button>
+      </form>
+    </div>
+  </main>
+</Layout>
+
+
+<script>
+  import config from "@config";
+import { addFormListeners, validateForm } from "@utils/validation";
+
+  const signUpForm = document.getElementById(
+    "sign-up-form"
+  ) as HTMLFormElement | null;
+
+  if (signUpForm) {
+    const inputs = signUpForm.querySelectorAll("input");
+    addFormListeners(inputs);
+    signUpForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const formValid = validateForm(inputs);
+      const data = Array.from(inputs).reduce(
+        (acc, input) => ({ ...acc, [input.id]: input.value }),
+        { email: "", password: "", phone: "", confirm_password: "", }
+      );
+
+      if (data && formValid) {
+        try {
+          const { auth_token } = await fetch(
+            config.backendUrl + "/api/v1/providers/register",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: data.email,
+                password: data.password,
+                phone: data.phone,
+              }),
+            }
+          ).then((r) => r.json());
+
+          console.log("auth_token", auth_token)
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+  }
+</script>
