@@ -2,16 +2,16 @@
 interface Props {
   className?: string;
   id: string;
-  type: "submit" | "reset" | "button" | undefined | null;
+  href: string;
   buttonType?: "primary" | "secondary";
 }
 
-const { className, id, type, buttonType = "primary" } = Astro.props;
+const { className, id, href, buttonType = "primary" } = Astro.props;
 ---
 
-<button
+<a
   id={id}
-  type={type}
+  href={href}
   class:list={[
     "box-border flex h-11 w-full flex-none grow-0 flex-row items-center justify-center rounded-xl border border-solid px-4 py-2.5",
     buttonType === "primary"
@@ -20,7 +20,7 @@ const { className, id, type, buttonType = "primary" } = Astro.props;
     className,
   ]}
 >
-  <slot /></button
+  <slot /></a
 >
 
 <style>

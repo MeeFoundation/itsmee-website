@@ -30,12 +30,15 @@ export const validateInput = (
   inputs: NodeListOf<HTMLInputElement>,
 ) => {
   const id = input.id;
-
+  const value = input.value.length ? input.value : undefined;
+  if (!value && !input.required) {
+    return true;
+  }
   try {
     switch (id) {
       case "password": {
         assert(
-          input.value,
+          value,
           PasswordValidation(),
           //   "- Password must contain at least 8 characters\n- Password must contain one capital letter\n- Password must contain one lowercase letter\n- Password must contain one number",
           "Password must contain at least 12 characters",
@@ -43,12 +46,10 @@ export const validateInput = (
         return true;
       }
       case "email": {
-        assert(input.value, EmailValidation(), "Email must be a valid email");
+        assert(value, EmailValidation(), "Email must be a valid email");
         return true;
       }
       case "tel": {
-        console.log("tel", input.value);
-        const value = input.value.length ? input.value : undefined;
         assert(value, PhoneValidation(), "Phone number must be a valid number");
         return true;
       }
@@ -80,13 +81,15 @@ export const addErrorMessage = (input: HTMLInputElement, message: string) => {
     ".validation-message",
   );
   const label = input.parentElement?.querySelector("label");
+  const eyeContainer = input.parentElement?.querySelector(".eye-container");
   if (validationMessage) {
     validationMessage.innerHTML = message;
     validationMessage?.classList.remove("hidden");
     validationMessage?.classList.add("inline-flex");
-    input.classList.add("border-red-600", "text-red-600", "focus:ring-red-600");
-    // input.classList.remove("focus:ring-primary");
+    input.classList.add("border-red-600", "focus:ring-red-600");
     label?.classList.add("text-red-600");
+    label?.classList.add("peer-focus:text-red-600");
+    eyeContainer?.classList.add("fill-red-600");
   }
 };
 export const clearInputValidation = (input: HTMLInputElement) => {
@@ -94,13 +97,15 @@ export const clearInputValidation = (input: HTMLInputElement) => {
     ".validation-message",
   );
   const label = input.parentElement?.querySelector("label");
+  const eyeContainer = input.parentElement?.querySelector(".eye-container");
   if (validationMessage) {
     validationMessage.innerHTML = "";
     validationMessage?.classList.remove("inline-flex");
     validationMessage?.classList.add("hidden");
-    input.classList.remove("border-red-600", "text-red-600", "focus:ring-red-600");
-    // input.classList.add("focus:ring-primary");
+    input.classList.remove("border-red-600", "focus:ring-red-600");
     label?.classList.remove("text-red-600");
+    label?.classList.remove("peer-focus:text-red-600");
+    eyeContainer?.classList.remove("fill-red-600");
   }
 };
 

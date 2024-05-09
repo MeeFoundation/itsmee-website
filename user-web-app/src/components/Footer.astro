@@ -1,0 +1,74 @@
+---
+import twitterIconWhite from "../../public/images/twitter-logo-white.png";
+import twitterIconBlack from "../../public/images/twitter-logo-black.png";
+
+export interface Props {
+  mode: "dark" | "light";
+}
+
+const { mode } = Astro.props;
+const twitterIcon = mode === "dark" ? twitterIconWhite : twitterIconBlack;
+---
+
+<footer
+  id="footer"
+  class:list={[
+    "footer z-200 flex w-[400vw] flex-col items-center justify-center pt-33 md:w-[200vw]",
+    {
+      "footer--fill text-white": mode === "dark",
+      "text-blue": mode === "light",
+    },
+  ]}
+>
+  <div
+    class:list={[
+      "flex w-screen max-w-7xl flex-col items-center justify-between gap-7 px-5 pb-10 text-sm font-medium leading-none tracking-wider md:px-15 xl:flex-row",
+      { "text-white": mode === "dark", "text-gray": mode === "light" },
+    ]}
+  >
+    <span class="hidden max-w-[153px] whitespace-nowrap xl:inline"
+      >© {new Date().getFullYear()} The Mee Foundation, Inc.</span
+    >
+    <div class="flex items-center gap-8">
+      <a href="https://mee.foundation/about/" target="_blank">About Us</a>
+      <a href="https://mee.foundation/privacy-policy/" target="_blank"
+        >Privacy Policy</a
+      >
+      <a href="https://twitter.com/mee_foundation" target="_blank">
+        <img
+          src={twitterIcon.src}
+          width="20"
+          height="20"
+          class="w-[20px]"
+          alt="Twitter logo"
+        />
+      </a>
+    </div>
+    <span class="inline xl:hidden"
+      >© {new Date().getFullYear()} The Mee Foundation, Inc.</span
+    >
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    background-color: white;
+  }
+  .footer--fill {
+    background: linear-gradient(218.91deg, #559faa 16.17%, #335f66 56.32%) left
+      bottom no-repeat;
+  }
+  .link::after {
+    content: "";
+    mask: url("/images/arrow-right.svg") no-repeat center;
+    display: block;
+    width: 21px;
+    height: 12px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

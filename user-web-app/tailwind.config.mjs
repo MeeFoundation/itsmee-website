@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        "3xl": ["1.75rem", "1.5"],
+        "3xl": ["1.75rem", "1.5"],  
         "3.5xl": ["1.875rem", "1.5rem"],
         "7xl": ["4rem", "1.3"],
         "25xl": "6rem",
