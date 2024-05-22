@@ -1,0 +1,30 @@
+---
+interface Props {
+  className?: string;
+  id: string;
+  href: string;
+  buttonType?: "primary" | "secondary";
+}
+
+const { className, id, href, buttonType = "primary" } = Astro.props;
+---
+
+<a
+  id={id}
+  href={href}
+  class:list={[
+    "box-border flex h-11 w-full flex-none grow-0 flex-row items-center justify-center rounded-xl border border-solid px-4 py-2.5",
+    buttonType === "primary"
+      ? "primary-button border-[#436E77] text-white"
+      : "border-[#3B5B63] text-[#3B5B63]",
+    className,
+  ]}
+>
+  <slot /></a
+>
+
+<style>
+  .primary-button {
+    background: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
+  }
+</style>

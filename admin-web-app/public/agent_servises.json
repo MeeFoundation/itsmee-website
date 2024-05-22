@@ -1,0 +1,18 @@
+[
+    {
+      "agent_service_url": "http://test-service.com",
+      "agent_service_id": "1",
+      "enabled": true
+    },
+    {
+      "agent_service_url": "http://test2-service.com",
+      "agent_service_id": "2",
+      "enabled": true
+    },
+    {
+      "agent_service_url": "http://test3-service.com",
+      "agent_service_id": "3",
+      "enabled": false
+    }
+  ]
+  

@@ -1,0 +1,322 @@
+---
+import AuthForm from "@components/AuthForm.astro";
+import Button from "@components/Button.astro";
+import Input from "@components/Input.astro";
+import LinkButton from "@components/LinkButton.astro";
+import PasswordInput from "@components/PasswordInput.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Sign Up" disabledMenu={true}>
+  <main class="bg flex h-screen w-screen flex-col items-center justify-center">
+    <div
+      class="relative z-50 flex h-full max-w-[520px] flex-col items-center justify-center gap-6 p-6"
+    >
+      <div
+        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-[0px_2px_25px_-5px_rgba(0,0,0,0.07),0px_25px_21px_-5px_rgba(0,0,0,0.04)] md:w-[520px]"
+      >
+        <AuthForm
+          id="first-form"
+          title='Get <mark class="whitespace-nowrap">Mee to manage</mark> your personal info on compatible websites and apps'
+          subtitle="Sign up to see and control who has access to your data."
+          formId="sign-up-form"
+        >
+          <Input
+            className="w-full"
+            id="email"
+            type="email"
+            label="Connect with email address"
+            placeholder="Enter an email"
+            autocomplete="off"
+            required
+          />
+
+          <Button id="sign-up-button" type="button">Sign up</Button>
+          <LinkButton
+            id="join"
+            buttonType="secondary"
+            href="/sign-in"
+            className="border-none">Log in</LinkButton
+          ></AuthForm
+        >
+        <AuthForm
+          id="second-form"
+          title="Verify your email"
+          subtitle="Please enter the code sent to your email."
+          formId="sign-up-form-2"
+          className="hidden"
+        >
+          <Input
+            className="w-full"
+            id="verify_code"
+            type="text"
+            label="Enter code"
+            placeholder="Enter code"
+            required
+          />
+          <Button id="check-code" type="button">Check Code</Button>
+          <Button
+            id="go-back"
+            type="button"
+            buttonType="secondary"
+            className="border-none">Go back</Button
+          ></AuthForm
+        >
+        <AuthForm
+          id="third-form"
+          title="Confirm your identity"
+          subtitle="Create a password to confirm your identity when you want to connect."
+          formId="sign-up-form-3"
+          className="hidden"
+        >
+          <PasswordInput
+            className="w-full"
+            id="password"
+            label="Password"
+            placeholder="Enter a password"
+            required
+          />
+          <PasswordInput
+            className="w-full"
+            id="confirm_password"
+            label="Confirm password"
+            placeholder="Confirm a password"
+            autocomplete="off"
+            required
+          />
+          <Button id="connect" type="button">Connect</Button>
+          <Button
+            id="go-back-2"
+            type="button"
+            buttonType="secondary"
+            className="border-none">Go back</Button
+          ></AuthForm
+        >
+        <AuthForm
+          id="fourth-form"
+          title="Fortify your account"
+          subtitle="Enter your phone number to strengthen your account and to add a way to recover it."
+          formId="sign-up-form-4"
+          className="hidden"
+        >
+          <Input
+            className="w-full"
+            id="tel"
+            type="tel"
+            label="Enter phone number"
+            placeholder="Enter phone number"
+            autocomplete="off"
+            pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
+          />
+
+          <Button id="send" type="button">Connect</Button>
+          <Button
+            id="go-back-3"
+            type="button"
+            buttonType="secondary"
+            className="border-none">Go back</Button
+          ></AuthForm
+        >
+        <div
+          class="w-full rounded-b-2xl border-t border-solid border-t-slate-200 bg-[#F8FAFC] px-12 py-6 text-center text-xs leading-4 tracking-[0.005em] text-slate-600"
+          id="policy"
+        >
+          By continuing, you agree to itsmee.org{" "}<a
+            class="cursor-pointer underline"
+            href="https://mee.foundation/privacy-policy/"
+            target="_blank">Privacy Policy</a
+          >
+        </div>
+      </div>
+      <div
+        class="text-center text-xs leading-4 tracking-[0.005em] text-[#8E3D12]"
+        id="hosted-by"
+      >
+        Hosted by <a
+          href="https://mee.foundation/"
+          target="_blank"
+          class="text-[#3B5B63] underline">The Mee Foundation</a
+        >, a non-profit that works on behalf of all Mee users and never shares
+        your data with anyone.
+      </div>
+    </div>
+  </main>
+</Layout>
+<style>
+  .button {
+    background: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
+  }
+
+  .bg {
+    background: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%);
+  }
+</style>
+
+<script>
+  import config from "@config";
+  import { addFormListeners, validateForm } from "@utils/validation";
+
+  const signUpForm = document.getElementById(
+    "sign-up-form"
+  ) as HTMLFormElement | null;
+  const signUpForm2 = document.getElementById(
+    "sign-up-form-2"
+  ) as HTMLFormElement | null;
+  const signUpForm3 = document.getElementById(
+    "sign-up-form-3"
+  ) as HTMLFormElement | null;
+  const signUpForm4 = document.getElementById(
+    "sign-up-form-4"
+  ) as HTMLFormElement | null;
+  const signUpButton = document.getElementById("sign-up-button");
+  const firstForm = document.getElementById("first-form");
+  const secondForm = document.getElementById("second-form");
+  const thirdForm = document.getElementById("third-form");
+  const fourthForm = document.getElementById("fourth-form");
+  const goBackButton = document.getElementById("go-back");
+  const goBackButton2 = document.getElementById("go-back-2");
+  const goBackButton3 = document.getElementById("go-back-3");
+  const checkCodeButton = document.getElementById("check-code");
+  const connectButton = document.getElementById("connect");
+  const sendButton = document.getElementById("send");
+  const policyBlock = document.getElementById("policy");
+  const hostedByBlock = document.getElementById("hosted-by");
+  const data = { email: "", password: "", verify_code: "", tel: "" };
+
+  const changeForm = (
+    activeForm: HTMLElement | null,
+    nextForm: HTMLElement | null,
+    showPolicy?: boolean
+  ) => {
+    activeForm?.classList.remove("flex");
+    activeForm?.classList.add("hidden");
+    nextForm?.classList.add("flex");
+    nextForm?.classList.remove("hidden");
+    if (showPolicy) {
+      policyBlock?.classList.remove("hidden");
+      hostedByBlock?.classList.remove("hidden");
+    } else {
+      policyBlock?.classList.add("hidden");
+      hostedByBlock?.classList.add("hidden");
+    }
+  };
+
+  const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
+    const formValid = validateForm(inputs);
+    if (formValid) {
+      const emailData = Array.from(inputs).reduce(
+        (acc, input) => ({ ...acc, [input.id]: input.value }),
+        { email: "" }
+      );
+      data.email = emailData.email;
+      changeForm(firstForm, secondForm);
+    }
+  };
+
+  const submitForm2 = (inputs: NodeListOf<HTMLInputElement>) => {
+    const formValid = validateForm(inputs);
+    if (formValid) {
+      const passwordData = Array.from(inputs).reduce(
+        (acc, input) => ({ ...acc, [input.id]: input.value }),
+        { verify_code: "" }
+      );
+      data.verify_code = passwordData.verify_code;
+      changeForm(secondForm, thirdForm);
+    }
+  };
+  const submitForm3 = (inputs: NodeListOf<HTMLInputElement>) => {
+    const formValid = validateForm(inputs);
+    if (formValid) {
+      const passwordData = Array.from(inputs).reduce(
+        (acc, input) => ({ ...acc, [input.id]: input.value }),
+        { password: "" }
+      );
+      data.password = passwordData.password;
+      changeForm(thirdForm, fourthForm);
+    }
+  };
+  const submitForm4 = async (inputs: NodeListOf<HTMLInputElement>) => {
+    const formValid = validateForm(inputs);
+    if (formValid) {
+      const passwordData = Array.from(inputs).reduce(
+        (acc, input) => ({ ...acc, [input.id]: input.value }),
+        { tel: "" }
+      );
+      data.tel = passwordData.tel;
+
+      if (data && formValid) {
+        try {
+          const { auth_token } = await fetch(
+            config.backendUrl + "/api/v1/users/register",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }
+          ).then((r) => r.json());
+
+          console.log("auth_token", auth_token);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+  };
+
+  if (signUpForm) {
+    const inputs = signUpForm.querySelectorAll("input");
+    addFormListeners(inputs);
+    signUpButton?.addEventListener("click", () => {
+      submitForm1(inputs);
+    });
+    signUpForm.onsubmit = (e) => {
+      e.preventDefault();
+      submitForm1(inputs);
+    };
+  }
+
+  if (signUpForm2) {
+    const inputs = signUpForm2.querySelectorAll("input");
+    addFormListeners(inputs);
+    goBackButton?.addEventListener("click", () => {
+      changeForm(secondForm, firstForm, true);
+    });
+    checkCodeButton?.addEventListener("click", () => {
+      submitForm2(inputs);
+    });
+    signUpForm2.onsubmit = (e) => {
+      e.preventDefault();
+      submitForm2(inputs);
+    };
+  }
+  if (signUpForm3) {
+    const inputs = signUpForm3.querySelectorAll("input");
+    addFormListeners(inputs);
+    goBackButton2?.addEventListener("click", () => {
+      changeForm(thirdForm, secondForm);
+    });
+    connectButton?.addEventListener("click", () => {
+      submitForm3(inputs);
+    });
+    signUpForm3.onsubmit = (e) => {
+      e.preventDefault();
+      submitForm3(inputs);
+    };
+  }
+  if (signUpForm4) {
+    const inputs = signUpForm4.querySelectorAll("input");
+    addFormListeners(inputs);
+    goBackButton3?.addEventListener("click", () => {
+      changeForm(fourthForm, thirdForm);
+    });
+    sendButton?.addEventListener("click", () => {
+      submitForm4(inputs);
+    });
+    signUpForm4.onsubmit = (e) => {
+      e.preventDefault();
+      submitForm4(inputs);
+    };
+  }
+</script>
