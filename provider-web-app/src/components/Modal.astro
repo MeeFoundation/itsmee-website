@@ -1,0 +1,13 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+<div
+  class="absolute left-0 top-0 z-20 h-screen w-screen items-center justify-center hidden p-4" id={id}
+>
+  <div class="absolute h-full w-full bg-[#02061799] backdrop-blur-[5px]"></div>
+  <slot />
+</div>

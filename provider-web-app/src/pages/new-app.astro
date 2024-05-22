@@ -1,0 +1,42 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import MeeGuy from "@components/MeeGuy.astro";
+import Button from "@components/Button.astro";
+---
+
+<Layout title="Apps">
+  <Header />
+  <main class="flex h-full min-h-screen items-center pt-20">
+    <article class="flex h-full w-full flex-1 items-center justify-center">
+        
+      <section
+        class="flex max-w-screen-sm flex-col items-center justify-center gap-8 px-4"
+      >
+        <div><MeeGuy /></div>
+        <div class="flex flex-col gap-2">
+          <div
+            class="text-center text-4xl font-semibold leading-[44px] tracking-[0.005em] text-slate-800"
+          >
+            You have no apps yet
+          </div>
+          <div
+            class="max-w-[374px] text-center text-lg font-normal leading-7 tracking-[0.005em] text-slate-800"
+          >
+            Please add your apps and allow users to privately use them with Mee
+          </div>
+        </div>
+        <Button id="new-app" type="button" className="w-auto px-4"
+          ><span class="mr-4 text-4xl font-thin">+</span>New app</Button
+        >
+      </section>
+    </article>
+  </main>
+</Layout>
+<script>
+  const newAppButton = document.getElementById("new-app");
+
+  newAppButton?.addEventListener("click", () => {
+    window.location.href = "/create-app";
+  });
+</script>

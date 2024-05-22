@@ -2,25 +2,25 @@
 interface Props {
   className?: string;
   id: string;
-  type: "submit" | "reset" | "button" | undefined | null;
+  href: string;
   buttonType?: "primary" | "secondary";
 }
 
-const { className, id, type, buttonType = "primary" } = Astro.props;
+const { className, id, href, buttonType = "primary" } = Astro.props;
 ---
 
-<button
+<a
   id={id}
-  type={type}
+  href={href}
   class:list={[
-    "flex h-11 w-full flex-none grow-0 flex-row items-center justify-center rounded-xl border border-solid px-4 py-2.5 text-base font-semibold leading-6",
+    "box-border flex h-11 w-full flex-none grow-0 flex-row items-center justify-center rounded-xl border border-solid px-4 py-2.5",
     buttonType === "primary"
       ? "primary-button border-[#436E77] text-white"
       : "border-[#3B5B63] text-[#3B5B63]",
     className,
   ]}
 >
-  <slot /></button
+  <slot /></a
 >
 
 <style>

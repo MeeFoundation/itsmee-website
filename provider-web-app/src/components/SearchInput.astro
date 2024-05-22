@@ -1,0 +1,43 @@
+---
+import SearchIcon from "./icons/SearchIcon.astro";
+
+interface Props {
+  className?: string;
+  id: string;
+  required?: boolean;
+  placeholder?: string;
+  label: string;
+  autocomplete?: string;
+  pattern?: string;
+}
+
+const {
+  className,
+  id,
+  required = false,
+  label,
+  autocomplete,
+  placeholder,
+  pattern,
+} = Astro.props;
+---
+
+<div class:list={["relative ", className]}>
+  <input
+    type="text"
+    id={id}
+    class="border-secondary-500 peer m-0 block h-11 w-full rounded-lg border border-primary bg-white px-4 py-2.5 pl-10 text-base font-normal leading-6 tracking-[0.005em] text-[#1E293B] transition duration-200 ease-linear placeholder:text-transparent focus:pb-[0.625rem] focus:pt-[1.625rem] focus:ring-1 focus:ring-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]"
+    required={required}
+    autocomplete={autocomplete}
+    placeholder={placeholder}
+    pattern={pattern}
+  />
+  <span class="absolute left-3 top-1/2 origin-[0_0] translate-y-[-50%]"
+    ><SearchIcon /></span
+  >
+  <label
+    for={id}
+    class="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-10 py-2 text-base font-normal leading-6 text-slate-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-slate-500 peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none"
+    >{label}</label
+  >
+</div>

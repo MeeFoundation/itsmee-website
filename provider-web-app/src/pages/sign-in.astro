@@ -1,42 +1,101 @@
 ---
+import AuthForm from "@components/AuthForm.astro";
 import Button from "@components/Button.astro";
-import Header from "@components/Header.astro";
 import Input from "@components/Input.astro";
+import LinkButton from "@components/LinkButton.astro";
+import PasswordInput from "@components/PasswordInput.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Sign In">
-  <main class="h-screen w-screen">
-    <Header activePage="sign-in" />
-
+  <main class="bg flex h-screen w-screen flex-col items-center justify-center">
     <div
-      class="relative z-50 flex h-full flex-col items-center justify-center p-6"
+      class="relative z-50 flex h-full max-w-[520px] flex-col items-center justify-center gap-6 p-6"
     >
-      <form
-        class="mx-auto flex max-w-sm flex-col items-center gap-6"
-        id="sign-in-form"
+      <div
+        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-[0px_2px_25px_-5px_rgba(0,0,0,0.07),0px_25px_21px_-5px_rgba(0,0,0,0.04)] md:w-[520px]"
       >
-        <Input
-          className="w-64"
-          id="email"
-          type="email"
-          label="Email"
-          placeholder="Enter an email"
-          required
-        />
-        <Input
-          className="w-64"
-          id="password"
-          type="password"
-          label="Password"
-          placeholder="Enter a password"
-          required
-        />
-        <Button type="submit" id="sign-in">Submit</Button>
-      </form>
+        <AuthForm
+          id="first-form"
+          title='The <mark class="whitespace-nowrap">human-centered</mark><br /> user experience'
+          subtitle="Login to your Mee account."
+          formId="sign-in-form"
+        >
+          <Input
+            className="w-full"
+            id="email"
+            type="email"
+            label="Connect with email address"
+            placeholder="Enter an email"
+            autocomplete="off"
+            required
+          />
+
+          <Button id="login-button" type="button">Log in</Button>
+          <LinkButton
+            id="join"
+            buttonType="secondary"
+            href="/sign-up"
+            className="border-none">Sign up</LinkButton
+          >
+        </AuthForm>
+        <AuthForm
+          id="second-form"
+          title="Confirm your identity"
+          subtitle="Enter your password to confirm your identity."
+          formId="sign-in-form-2"
+          className="hidden"
+        >
+          <PasswordInput
+            className="w-full"
+            id="password"
+            label="Password"
+            placeholder="Enter a password"
+            required
+            showRestorePassword
+          />
+          <Button id="connect" type="button">Connect</Button>
+          <Button
+            id="go-back"
+            type="button"
+            buttonType="secondary"
+            className="border-none">Go back</Button
+          >
+        </AuthForm>
+        <div
+          class="w-full rounded-b-2xl border-t border-solid border-t-slate-200 bg-[#F8FAFC] px-12 py-6 text-center text-xs leading-4 tracking-[0.005em] text-slate-600"
+          id="policy"
+        >
+          By continuing, you agree to itsmee.org{" "}<a
+            class="cursor-pointer underline"
+            href="https://mee.foundation/privacy-policy/"
+            target="_blank">Privacy Policy</a
+          >
+        </div>
+      </div>
+      <div
+        class="text-center text-xs leading-4 tracking-[0.005em] text-[#8E3D12]"
+        id="hosted-by"
+      >
+        Hosted by <a
+          href="https://mee.foundation/"
+          target="_blank"
+          class="text-[#3B5B63] underline">The Mee Foundation</a
+        >, a non-profit that works on behalf of all Mee users and never shares
+        your data with anyone.
+      </div>
     </div>
   </main>
 </Layout>
+<style>
+  .button {
+    background: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
+  }
+
+  .bg {
+    background: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%);
+  }
+</style>
 
 <script>
   import config from "@config";
@@ -44,37 +103,96 @@ import Layout from "@layouts/Layout.astro";
   const signInForm = document.getElementById(
     "sign-in-form"
   ) as HTMLFormElement | null;
+  const signInForm2 = document.getElementById(
+    "sign-in-form-2"
+  ) as HTMLFormElement | null;
+  const loginButton = document.getElementById("login-button");
+  const firstForm = document.getElementById("first-form");
+  const secondForm = document.getElementById("second-form");
+  const goBackButton = document.getElementById("go-back");
+  const connectButton = document.getElementById("connect");
+  const policyBlock = document.getElementById("policy");
+  const hostedByBlock = document.getElementById("hosted-by");
+  const data = { email: "", password: "" };
+
+  const changeForm = (
+    activeForm: HTMLElement | null,
+    nextForm: HTMLElement | null,
+    showPolicy?: boolean
+  ) => {
+    activeForm?.classList.remove("flex");
+    activeForm?.classList.add("hidden");
+    nextForm?.classList.add("flex");
+    nextForm?.classList.remove("hidden");
+    if (showPolicy) {
+      policyBlock?.classList.remove("hidden");
+      hostedByBlock?.classList.remove("hidden");
+    } else {
+      policyBlock?.classList.add("hidden");
+      hostedByBlock?.classList.add("hidden");
+    }
+  };
+  const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
+    const emailData = Array.from(inputs).reduce(
+      (acc, input) => ({ ...acc, [input.id]: input.value }),
+      { email: "" }
+    );
+    data.email = emailData.email;
+    if (data.email) {
+      changeForm(firstForm, secondForm);
+    }
+  };
+  const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
+    const passwordData = Array.from(inputs).reduce(
+      (acc, input) => ({ ...acc, [input.id]: input.value }),
+      { password: "" }
+    );
+    data.password = passwordData.password;
+    if (data.password && data.email) {
+      try {
+        const { auth_token } = await fetch(
+          config.backendUrl + "/api/v1/users/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: data.email,
+              password: data.password,
+            }),
+          }
+        ).then((r) => r.json());
+
+        console.log("auth_token", auth_token);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
 
   if (signInForm) {
     const inputs = signInForm.querySelectorAll("input");
-    signInForm.onsubmit = async (e) => {
+    loginButton?.addEventListener("click", () => {
+      submitForm1(inputs);
+    });
+    signInForm.onsubmit = (e) => {
       e.preventDefault();
-      const data = Array.from(inputs).reduce(
-        (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { email: "", password: "" }
-      );
+      submitForm1(inputs);
+    };
+  }
 
-      if (data.email && data.password) {
-        try {
-          const { auth_token } = await fetch(
-            config.backendUrl + "/api/v1/providers/login",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: data.email,
-                password: data.password,
-              }),
-            }
-          ).then((r) => r.json());
-
-          console.log("auth_token", auth_token);
-        } catch (e) {
-          console.error(e);
-        }
-      }
+  if (signInForm2) {
+    const inputs = signInForm2.querySelectorAll("input");
+    goBackButton?.addEventListener("click", () => {
+      changeForm(secondForm, firstForm, true);
+    });
+    connectButton?.addEventListener("click", async () => {
+      submitForm2(inputs);
+    });
+    signInForm2.onsubmit = (e) => {
+      e.preventDefault();
+      submitForm2(inputs);
     };
   }
 </script>
