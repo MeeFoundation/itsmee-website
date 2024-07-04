@@ -1,0 +1,138 @@
+---
+import Button from "@components/Button.astro";
+import Input from "@components/Input.astro";
+import Layout from "@layouts/Layout.astro";
+import Loading from "@components/Loading.astro";
+import TextValue from "@components/TextValue.astro";
+import DeleteIcon from "@components/icons/DeleteIcon.astro";
+const { connection } = Astro.params;
+---
+
+<Layout title="Edit Connection">
+  <main class="flex h-full min-h-screen p-6" data-id={connection} id="main">
+    <article
+      class="flex h-full w-full flex-1 flex-col items-center justify-center"
+    >
+      <div
+        class="flex w-full max-w-[768px] flex-col items-start justify-center gap-4"
+      >
+        <a
+          class="text-base font-semibold leading-6 text-[#3B5B63]"
+          href="/connections"
+          ><span class="mr-2">&larr;</span>Back to connections</a
+        >
+        <Loading />
+        <section
+          class="hidden w-full flex-col items-start gap-6 rounded-xl border border-solid border-slate-300 bg-white p-8 text-slate-800"
+          id="connection-data"
+        >
+          <div class="flex w-full flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <div
+                class="text-3xl font-semibold leading-10"
+                id="connection-name"
+              >
+              </div>
+            </div>
+            <div class="mx-auto flex w-full flex-col items-center gap-3">
+              <TextValue id="first_name" label="First name" className="w-full">Name</TextValue>
+              <TextValue id="second_name" label="Second name" className="w-full">Second Name</TextValue>
+              <TextValue id="email" label="Email" className="w-full">test@gmail.com</TextValue>
+              <div class="self-end">
+                <Button
+                  id="save-connection"
+                  type="button"
+                  buttonType="secondary"
+                  className="w-auto px-4">Delete account<span class="ml-4 text-4xl font-thin"><DeleteIcon /></span></Button
+                >
+              </div>
+            </div>
+
+            <!-- <form
+              class="mx-auto flex w-full flex-col items-center gap-6"
+              id="edit-connection"
+              autocomplete="off"
+            >
+              <Input
+                className="w-full"
+                id="name"
+                type="text"
+                label="Name"
+                placeholder="Name"
+                autocomplete="off"
+                required
+              />
+              <Input
+                className="w-full"
+                id="url"
+                type="text"
+                label="Image Url"
+                placeholder="Url"
+                autocomplete="off"
+                required
+              />
+              <div class="self-end">
+                <Button
+                  id="save-connection"
+                  type="button"
+                  className="w-auto px-4">Save</Button
+                >
+              </div>
+            </form> -->
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<script>
+  import type { Connection } from "@utils/types";
+  const connectionName = document.getElementById(
+    "connection-name"
+  ) as HTMLDivElement | null;
+  const nameInput = document.getElementById("name") as HTMLInputElement | null;
+  const urlInput = document.getElementById("url") as HTMLInputElement | null;
+  const switcher = document.getElementById(
+    "enabled-switch"
+  ) as HTMLInputElement | null;
+
+  const main = document.getElementById("main");
+  const connectionDataElement = document.getElementById("connection-data");
+  const loading = document.getElementById("loading");
+
+  const saveConnectionButton = document.getElementById("save-connection");
+  saveConnectionButton?.addEventListener("click", () => {
+    window.location.href = "/connections";
+  });
+
+  const id: number = Number(main?.dataset.id) ?? 0;
+
+  const response = await fetch("/demo/connections.json");
+
+  const data: Connection[] = await response.json();
+  const connectionData = data[id];
+
+  if (connectionData) {
+    connectionDataElement?.classList.remove("hidden");
+    connectionDataElement?.classList.add("flex");
+
+    loading?.classList.add("hidden");
+
+    if (connectionName) {
+      connectionName.innerHTML = connectionData.name;
+    }
+
+    if (nameInput) {
+      nameInput.value = connectionData.name;
+    }
+
+    if (urlInput) {
+      urlInput.value = connectionData.image_url ?? "";
+    }
+
+    if (switcher) {
+      switcher.checked = connectionData.enabled;
+    }
+  }
+</script>

@@ -1,0 +1,285 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Button from "@components/Button.astro";
+import SearchInput from "@components/SearchInput.astro";
+import ArrowDownIcon from "@components/icons/ArrowDownIcon.astro";
+import SettingsIcon from "@components/icons/SettingsIcon.astro";
+import FeedbackIcon from "@components/icons/FeedbackIcon.astro";
+import SignOutIcon from "@components/icons/SignOutIcon.astro";
+import EditIcon from "@components/icons/EditIcon.astro";
+import DeleteIcon from "@components/icons/DeleteIcon.astro";
+import Loading from "@components/Loading.astro";
+---
+
+<Layout title="Connections">
+  <main class="flex h-full min-h-screen p-6">
+    <article
+      class="flex h-full w-full max-w-[1920px] flex-1 flex-col items-start justify-center gap-6"
+    >
+      <div
+        class="flex w-full flex-col flex-wrap justify-between gap-6 text-base font-semibold lg:flex-row"
+      >
+        <div class="order-2 flex flex-wrap gap-4 lg:order-none">
+          <SearchInput
+            className="max-w-80"
+            id="search"
+            label="Search"
+            placeholder="Search"
+            autocomplete="off"
+            required
+          />
+          <div>
+            <Button
+              id="filter"
+              type="button"
+              buttonType="secondary"
+              className="h-11 w-64">Filter</Button
+            >
+          </div>
+        </div>
+        <div
+          class="lex-row order-1 float-right flex flex-shrink-0 justify-between gap-4 lg:order-none"
+        >
+          <div class="">
+            <Button id="add-connection" type="button" className="w-auto px-4"
+              ><span class="text-4xl font-thin">+</span><span
+                class="ml-4 hidden sm:block">Add connection</span
+              ></Button
+            >
+          </div>
+          <div id="profile" class="self-end">
+            <div
+              class="flex h-11 flex-row items-center rounded-xl border border-solid border-slate-300 bg-slate-50 p-0"
+            >
+              <div
+                class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-slate-300 px-4 py-2.5"
+              >
+                <div
+                  class="isolate flex h-6 w-6 flex-col items-center justify-center rounded-none p-0"
+                  id="profile-image-preview"
+                >
+                </div>
+                <p>Profile</p>
+              </div>
+              <div
+                class="flex h-full cursor-pointer flex-row items-center justify-center px-4 py-2.5 transition-all data-[active]:rotate-180"
+                id="open-profile-modal"
+              >
+                <ArrowDownIcon />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="absolute right-4 top-20 z-20 hidden flex-col items-start rounded-lg border border-solid border-[#BFC6CF] bg-white p-0 shadow-[0px_2px_25px_-5px_rgba(0,0,0,0.07),0px_25px_21px_-5px_rgba(0,0,0,0.04)]"
+          id="profile-modal"
+        >
+          <div
+            class="flex flex-col items-center gap-4 rounded-t-lg border-b border-[#C3DCDE] bg-[#F3F8F8] px-6 py-8"
+          >
+            <div class="flex flex-col items-center gap-2 p-0">
+              <div
+                class="isolate flex h-16 w-16 flex-col items-center justify-center rounded-none p-0"
+                id="profile-image"
+              >
+              </div>
+              <div class="flex flex-col items-center p-0">
+                <p
+                  class="text-center text-sm leading-5 tracking-[0.005em] text-slate-700"
+                >
+                  Current profile
+                </p>
+                <p
+                  class="text-center text-xl font-semibold leading-[30px] tracking-[0.005em] text-slate-900"
+                  id="profile-name"
+                >
+                </p>
+              </div>
+            </div>
+            <div>
+              <Button id="edit-profile" type="button" buttonType="secondary"
+                >Edit profile</Button
+              >
+            </div>
+          </div>
+          <div class="w-full border-b border-slate-300 text-slate-800">
+            <div
+              class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-slate-100"
+            >
+              <div><SettingsIcon /></div>Settings
+            </div>
+            <div
+              class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-slate-100"
+            >
+              <div><FeedbackIcon /></div>Send Feedback
+            </div>
+          </div>
+          <div class="w-full border-b-slate-300 text-slate-800">
+            <div
+              class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-slate-100"
+            >
+              <div><SignOutIcon /></div>Sign out
+            </div>
+          </div>
+        </div>
+      </div>
+      <Loading />
+      <section
+        class="flex w-full flex-col items-start rounded-xl border border-solid border-slate-300 bg-white text-slate-800"
+        id="connections-containter"
+      >
+      </section>
+    </article>
+  </main>
+  <div class="hidden">
+    <div id="edit-icon" class="cursor-pointer"><EditIcon /></div>
+    <div id="delete-icon" class="cursor-pointer"><DeleteIcon /></div>
+    <div class="flex rotate-90" id="arrow-right">
+      <div class="flex rotate-180">
+        <ArrowDownIcon />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import type { Connection } from "@utils/types";
+  const addConnectionButton = document.getElementById("add-connection");
+  const filterButton = document.getElementById("filter");
+  const connectionsContainer = document.getElementById(
+    "connections-containter"
+  );
+  const editIcon = document.getElementById("edit-icon");
+  const arrowRight = document.getElementById("arrow-right");
+  const deleteIcon = document.getElementById("delete-icon");
+  const searchInput = document.getElementById(
+    "search"
+  ) as HTMLInputElement | null;
+  let isProfileModalOpened = false;
+  const profileModal = document.getElementById("profile-modal");
+  const profileName = document.getElementById("profile-name");
+  const profileImagePreview = document.getElementById("profile-image-preview");
+  const profileImage = document.getElementById("profile-image");
+  const openProfileModal = document.getElementById("open-profile-modal");
+  const toggleProfile = () => {
+    if (isProfileModalOpened) {
+      openProfileModal && delete openProfileModal.dataset.active;
+
+      profileModal?.classList.remove("flex");
+      profileModal?.classList.add("hidden");
+    } else {
+      openProfileModal && (openProfileModal.dataset.active = "true");
+      profileModal?.classList.remove("hidden");
+      profileModal?.classList.add("flex");
+    }
+
+    isProfileModalOpened = !isProfileModalOpened;
+  };
+  openProfileModal?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleProfile();
+  });
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest("#profile-modal") && isProfileModalOpened) {
+      toggleProfile();
+    }
+  });
+
+  const responseUser = await fetch("https://randomuser.me/api");
+  const dataUser = await responseUser.json();
+  const randomUser = dataUser.results[0];
+  if (randomUser) {
+    if (profileName) {
+      profileName.innerHTML = randomUser.email;
+    }
+    if (profileImagePreview) {
+      const image = document.createElement("img");
+      image.src = randomUser.picture.medium;
+      image.className = "rounded-full";
+      profileImagePreview.append(image);
+    }
+    if (profileImage) {
+      const image = document.createElement("img");
+      image.src = randomUser.picture.medium;
+      image.className = "rounded-full";
+      profileImage.append(image);
+    }
+  }
+
+  addConnectionButton?.addEventListener("click", () => {
+    window.location.href = "/create-connection";
+  });
+
+  const appendConnections = (connections: Connection[]) => {
+    if (connectionsContainer && connections) {
+      connectionsContainer.innerHTML = "";
+      connections.forEach((connection, i: number) => {
+        const connectionUrl = "/connections/" + i;
+
+        const div = document.createElement("div");
+        div.className =
+          "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-slate-200 p-6 last:border-b-0 gap-6 cursor-pointer";
+
+        const divName = document.createElement("div");
+
+        divName.className = "flex items-center gap-6";
+        const divTitle = document.createElement("div");
+        divTitle.className =
+          "font-semibold text-base md:text-xl leading-[30px] tracking-[0.005em]";
+        const divTitleContent = document.createTextNode(connection.name);
+        divTitle.appendChild(divTitleContent);
+
+        const img = document.createElement("img");
+        img.className =
+          "isolate flex h-16 w-16 flex-col items-center justify-center rounded-none p-0";
+        img.src = connection.image_url || "/images/empty-logo.png";
+        divName.appendChild(img);
+        divName.appendChild(divTitle);
+
+        const divActions = document.createElement("div");
+        divActions.className = "flex items-end gap-4";
+
+        const arrowRightIcon = arrowRight && arrowRight.cloneNode(true);
+
+        const buttonRight = document.createElement("button");
+        buttonRight.onclick = () => {
+          window.location.href = connectionUrl;
+        };
+        arrowRightIcon && buttonRight.appendChild(arrowRightIcon);
+        divActions.appendChild(buttonRight);
+        div.appendChild(divName);
+        div.appendChild(divActions);
+        div.onclick = () => {
+          window.location.href = connectionUrl;
+        };
+        connectionsContainer.appendChild(div);
+      });
+    }
+  };
+
+  const loading = document.getElementById("loading");
+
+  const response = await fetch("/demo/connections.json");
+
+  const data: Connection[] = await response.json();
+  loading?.classList.add("hidden");
+  appendConnections(data);
+
+  const filterConnections = () => {
+    const filterValue = searchInput?.value;
+
+    if (filterValue) {
+      const filterData = data.filter((item) =>
+        item.name.toLowerCase().includes(filterValue.toLowerCase())
+      );
+      appendConnections(filterData);
+    } else {
+      appendConnections(data);
+    }
+  };
+
+  filterButton?.addEventListener("click", filterConnections);
+  searchInput?.addEventListener("change", filterConnections);
+</script>

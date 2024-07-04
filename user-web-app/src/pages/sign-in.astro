@@ -143,6 +143,7 @@ import Layout from "@layouts/Layout.astro";
     }
   };
   const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
+    window.location.href = "/connections/"
     const passwordData = Array.from(inputs).reduce(
       (acc, input) => ({ ...acc, [input.id]: input.value }),
       { password: "" }

@@ -4,14 +4,16 @@ interface Props {
   id: string;
   href: string;
   buttonType?: "primary" | "secondary";
+  target?: "_blank" | "_parent" | "_self" | "_top"
 }
 
-const { className, id, href, buttonType = "primary" } = Astro.props;
+const { className, id, href, target, buttonType = "primary" } = Astro.props;
 ---
 
 <a
   id={id}
   href={href}
+  target={target}
   class:list={[
     "box-border flex h-11 w-full flex-none grow-0 flex-row items-center justify-center rounded-xl border border-solid px-4 py-2.5",
     buttonType === "primary"
