@@ -2,11 +2,11 @@
 interface Props {
   className?: string;
   id: string;
-  type: "submit" | "reset" | "button" | undefined | null;
+  type?: "submit" | "reset" | "button" | undefined | null;
   buttonType?: "primary" | "secondary";
 }
 
-const { className, id, type, buttonType = "primary" } = Astro.props;
+const { className, id, type = "button", buttonType = "primary" } = Astro.props;
 ---
 
 <button
