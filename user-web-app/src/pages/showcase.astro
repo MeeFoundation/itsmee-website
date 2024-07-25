@@ -1,0 +1,500 @@
+---
+import Layout from "@layouts/Layout.astro";
+import NewButton from "@components/NewButton.astro";
+---
+
+<Layout title="Showcase">
+  <main>
+    <div class="flex flex-col gap-10 p-20">
+      <h1 class="text-2xl font-semibold">Buttons</h1>
+      <div class="flex flex-wrap gap-10">
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Primary</h2>
+          <div>
+            <NewButton size="s" leftIcon="plus" rightIcon="chevron-down"
+              >Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton size="m" leftIcon="plus" rightIcon="chevron-down"
+              >Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton size="l" leftIcon="plus" rightIcon="chevron-down"
+              >Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Primary disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled>Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled>Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled>Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Primary outlined</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Primary outlined disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              style="outlined">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              style="outlined">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              style="outlined">Button</NewButton
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-10">
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Secondary</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Secondary disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Secondary outlined</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Secondary outlined disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="secondary">Button</NewButton
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-10">
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Tertiary</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Tertiary disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Tertiary outlined</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Tertiary outlined disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="tertiary">Button</NewButton
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-10">
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Danger</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Danger disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              disabled
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Danger outlined</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="font-semibold">Danger outlined disabled</h2>
+          <div>
+            <NewButton
+              size="s"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="m"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+          <div>
+            <NewButton
+              size="l"
+              leftIcon="plus"
+              rightIcon="chevron-down"
+              style="outlined"
+              disabled
+              buttonType="danger">Button</NewButton
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-10 p-20">
+      <h1 class="text-2xl font-semibold">Shadows</h1>
+      <div class="flex gap-10">
+        <div class="shadow-1 w-40 p-4">shadow-1</div>
+        <div class="shadow-2 w-40 p-4">shadow-2</div>
+        <div class="shadow-3 w-40 p-4">shadow-3</div>
+        <div class="shadow-4 w-40 p-4">shadow-4</div>
+        <div class="shadow-5 w-40 p-4">shadow-5</div>
+      </div>
+      <div class="flex gap-10">
+        <div class="shadow-1-strong w-40 p-4">shadow-1-strong</div>
+        <div class="shadow-2-strong w-40 p-4">shadow-2-strong</div>
+        <div class="shadow-3-strong w-40 p-4">shadow-3-strong</div>
+        <div class="shadow-4-strong w-40 p-4">shadow-4-strong</div>
+        <div class="shadow-5-strong w-40 p-4">shadow-5-strong</div>
+      </div>
+    </div>
+  </main>
+</Layout>

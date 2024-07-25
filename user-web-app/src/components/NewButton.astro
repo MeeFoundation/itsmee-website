@@ -1,0 +1,79 @@
+---
+interface Props {
+  className?: string;
+  id?: string;
+  type?: "submit" | "reset" | "button" | undefined | null;
+  size?: "l" | "m" | "s";
+  buttonType?: "primary" | "secondary" | "tertiary" | "danger";
+  style?: "filled" | "outlined";
+  leftIcon?: string;
+  rightIcon?: string;
+  disabled?: boolean;
+}
+
+const {
+  className,
+  id,
+  type = "button",
+  buttonType = "primary",
+  style = "filled",
+  size = "l",
+  leftIcon,
+  rightIcon,
+  disabled,
+} = Astro.props;
+---
+
+<button
+  id={id}
+  type={type}
+  disabled={disabled}
+  class:list={[
+    "box-border flex h-11 flex-none grow-0 flex-row items-center justify-center rounded-xl border border-solid font-semibold gap-2",
+    buttonType === "primary" && style == "filled" && "primary-button border-brand-600 text-white hover:border-brand-800 hover:bg-brand-800 focus:shadow-button",
+    buttonType === "primary" && style == "outlined" && "text-brand-700 bg-white border-brand-700 focus:shadow-button",
+    buttonType === "secondary" && style == "filled" && "border-brand-300 text-brand-700 bg-brand-50 hover:bg-brand-100 focus:shadow-button",
+    buttonType === "secondary" && style == "outlined" && "text-brand-700 bg-white border-brand-300 focus:shadow-button",
+    buttonType === "tertiary" && style == "filled" && "border-gray-300 text-gray-700 bg-gray-50 hover:bg-gray-100 focus:shadow-button-tertiary",
+    buttonType === "tertiary" && style == "outlined" && "border-gray-300 text-gray-700 bg-white focus:shadow-button-tertiary",
+    buttonType === "danger" && style == "filled" && "border-error-700 text-white bg-error-700 hover:bg-error-800 focus:shadow-button-danger",
+    buttonType === "danger" && style == "outlined" && "border-error-700 text-error-700 bg-white focus:shadow-button-danger",
+    disabled && "opacity-60 cursor-default",
+    size === "l" && "h-11 px-4 py-2.5 text-base",
+    size === "m" && "h-9 px-3.5 py-2 text-sm",
+    size === "s" && "py-1.75 h-7.5 px-3 text-xs",
+    className,
+  ]}
+>
+  {
+    leftIcon && (
+      <i
+        class:list={[
+          "font-thin bi bi-" + leftIcon,
+          size === "l" && "text-4xl",
+          size === "m" && "text-3xl",
+          size === "s" && "text-2xl",
+        ]}
+      />
+    )
+  }
+  <slot />
+  {
+    rightIcon && (
+      <i
+        class:list={[
+          "font-normal bi bi-" + rightIcon,
+          size === "l" && "text-2xl",
+          size === "m" && "text-xl",
+          size === "s" && "text-lg",
+        ]}
+      />
+    )
+  }
+</button>
+
+<style>
+  .primary-button {
+    background: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
+  }
+</style>
