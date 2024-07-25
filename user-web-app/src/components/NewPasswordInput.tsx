@@ -57,24 +57,24 @@ const focusedLabelStyles = {
 
 const colorLabelStyles = {
   default: {
-    Edge: `text-[#64748B]`,
-    Inside: `text-[#64748B]`,
-    Outside: `text-[#1E293B]`,
+    Edge: `text-grey-500`,
+    Inside: `text-grey-500`,
+    Outside: `text-grey-500`,
   },
   focused: {
-    Edge: `text-[#3B5B63]`,
-    Inside: `text-[#3B5B63]`,
-    Outside: `text-[#4F868E]`,
+    Edge: `text-grey-800`,
+    Inside: `text-grey-800`,
+    Outside: `text-grey-800`,
   },
   error: {
-    Edge: `text-[#B91C1C]`,
-    Inside: `text-[#B91C1C]`,
-    Outside: `text-[#B91C1C]`,
+    Edge: `text-error-700`,
+    Inside: `text-error-700`,
+    Outside: `text-error-700`,
   },
 };
 
-const progressBarColor = ['bg-[#B91C1C]', 'bg-[#ED9513]', 'bg-[#4F868E]', 'bg-[#668E4F]'];
-const passStrengthTextColor = ['text-[#B91C1C]', 'text-[#AE4F0F]', 'text-[#3B5B63]', 'text-[#3F5932]'];
+const progressBarColor = ['bg-text-error-700', 'bg-warning-500', 'bg-brand-500', 'bg-success-500'];
+const passStrengthTextColor = ['text-error-700', 'text-warning-700', 'text-grey-800', 'text-success-700'];
 
 const iconSizeStyles = {
   Small: 'w-3.5 h-3.5',
@@ -131,10 +131,10 @@ export default function NewPasswordInput({
         px-3 flex justify-between items-center relative border rounded-xl transition-all
         ${heightSizeStyles[labelPosition][size]} 
         ${error ?
-          'border-[#B91C1C] shadow-[0_0_3px_rgba(238,108,88,0.20)]' :
+          'border-error-700 shadow-input-error' :
           isFocused ?
-            'border-[#4F868E] shadow-[0_0_3px_rgba(79,134,142,0.2)]' :
-            'border-[#CBD5E1]'
+            'border-brand-500 shadow-input-focus' :
+            'border-grey-300'
         }
       `}
         onClick={() => {
@@ -159,7 +159,7 @@ export default function NewPasswordInput({
           type={isVisiblePassword ? 'text' : 'password'}
           name="password"
           className={`
-          mx-2 w-full outline-0 transition-all text-[#1E293B]
+          mx-2 w-full outline-0 transition-all text-grey-800
           ${inputTextStyles[size]} ${(isFocused || value) ? focusedInput[labelPosition] : ''}
         `}
           value={value}
@@ -184,11 +184,11 @@ export default function NewPasswordInput({
       </div>
       <div className="flex justify-between">
         {error ?
-          <div className="text-[#B91C1C] text-xs mt-1">{error}</div> :
+          <div className="text-error-700 text-xs mt-1">{error}</div> :
           helperText ?
-            <div className="text-[#64748B] text-xs mt-1">{helperText}</div> : <div/>}
+            <div className="text-grey-500 text-xs mt-1">{helperText}</div> : <div/>}
         {passSecurity &&
-          <div className={`text-[#64748B] text-xs mt-1 ${passStrengthTextColor[passSecurity - 1]}`}>
+          <div className={`text-grey-500 text-xs mt-1 ${passStrengthTextColor[passSecurity - 1]}`}>
             {PassStrength[passSecurity]}
           </div>
         }
