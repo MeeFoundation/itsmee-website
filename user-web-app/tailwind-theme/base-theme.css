@@ -103,9 +103,6 @@
     --shadow-button: 0px 0px 0px 3px rgba(79, 134, 142, 0.2);
     --shadow-button-danger: 0px 0px 0px 3px rgba(238, 108, 88, 0.2);
     --shadow-button-tertiary: 0px 0px 0px 3px rgba(100, 116, 139, 0.2);
-
-    --shadow-input-error: 0px 0px 0px 3px rgba(238,108,88,0.20);
-    --shadow-input-focus: 0px 0px 0px 3px rgba(79,134,142,0.2);
   }
 
   input:where(:not([type])):focus,

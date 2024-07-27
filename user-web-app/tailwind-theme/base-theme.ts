@@ -192,9 +192,13 @@ const theme = {
       about: "21.25rem",
       "about-lg": "16.75rem",
       160: "40rem",
+      '6/25': '24%',
     },
     maxWidth: {
       111: "27.75rem",
+    },
+    height: {
+      0.75: "0.188rem",
     },
     gap: {
       18.5: "4.625rem",
