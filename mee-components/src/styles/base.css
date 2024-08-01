@@ -1,4 +1,4 @@
-@import "mee-components/base-theme";
+@import "../../tailwind-theme/base-theme.css";
 
 html,
 body,

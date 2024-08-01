@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-import theme from "mee-components/tailwind";
+const defaultTheme = require("tailwindcss/defaultTheme");
+import theme from "./tailwind-theme/base-theme";
 export default {
   content: [
     "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",

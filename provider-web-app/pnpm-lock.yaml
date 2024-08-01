@@ -17,6 +17,9 @@ dependencies:
   astro:
     specifier: ^4.11.5
     version: 4.11.5(typescript@5.5.3)
+  mee-components:
+    specifier: link:../mee-components
+    version: link:../mee-components
   superstruct:
     specifier: ^2.0.0
     version: 2.0.0

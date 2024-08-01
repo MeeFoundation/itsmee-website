@@ -160,6 +160,7 @@ const theme = {
       imperial: ["NYT Imperial", ...defaultTheme.fontFamily.sans],
     },
     spacing: {
+      1.25: '0.313rem',
       1.75: '0.438rem',
       6.5: "1.625rem",
       7.5: "1.875rem",
