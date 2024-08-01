@@ -1,0 +1,29 @@
+---
+interface Props {
+  className?: string;
+  id?: string;
+  disabled?: boolean;
+  checked?: boolean;
+}
+
+const { className, id, disabled, checked = false } = Astro.props;
+---
+
+<label class:list={["relative inline-block h-6 w-10", className]}>
+  <input
+    type="checkbox"
+    class="peer h-0 w-0 opacity-0"
+    id={id}
+    disabled={disabled}
+    checked={checked}
+  />
+  <span
+    class:list={[
+      "absolute inset-0 h-6 w-11 cursor-pointer rounded-[34px] border border-solid border-gray-400 transition-[0.4s]",
+      "before:bottom-1.25 before:absolute before:left-1 before:flex before:h-3 before:w-3 before:items-center before:justify-center before:rounded-full before:bg-gray-700 before:content-['']",
+      "peer-focus:shadow-button-tertiary",
+      "peer-checked:border-brand-800 peer-checked:bg-brand-700 peer-checked:peer-focus:shadow-button",
+      "peer-disabled:opacity-35",
+      "before:peer-checked:absolute before:peer-checked:bottom-px before:peer-checked:h-5 before:peer-checked:w-5 before:peer-checked:translate-x-4 before:peer-checked:bg-white before:peer-checked:text-brand-800 before:peer-checked:content-['✓']",
+    ]}></span>
+</label>

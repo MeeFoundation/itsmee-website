@@ -1,0 +1,141 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import LinkButton from "@components/LinkButton.astro";
+import Illustration from "@components/Illustration.astro";
+import Footer from "@components/Footer.astro";
+---
+
+<Layout title="Welcome to Mee">
+  <Header />
+  <main class="scrollContainer transform-gpu">
+    <article
+      class="relative flex h-full min-h-[101vh] w-screen flex-col items-center gap-16 overflow-hidden"
+    >
+      <section
+        class="section top-0 z-100 mb-3.5 flex w-screen items-center justify-center"
+      >
+        <div
+          class="flex max-w-4xl flex-col items-center justify-center gap-6 px-6 transition-opacity duration-500 md:p-0"
+        >
+          <div class="overflow-hidden">
+            <h1
+              class="marker animate-riseIn text-center text-4xl font-semibold text-slate-800 lg:text-7xl lg:leading-[85px] lg:tracking-[0.005em]"
+            >
+              Dive into a <mark class="whitespace-nowrap">human-centered</mark>
+              user experience
+            </h1>
+          </div>
+          <div class="overflow-hidden">
+            <h3
+              class="animate-riseIn text-center text-base tracking-normal text-slate-800 md:text-lg lg:text-xl"
+            >
+              Less tedium. Your activities remain private. All about your
+              interests.
+            </h3>
+          </div>
+        </div>
+      </section>
+      <section class="flex w-full flex-wrap items-center justify-center gap-6">
+        <LinkButton id="join" className="!w-40" href="/sign-up"
+          >Join Mee</LinkButton
+        >
+        <LinkButton
+          id="login"
+          buttonType="secondary"
+          className="!w-40"
+          href="/sign-in">Log in</LinkButton
+        >
+      </section>
+      <section
+        class="section relative top-0 mb-28 flex w-screen flex-col items-center justify-center"
+      >
+        <div class="bg-1 top-[120px] w-[400vw] sm:top-[168px] md:top-[210px]">
+        </div>
+        <div class="z-10 w-[480px] max-w-full sm:w-[540px] md:w-[668px]">
+          <Illustration />
+        </div>
+        <div
+          class="z-10 flex flex-col items-center justify-center gap-10 px-6 transition-opacity duration-500"
+        >
+          <div class="overflow-hidden">
+            <h2
+              class="marker animate-riseIn text-center text-2xl font-bold text-slate-900 md:text-2xl lg:text-5xl lg:leading-[60px] lg:tracking-[0.005em]"
+            >
+              Gravitate towards <mark class="whitespace-nowrap">Mee System</mark
+              >
+            </h2>
+          </div>
+          <h3
+            id="test-valid"
+            class="text animation-delay-800 max-w-3xl animate-riseIn px-6 text-center text-lg leading-relaxed tracking-[0.005em] text-black/80 text-slate-800 md:text-xl"
+          >
+            Mee figured out a way to keep the web open, free, and ad supported
+            without surveillance. You can exercise your legal right to control
+            your own data wherever it is stored.
+          </h3>
+          <h3
+            id="test-sing"
+            class="animation-delay-800 max-w-3xl animate-riseIn px-6 text-center text-lg leading-relaxed tracking-[0.005em] text-black/80 text-slate-800 md:text-xl"
+          >
+            Hosted by The Mee Foundation, a non-profit that works on behalf of
+            all Mee users and never shares your data with anyone.
+          </h3>
+        </div>
+      </section>
+      <Footer mode="dark" />
+    </article>
+    <iframe height="0" id="singData" src="/sing-data"></iframe>
+  </main>
+</Layout>
+<style>
+  .bg-1 {
+    background: #f3f8f8;
+    content: "";
+    position: absolute;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    height: 150vh;
+
+    transform: translate3d(0, 0, 0);
+    z-index: 1;
+  }
+</style>
+<script>
+  const frame = document.getElementById("singData") as HTMLIFrameElement;
+  const testSign = document.getElementById("test-sing");
+  const testValid = document.getElementById("test-valid");
+  let signature: ArrayBuffer;
+  interface SingMessage {
+    method: "sing" | "validate";
+    valid?: string;
+    signature?: ArrayBuffer;
+  }
+  testSign?.addEventListener("click", () => {
+    frame.contentWindow?.postMessage({ method: "sing", data: "test" });
+  });
+  testValid?.addEventListener("click", () => {
+    frame.contentWindow?.postMessage({
+      method: "validate",
+      data: "test2",
+      signature: signature,
+    });
+  });
+
+  window.addEventListener(
+    "message",
+    (event) => {
+      const message: SingMessage = event.data;
+      if (message.method === "sing") {
+        console.log("signature", message.signature);
+        if (message.signature) {
+          signature = message.signature;
+        }
+      }
+      if (message.method === "validate") {
+        console.log("valid", message.valid);
+      }
+    },
+    false
+  );
+</script>

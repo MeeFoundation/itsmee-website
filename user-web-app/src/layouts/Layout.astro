@@ -6,6 +6,7 @@ interface Props {
 const { title } = Astro.props;
 
 import "@styles/base.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 ---
 
 <!doctype html>
@@ -17,11 +18,9 @@ import "@styles/base.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <!-- <script src="http://127.0.0.1:8080/index.js" async defer></script> -->
   </head>
   <body>
     <slot />
-    <!-- <div id="mee-login-sdk"></div> -->
   </body>
 </html>
 <style is:global>
@@ -31,6 +30,7 @@ import "@styles/base.css";
     background-color: #fff;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    --scroll: 0;
     transition: left 1s;
   }
   html::-webkit-scrollbar {
@@ -114,30 +114,10 @@ import "@styles/base.css";
   .logo > svg {
     fill: white;
     transition: all;
-    /* transition-delay: 2.9s; */
     transition-duration: 200ms;
     transition-timing-function: linear;
   }
   .logo--contrast > svg {
     fill: #447f88;
-  }
-
-  input:where(:not([type])):focus-visible,
-  [type="text"]:focus-visible,
-  [type="email"]:focus-visible,
-  [type="url"]:focus-visible,
-  [type="password"]:focus-visible,
-  [type="number"]:focus-visible,
-  [type="date"]:focus-visible,
-  [type="datetime-local"]:focus-visible,
-  [type="month"]:focus-visible,
-  [type="search"]:focus-visible,
-  [type="tel"]:focus-visible,
-  [type="time"]:focus-visible,
-  [type="week"]:focus-visible,
-  [multiple]:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible {
-    outline: none;
   }
 </style>
