@@ -1,6 +1,6 @@
 ---
 import AuthForm from "@components/AuthForm.astro";
-import Button from "@components/Button.astro";
+import { Button } from "mee-components";
 import Input from "@components/Input.astro";
 import LinkButton from "@components/LinkButton.astro";
 import PasswordInput from "@components/PasswordInput.astro";
@@ -31,7 +31,9 @@ import Layout from "@layouts/Layout.astro";
             required
           />
 
-          <Button id="sign-up-button" type="button">Sign up</Button>
+          <Button id="sign-up-button" type="button" className="w-full"
+            >Sign up</Button
+          >
           <LinkButton
             id="join"
             buttonType="secondary"
@@ -54,12 +56,14 @@ import Layout from "@layouts/Layout.astro";
             placeholder="Enter code"
             required
           />
-          <Button id="check-code" type="button">Check Code</Button>
+          <Button id="check-code" type="button" className="w-full"
+            >Check Code</Button
+          >
           <Button
             id="go-back"
             type="button"
             buttonType="secondary"
-            className="border-none">Go back</Button
+            className="w-full border-none">Go back</Button
           ></AuthForm
         >
         <AuthForm
@@ -84,12 +88,12 @@ import Layout from "@layouts/Layout.astro";
             autocomplete="off"
             required
           />
-          <Button id="connect" type="button">Connect</Button>
+          <Button id="connect" type="button" className="w-full">Connect</Button>
           <Button
             id="go-back-2"
             type="button"
             buttonType="secondary"
-            className="border-none">Go back</Button
+            className="w-full border-none">Go back</Button
           ></AuthForm
         >
         <AuthForm
@@ -109,10 +113,11 @@ import Layout from "@layouts/Layout.astro";
             pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
           />
 
-          <Button id="send" type="button">Connect</Button>
+          <Button id="send" type="button" className="w-full">Connect</Button>
           <Button
             id="go-back-3"
             type="button"
+            className="w-full"
             buttonType="secondary"
             className="border-none">Go back</Button
           ></AuthForm

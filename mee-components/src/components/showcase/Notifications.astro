@@ -1,0 +1,67 @@
+---
+import Notification from "@components/Notification.astro";
+import Button from "@components/Button.astro";
+---
+
+<div class="flex flex-col gap-10 p-20">
+  <div class="flex flex-wrap gap-10">
+    <div class="flex flex-row gap-4">
+      <select
+        id="position"
+        class="block w-full rounded-lg border border-brand-300 bg-brand-50 p-2.5 text-sm text-brand-900 focus:border-blue-500 focus:ring-blue-500"
+      >
+        <option selected value="">Select Position</option>
+        <option value="top-right">top-right</option>
+        <option value="top-left">top-left</option>
+        <option value="top-center">top-center</option>
+        <option value="bottom-right">bottom-right</option>
+        <option value="bottom-left">bottom-left</option>
+        <option value="bottom-center">bottom-center</option>
+        <option value="center">center</option>
+        <option value="center-right">center-right</option>
+        <option value="center-left">center-left</option>
+      </select>
+      <select
+        id="type"
+        class="block w-full rounded-lg border border-brand-300 bg-brand-50 p-2.5 text-sm text-brand-900 focus:border-blue-500 focus:ring-blue-500"
+      >
+        <option selected value="">Select Type</option>
+        <option value="primary">primary</option>
+        <option value="secondary">secondary</option>
+        <option value="tertiary">tertiary</option>
+        <option value="success">success</option>
+        <option value="alert">alert</option>
+        <option value="warning">warning</option>
+      </select>
+      <Button id="show-notification">Show Notification</Button>
+      <Notification
+        title="Title"
+        id="test-notification"
+        description="Description"
+        icon="info-circle"
+        type="primary"
+        showClose={true}
+        topActions={[
+          { id: "action1", title: "Action 1" },
+          { id: "action2", title: "Action 2" },
+        ]}
+        bottomActions={[
+          { id: "action3", title: "Action 1" },
+          { id: "action4", title: "Action 2" },
+        ]}
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  import NotificationHelper from "@helpers/notification";
+  const showNotification = document.getElementById("show-notification");
+  const positionSelect = document.getElementById("position") as HTMLSelectElement;
+  const typeSelect = document.getElementById("type") as HTMLSelectElement;
+  showNotification?.addEventListener("click", () => {
+    const position = positionSelect.value;
+    const type = typeSelect.value;
+    NotificationHelper.openNotification("test-notification", type, position);
+  });
+</script>

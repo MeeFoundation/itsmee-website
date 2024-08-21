@@ -1,35 +1,27 @@
 ---
-import PasswordInput, { PassStrength } from "../PasswordInput.astro";
+import Input from "../Input.astro";
 ---
 
 <div class="flex flex-col gap-10 p-10">
-  <h1 class="text-2xl font-semibold">Password fields with label on edge</h1>
+  <h1 class="text-2xl font-semibold">Inputs with label on edge</h1>
   <div class="flex gap-10">
     <div class="flex flex-col gap-2">
       <h2 class="font-semibold">Default</h2>
       <div class="mt-2">
-        <PasswordInput
-          labelPosition="edge"
-          size="lg"
-          passSecurity={PassStrength.medium}
-          required={false}
-        />
+        <Input labelPosition="edge" size="lg" label="Label" required={false} />
       </div>
+
       <div class="mt-2">
-        <PasswordInput
-          labelPosition="edge"
-          size="md"
-          passSecurity={PassStrength.strong}
-          required={false}
-        />
+        <Input labelPosition="edge" size="md" required={false} label="Label" />
       </div>
+
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="edge"
           size="sm"
           helperText="Helper text"
-          passSecurity={PassStrength.fortress}
           required={false}
+          label="Label"
         />
       </div>
     </div>
@@ -37,48 +29,119 @@ import PasswordInput, { PassStrength } from "../PasswordInput.astro";
     <div class="flex flex-col gap-2">
       <h2 class="font-semibold">With validation errors</h2>
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="edge"
           size="lg"
           error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.weak}
+          label="Label"
         />
       </div>
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="edge"
           size="md"
           error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.medium}
+          label="Label"
         />
       </div>
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="edge"
           size="sm"
           error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.strong}
+          label="Label"
+        />
+      </div>
+    </div>
+  </div>
+  <h1 class="text-2xl font-semibold">Inputs with label inside field</h1>
+  <div class="flex gap-10">
+    <div class="flex flex-col gap-2">
+      <h2 class="font-semibold">Default</h2>
+      <div class="mt-2">
+        <Input
+          labelPosition="inside"
+          size="lg"
+          required={false}
+          label="Connect with email address "
+        />
+      </div>
+      <div class="mt-2">
+        <Input
+          labelPosition="inside"
+          size="md"
+          required={false}
+          label="Label"
+        />
+      </div>
+
+      <div class="mt-2">
+        <Input
+          labelPosition="inside"
+          size="sm"
+          helperText="Helper text"
+          required={false}
+          label="Label"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <h2 class="font-semibold">With validation errors</h2>
+      <div class="mt-2">
+        <Input
+          labelPosition="inside"
+          size="lg"
+          error="Add at least 1 number and 1 symbol."
+          label="Label"
+        />
+      </div>
+      <div class="mt-2">
+        <Input
+          labelPosition="inside"
+          size="md"
+          error="Add at least 1 number and 1 symbol."
+          label="Label"
+        />
+      </div>
+      <div class="mt-2">
+        <Input
+          labelPosition="inside"
+          size="sm"
+          error="Add at least 1 number and 1 symbol."
+          label="Label"
         />
       </div>
     </div>
   </div>
 
-  <h1 class="text-2xl font-semibold">Password fields with label above field</h1>
+  <h1 class="text-2xl font-semibold">Inputs with label above field</h1>
   <div class="flex gap-10">
     <div class="flex flex-col gap-2">
       <h2 class="font-semibold">Default</h2>
       <div class="mt-2">
-        <PasswordInput labelPosition="outside" size="lg" required={false} />
+        <Input
+          labelPosition="outside"
+          size="lg"
+          required={false}
+          label="Label"
+        />
       </div>
       <div class="mt-2">
-        <PasswordInput labelPosition="outside" size="md" required={false} />
+        <Input
+          labelPosition="outside"
+          size="md"
+          required={false}
+          label="Label"
+        />
       </div>
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="outside"
           size="sm"
           helperText="Helper text"
           required={false}
+          label="Label"
         />
       </div>
     </div>
@@ -86,78 +149,27 @@ import PasswordInput, { PassStrength } from "../PasswordInput.astro";
     <div class="flex flex-col gap-2">
       <h2 class="font-semibold">With validation errors</h2>
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="outside"
           size="lg"
           error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.weak}
+          label="Label"
         />
       </div>
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="outside"
           size="md"
           error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.medium}
+          label="Label"
         />
       </div>
       <div class="mt-2">
-        <PasswordInput
+        <Input
           labelPosition="outside"
           size="sm"
           error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.strong}
-        />
-      </div>
-    </div>
-  </div>
-
-  <h1 class="text-2xl font-semibold">
-    Password fields with label inside field
-  </h1>
-  <div class="flex gap-10">
-    <div class="flex flex-col gap-2">
-      <h2 class="font-semibold">Default</h2>
-      <div class="mt-2">
-        <PasswordInput labelPosition="inside" size="lg" required={false} />
-      </div>
-      <div class="mt-2">
-        <PasswordInput labelPosition="inside" size="md" required={false} />
-      </div>
-      <div class="mt-2">
-        <PasswordInput
-          labelPosition="inside"
-          size="sm"
-          helperText="Helper text"
-          required={false}
-        />
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-2">
-      <h2 class="font-semibold">With validation errors</h2>
-      <div class="mt-2">
-        <PasswordInput
-          labelPosition="inside"
-          size="lg"
-          error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.weak}
-        />
-      </div>
-      <div class="mt-2">
-        <PasswordInput
-          labelPosition="inside"
-          size="md"
-          error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.medium}
-        />
-      </div>
-      <div class="mt-2">
-        <PasswordInput
-          labelPosition="inside"
-          size="sm"
-          error="Add at least 1 number and 1 symbol."
-          passSecurity={PassStrength.strong}
+          label="Label"
         />
       </div>
     </div>

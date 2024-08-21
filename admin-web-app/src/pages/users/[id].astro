@@ -1,16 +1,14 @@
 ---
-import Button from "@components/Button.astro";
-import Input from "@components/Input.astro";
+import { Button, Input, Loading } from "mee-components";
+// import Input from "@components/Input.astro";
 import Layout from "@layouts/Layout.astro";
-import Loading from "@components/Loading.astro";
+// import Loading from "@components/Loading.astro";
 const { id } = Astro.params;
 ---
 
 <Layout title="User" activePage="users">
   <main class="flex h-full min-h-screen w-full p-4" data-id={id} id="main">
-    <article
-      class="flex h-full w-full flex-1 flex-col items-center justify-center"
-    >
+    <article class="flex h-full w-full flex-1 flex-col">
       <div class="flex w-full flex-col items-start justify-center gap-4">
         <a
           class="text-base font-semibold leading-6 text-[#3B5B63]"
@@ -34,6 +32,8 @@ const { id } = Astro.params;
               <Input
                 className="w-full"
                 id="email"
+                size="lg"
+                labelPosition="inside"
                 type="email"
                 label="Email"
                 placeholder="Email"
@@ -45,6 +45,8 @@ const { id } = Astro.params;
                 id="phone"
                 type="text"
                 label="Phone"
+                size="lg"
+                labelPosition="inside"
                 placeholder="Phone"
                 autocomplete="off"
                 required

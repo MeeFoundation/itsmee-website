@@ -1,7 +1,7 @@
 ---
 import AuthForm from "@components/AuthForm.astro";
-import Button from "@components/Button.astro";
-import Input from "@components/Input.astro";
+import { Button, Input } from "mee-components";
+import{ default as Input2 } from "@components/Input.astro";
 import LinkButton from "@components/LinkButton.astro";
 import PasswordInput from "@components/PasswordInput.astro";
 import Layout from "@layouts/Layout.astro";
@@ -26,12 +26,24 @@ import Layout from "@layouts/Layout.astro";
             id="email"
             type="email"
             label="Connect with email address"
+            autocomplete="off"
+            size="lg"
+            labelPosition="inside"
+            required
+          />
+          <Input2
+            className="w-full"
+            id="email"
+            type="email"
+            label="Connect with email address"
             placeholder="Enter an email"
             autocomplete="off"
             required
           />
 
-          <Button id="login-button" type="button">Log in</Button>
+          <Button id="login-button" type="button" className="w-full"
+            >Log in</Button
+          >
           <LinkButton
             id="join"
             buttonType="secondary"
@@ -54,12 +66,12 @@ import Layout from "@layouts/Layout.astro";
             required
             showRestorePassword
           />
-          <Button id="connect" type="button">Connect</Button>
+          <Button id="connect" type="button" className="w-full">Connect</Button>
           <Button
             id="go-back"
             type="button"
             buttonType="secondary"
-            className="border-none">Go back</Button
+            className="w-full border-none">Go back</Button
           >
         </AuthForm>
         <div

@@ -4,12 +4,13 @@ interface Props {
   id?: string;
   disabled?: boolean;
   checked?: boolean;
+  label?: string;
 }
 
-const { className, id, disabled, checked = false } = Astro.props;
+const { className, id, disabled, checked = false, label } = Astro.props;
 ---
 
-<label class:list={["relative inline-block h-6 w-10", className]}>
+<label class:list={["relative inline-block z-10", className]}>
   <input
     type="checkbox"
     class="peer h-0 w-0 opacity-0"
@@ -26,4 +27,5 @@ const { className, id, disabled, checked = false } = Astro.props;
       "peer-disabled:opacity-35",
       "before:peer-checked:absolute before:peer-checked:bottom-px before:peer-checked:h-5 before:peer-checked:w-5 before:peer-checked:translate-x-4 before:peer-checked:bg-white before:peer-checked:text-brand-800 before:peer-checked:content-['✓']",
     ]}></span>
+    <span class="ml-11">{label}</span>
 </label>

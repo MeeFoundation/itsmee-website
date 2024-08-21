@@ -9,18 +9,7 @@ interface Props {
   showClose?: boolean;
   topActions?: Action[];
   bottomActions?: Action[];
-  position?:
-    | "top-right"
-    | "top-left"
-    | "top-center"
-    | "bottom-right"
-    | "bottom-left"
-    | "bottom-center"
-    | "center"
-    | "center-right"
-    | "center-left";
 }
-
 
 interface Action {
   title: string;
@@ -37,37 +26,20 @@ const {
   showClose = false,
   topActions,
   bottomActions,
-  position = "center",
 } = Astro.props;
 ---
 
 <div
   class:list={[
-    "notification-containter group overflow-hidden",
+    "alert-containter group overflow-hidden",
     type,
-    position,
     hidden && "hidden",
   ]}
   id={id}
 >
-  <div class:list={[
-    "absolute right-0 top-0 flex h-screen w-screen overflow-hidden z-1 pointer-events-none",
-    "group-[.bottom-left]:items-end group-[.bottom-left]:justify-start",
-    "group-[.top-right]:items-start group-[.top-right]:justify-end",
-    "group-[.top-left]:items-start group-[.top-left]:justify-start",
-    "group-[.bottom-right]:items-end group-[.bottom-right]:justify-end",
-    "group-[.center]:items-center group-[.center]:justify-center",
-    "group-[.top-center]:items-start group-[.top-center]:justify-center",
-    "group-[.bottom-center]:items-end group-[.bottom-center]:justify-center",
-    "group-[.center-left]:items-center group-[.center-left]:justify-start",
-    "group-[.center-right]:items-center group-[.center-right]:justify-end",
-  ]}>
-    <div
+  <div
     class:list={[
-      "fixed z-999 m-6 mx-10 box-border flex animate-riseIn justify-between rounded-lg border border-solid px-4 py-3 pointer-events-auto",
-      "group-[.top-center]:animate-riseOut group-[.top-left]:animate-riseOut group-[.top-right]:animate-riseOut",
-      "group-[.center-left]:animate-riseLeft",
-      "group-[.center-right]:animate-riseRight",
+      "box-border flex animate-riseIn justify-between rounded-lg border border-solid px-4 py-3",
       "group-[.primary]:border-brand-300 group-[.primary]:bg-brand-50",
       "group-[.secondary]:border-gray-200 group-[.secondary]:bg-white",
       "group-[.tertiary]:border-gray-300 group-[.tertiary]:bg-gray-50",
@@ -187,18 +159,14 @@ const {
       }
     </div>
   </div>
-  </div>
 </div>
 
 <script>
-  const notificationsContainers = document.querySelectorAll(
-    ".notification-containter"
-  );
-
-  notificationsContainers.forEach((notificationContainer) => {
-    const closeButton = notificationContainer.querySelector(".close");
+  const alertsContainers = document.querySelectorAll(".alert-containter");
+  alertsContainers.forEach((alertContainers) => {
+    const closeButton = alertContainers.querySelector(".close");
     closeButton?.addEventListener("click", () => {
-      notificationContainer.classList.add("hidden");
+      alertContainers.classList.toggle("hidden");
     });
   });
 </script>

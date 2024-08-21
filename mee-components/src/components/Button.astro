@@ -29,19 +29,19 @@ const {
   type={type}
   disabled={disabled}
   class:list={[
-    "box-border flex h-11 flex-none grow-0 flex-row items-center justify-center rounded-xl border border-solid font-semibold gap-2",
+    "box-border flex h-11 flex-none grow-0 flex-row items-center justify-center gap-2 rounded-xl border border-solid font-semibold z-10",
     buttonType === "primary" && style == "filled" && "primary-filled",
     buttonType === "primary" && style == "outlined" && "primary-outlined",
     buttonType === "secondary" && style == "filled" && "secondary-filled",
     buttonType === "secondary" && style == "outlined" && "secondary-outlined",
-    buttonType === "tertiary" && style == "filled" && "tertiary-filled ",
+    buttonType === "tertiary" && style == "filled" && "tertiary-filled",
     buttonType === "tertiary" && style == "outlined" && "tertiary-outlined",
     buttonType === "danger" && style == "filled" && "danger-filled",
     buttonType === "danger" && style == "outlined" && "danger-outlined",
-    "disabled:opacity-60 disabled:cursor-default",
+    "disabled:cursor-default disabled:opacity-60",
     size === "l" && "h-11 px-4 py-2.5 text-base",
     size === "m" && "h-9 px-3.5 py-2 text-sm",
-    size === "s" && "py-1.75 h-7.5 px-3 text-xs",
+    size === "s" && "h-7.5 px-3 py-1.75 text-xs",
     className,
   ]}
 >
@@ -49,7 +49,8 @@ const {
     leftIcon && (
       <i
         class:list={[
-          "font-thin bi bi-" + leftIcon,
+          "bi font-thin",
+          "bi-" + leftIcon,
           size === "l" && "text-4xl",
           size === "m" && "text-3xl",
           size === "s" && "text-2xl",
@@ -62,7 +63,8 @@ const {
     rightIcon && (
       <i
         class:list={[
-          "font-normal bi bi-" + rightIcon,
+          "bi font-normal",
+          "bi-" + rightIcon,
           size === "l" && "text-2xl",
           size === "m" && "text-xl",
           size === "s" && "text-lg",
@@ -73,39 +75,35 @@ const {
 </button>
 
 <style>
-  .primary-button {
-    background: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
-  }
-
   .primary-filled {
-    @apply primary-button border-brand-600 text-white hover:border-brand-800 hover:bg-brand-800 focus:shadow-button disabled:hover:border-brand-600;
+    @apply bg-primary-gradient disabled:hover:bg-primary-gradient hover:bg-primary-gradient-hover border-brand-600 text-white hover:border-brand-800 focus:shadow-button disabled:hover:border-brand-600;
   }
 
   .primary-outlined {
-    @apply text-brand-700 bg-white border-brand-700 focus:shadow-button;
+    @apply border-brand-700 bg-white text-brand-700 focus:shadow-button;
   }
 
   .secondary-filled {
-    @apply border-brand-300 text-brand-700 bg-brand-50 hover:bg-brand-100 focus:shadow-button disabled:hover:bg-brand-50;
+    @apply border-brand-300 bg-brand-50 text-brand-700 hover:bg-brand-100 focus:shadow-button disabled:hover:bg-brand-50;
   }
 
   .secondary-outlined {
-    @apply text-brand-700 bg-white border-brand-300 focus:shadow-button;
+    @apply border-brand-300 bg-white text-brand-700 focus:shadow-button;
   }
 
   .tertiary-filled {
-    @apply border-gray-300 text-gray-700 bg-gray-50 hover:bg-gray-100 focus:shadow-button-tertiary disabled:hover:bg-gray-50;
+    @apply border-gray-300 bg-gray-50 text-gray-700 hover:bg-gray-100 focus:shadow-button-tertiary disabled:hover:bg-gray-50;
   }
 
   .tertiary-outlined {
-    @apply border-gray-300 text-gray-700 bg-white focus:shadow-button-tertiary;
+    @apply border-gray-300 bg-white text-gray-700 focus:shadow-button-tertiary;
   }
 
   .danger-filled {
-    @apply border-error-700 text-white bg-error-700 hover:bg-error-800 focus:shadow-button-danger disabled:hover:bg-error-700;
+    @apply border-error-700 bg-error-700 text-white hover:bg-error-800 focus:shadow-button-danger disabled:hover:bg-error-700;
   }
 
   .danger-outlined {
-    @apply border-error-700 text-error-700 bg-white focus:shadow-button-danger;
+    @apply border-error-700 bg-white text-error-700 focus:shadow-button-danger;
   }
 </style>

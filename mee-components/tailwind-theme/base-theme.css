@@ -88,21 +88,33 @@
     --color-purple-900: 100 43 89; /*rgb(100 43 89)*/
     --color-purple-950: 65 17 56; /*rgb(65 17 56)*/
 
-
-    --shadow-1: 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.07);
-    --shadow-1-strong: 0px 1px 1px 0px rgba(0, 0, 0, 0.1), 0px 0px 2px 0px rgba(0, 0, 0, 0.16);
-    --shadow-2: 0px 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 0px 3px 0px rgba(0, 0, 0, 0.07);
-    --shadow-2-strong: 0px 2px 2px 0px rgba(0, 0, 0, 0.1), 0px 0px 3px 0px rgba(0, 0, 0, 0.16);
-    --shadow-3: 0px 6px 18px -1px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.07);
-    --shadow-3-strong: 0px 6px 18px -1px rgba(0, 0, 0, 0.1), 0px 2px 6px -1px rgba(0, 0, 0, 0.16);
-    --shadow-4: 0px 10px 20px -2px rgba(0, 0, 0, 0.04), 0px 2px 15px -3px rgba(0, 0, 0, 0.07);
-    --shadow-4-strong: 0px 10px 20px -2px rgba(0, 0, 0, 0.1), 0px 2px 15px -3px rgba(0, 0, 0, 0.16);
-    --shadow-5: 0px 25px 21px -5px rgba(0, 0, 0, 0.04), 0px 2px 25px -5px rgba(0, 0, 0, 0.07);
-    --shadow-5-strong: 0px 25px 21px -5px rgba(0, 0, 0, 0.1), 0px 2px 25px -5px rgba(0, 0, 0, 0.16);
+    --shadow-1: 0px 1px 1px 0px rgba(0, 0, 0, 0.04),
+      0px 0px 2px 0px rgba(0, 0, 0, 0.07);
+    --shadow-1-strong: 0px 1px 1px 0px rgba(0, 0, 0, 0.1),
+      0px 0px 2px 0px rgba(0, 0, 0, 0.16);
+    --shadow-2: 0px 2px 2px 0px rgba(0, 0, 0, 0.04),
+      0px 0px 3px 0px rgba(0, 0, 0, 0.07);
+    --shadow-2-strong: 0px 2px 2px 0px rgba(0, 0, 0, 0.1),
+      0px 0px 3px 0px rgba(0, 0, 0, 0.16);
+    --shadow-3: 0px 6px 18px -1px rgba(0, 0, 0, 0.04),
+      0px 2px 6px -1px rgba(0, 0, 0, 0.07);
+    --shadow-3-strong: 0px 6px 18px -1px rgba(0, 0, 0, 0.1),
+      0px 2px 6px -1px rgba(0, 0, 0, 0.16);
+    --shadow-4: 0px 10px 20px -2px rgba(0, 0, 0, 0.04),
+      0px 2px 15px -3px rgba(0, 0, 0, 0.07);
+    --shadow-4-strong: 0px 10px 20px -2px rgba(0, 0, 0, 0.1),
+      0px 2px 15px -3px rgba(0, 0, 0, 0.16);
+    --shadow-5: 0px 25px 21px -5px rgba(0, 0, 0, 0.04),
+      0px 2px 25px -5px rgba(0, 0, 0, 0.07);
+    --shadow-5-strong: 0px 25px 21px -5px rgba(0, 0, 0, 0.1),
+      0px 2px 25px -5px rgba(0, 0, 0, 0.16);
 
     --shadow-button: 0px 0px 0px 3px rgba(79, 134, 142, 0.2);
     --shadow-button-danger: 0px 0px 0px 3px rgba(238, 108, 88, 0.2);
     --shadow-button-tertiary: 0px 0px 0px 3px rgba(100, 116, 139, 0.2);
+
+    --primary-gradient: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
+    --primary-gradient-hover: linear-gradient(0deg, #374E53 0%, #374E53 100%);
   }
 
   input:where(:not([type])):focus,

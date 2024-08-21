@@ -3,22 +3,22 @@
 html,
 body,
 #root {
-    height: 100%;
-    font-size: 16px;
-    background-color: white;
+  height: 100%;
+  font-size: 16px;
+  background-color: white;
 }
 
 body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size: 16px;
-    background-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  background-color: transparent;
 }
 
 ul,
 li {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /*
@@ -34,9 +34,8 @@ i, em,                  /* italic */
 u, ins,                 /* underline */
 s, strike, del,         /* line-through */
 sup, sub,               /* super(sub) script */
-mark                    /* marked */
-{
-    white-space: pre-line;
+mark                    /* marked */ {
+  white-space: pre-line;
 }
 
 /*
@@ -44,26 +43,26 @@ mark                    /* marked */
  */
 input::-ms-clear,
 input::-ms-reveal {
-    display: none;
+  display: none;
 }
 
 /* Remove Safari password & caps lock icons */
 input[type="password"]::-webkit-credentials-auto-fill-button,
 input[type="password"]::-webkit-caps-lock-indicator {
-    display: none;
+  display: none;
 }
 /* Remove input arrows */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Remove input arrows Firefox */
 input[type="number"] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
 .scrollbar-none::-webkit-scrollbar {
-    display: none;
+  display: none;
 }

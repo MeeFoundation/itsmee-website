@@ -1,0 +1,83 @@
+---
+interface Props {
+  id?: string;
+  height?: "full" | "auto";
+  descriprion?: string;
+  percent?: string;
+  size?: "xxs" | "xs" | "sm" | "md" | "lg";
+}
+
+const {
+  id = "loading",
+  height = "full",
+  descriprion,
+  percent,
+  size = "xs",
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    "relative flex w-full flex-col items-center justify-center gap-2",
+    height === "full" && "h-screen",
+  ]}
+  id={id}
+>
+  <div class="relative">
+    <div
+      class:list={[
+        "z-10 inline-block animate-spin rounded-full border-4 border-solid border-current border-r-brand-500/10 text-brand-500 motion-reduce:animate-[spin_1.5s_linear_infinite]",
+        size === "xxs" && "h-8 w-8",
+        size === "xs" && "h-12 w-12",
+        size === "sm" && "h-16 w-16",
+        size === "md" && "h-20 w-20",
+        size === "lg" && "h-24 w-24",
+      ]}
+      role="status"
+    >
+    </div>
+
+    <div
+      class:list={[
+        "absolute left-0 top-0 flex items-center justify-center text-gray-800",
+        size === "xxs" && "text-xxs h-8 w-8",
+        size === "xs" && "h-12 w-12 text-xs",
+        size === "sm" && "h-16 w-16 text-sm",
+        size === "md" && "h-20 w-20 text-base",
+        size === "lg" && "h-24 w-24 text-lg",
+      ]}
+    >
+      <span id={id + "-percent"}>{percent}</span>
+    </div>
+  </div>
+
+  <div
+    class:list={[
+      "font-semibold text-gray-800",
+      size === "xxs" && "text-xs",
+      size === "xs" && "text-sm",
+      size === "sm" && "text-base",
+      size === "md" && "text-base",
+      size === "lg" && "text-lg",
+    ]}
+  >
+    Loading...
+  </div>
+  {
+    descriprion && (
+      <div
+        class=""
+        class:list={[
+          "text-center font-normal leading-5 text-gray-500",
+          size === "xxs" && "text-xs",
+          size === "xs" && "text-sm",
+          size === "sm" && "text-sm",
+          size === "md" && "text-sm",
+          size === "lg" && "text-base",
+        ]}
+      >
+        {descriprion}
+      </div>
+    )
+  }
+</div>

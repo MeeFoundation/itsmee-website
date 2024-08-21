@@ -1,7 +1,7 @@
 {
   "name": "mee-components",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,10 +10,14 @@
     "astro": "astro"
   },
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.ts"
+    },
     "./base-theme": "./tailwind-theme/base-theme.css",
     "./tailwind": "./tailwind-theme/base-theme.ts"
   },
+  "types": "./src/index.d.ts",
   "dependencies": {
     "@astrojs/check": "^0.7.0",
     "@astrojs/node": "^8.3.2",
@@ -27,9 +31,9 @@
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
-    "eslint": "^9.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.1",
+    "@typescript-eslint/parser": "^8.0.1",
+    "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.3.2",

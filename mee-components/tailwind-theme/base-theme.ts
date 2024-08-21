@@ -2,16 +2,19 @@ import { merge } from "lodash-es";
 import defaultConfig from "tailwindcss/defaultConfig";
 import defaultTheme from "tailwindcss/defaultTheme";
 
+interface Opacity {
+  opacityValue?: string
+}
+function withOpacity(variableName: string) {
+  return ({ opacityValue }: Opacity) => {
+    if (opacityValue !== undefined) {
+      return `rgba(var(${variableName}), ${opacityValue})`;
+    }
+    return `rgb(var(${variableName}))`;
+  };
+}
+
 const theme = {
-  boxShadow: {
-    ["sm"]: "var(--box-shadow-sm)",
-    ["DEFAULT"]: "var(--box-shadow-base)",
-    ["md"]: "var(--box-shadow-md)",
-    ["lg"]: "var(--box-shadow-lg)",
-    ["xl"]: "var(--box-shadow-xl)",
-    ["2xl"]: "var(--box-shadow-2xl)",
-    ["inner"]: "var(--box-shadow-inner-base)",
-  },
   extend: merge({
     colors: {
       ...defaultConfig.theme?.extend?.colors,
@@ -92,6 +95,9 @@ const theme = {
         "800": "rgb(var(--color-orange-800) / <alpha-value>)",
         "900": "rgb(var(--color-orange-900) / <alpha-value>)",
         "950": "rgb(var(--color-orange-950) / <alpha-value>)",
+        lighter: '#FCDCBB',
+        light: '#F9B689',
+        dark: '#8E764F',
       },
       purple: {
         "50": "rgb(var(--color-purple-50) / <alpha-value>)",
@@ -105,6 +111,9 @@ const theme = {
         "800": "rgb(var(--color-purple-800) / <alpha-value>)",
         "900": "rgb(var(--color-purple-900) / <alpha-value>)",
         "950": "rgb(var(--color-purple-950) / <alpha-value>)",
+        light: '#8E4F85',
+        DEFAULT: '#BC52AD',
+        dark: '#764F8E',
       },
       transparent: "transparent",
       black02: "#00000020",
@@ -115,6 +124,32 @@ const theme = {
       white: {
         DEFAULT: "#fff",
         trans70: "#ffffffb3",
+      },
+      gray: {
+        philippine: '#90878F',
+        light: '#767676',
+        DEFAULT: '#4D4D4D',
+        dark: '#444444',
+        900: '#111827'
+      },
+      blue: {
+        cadet: '#5299A3',
+        sky: '#7ED9E7',
+        DEFAULT: '#447F88',
+        dark: '#4F668E',
+      },
+      yellow: {
+        lighter: '#CBBC99',
+        light: '#F9DF89',
+        DEFAULT: '#FFDF80',
+        dark: '#C5C05C',
+      },
+      green: {
+        moss: '#858E4F',
+        DEFAULT: '#668E4F',
+      },
+      brown: {
+        spicy: '#8E564F',
       },
     },
     boxShadow: {
@@ -129,11 +164,12 @@ const theme = {
       "4-strong": "var(--shadow-4-strong)",
       "5": "var(--shadow-5)",
       "5-strong": "var(--shadow-5-strong)",
-      "button": "var(--shadow-button)",
+      button: "var(--shadow-button)",
       "button-danger": "var(--shadow-button-danger)",
       "button-tertiary": "var(--shadow-button-tertiary)",
     },
     fontSize: {
+      "xxs": ["0.625rem", "0.875rem"],
       "3xl": ["1.75rem", "1.5"],
       "3.5xl": ["1.875rem", "1.5rem"],
       "7xl": ["4rem", "1.3"],
@@ -160,8 +196,10 @@ const theme = {
       imperial: ["NYT Imperial", ...defaultTheme.fontFamily.sans],
     },
     spacing: {
-      1.25: '0.313rem',
-      1.75: '0.438rem',
+      ...defaultConfig.theme?.extend?.spacing,
+      1.25: "0.313rem",
+      1.75: "0.438rem",
+      3.75: "0.938rem",
       6.5: "1.625rem",
       7.5: "1.875rem",
       10.5: "2.625rem",
@@ -186,24 +224,35 @@ const theme = {
       45: "11.25rem",
       58: "14.5rem",
       73: "18.25rem",
+      1250: "312.5rem",
+      5000: '1250rem',
     },
     width: {
+      ...defaultConfig.theme?.extend?.width,
       4.5: "1.125rem",
       "about-sm": "20.9375rem",
       about: "21.25rem",
       "about-lg": "16.75rem",
       160: "40rem",
-      '6/25': '24%',
+      "6/25": "24%",
     },
     maxWidth: {
+      ...defaultConfig.theme?.extend?.maxWidth,
       111: "27.75rem",
     },
     height: {
+      ...defaultConfig.theme?.extend?.height,
       0.75: "0.188rem",
     },
     gap: {
+      ...defaultConfig.theme?.extend?.gap,
       18.5: "4.625rem",
       50.5: "12.625rem",
+    },
+    backgroundImage: {
+      ...defaultConfig.theme?.extend?.backgroundImage,
+      "primary-gradient": "var(--primary-gradient)",
+      "primary-gradient-hover": "var(--primary-gradient-hover)",
     },
     zIndex: {
       70: "70",
@@ -233,6 +282,18 @@ const theme = {
         "0%": { transform: "translateY(100%)" },
         "100%": { transform: "translateY(0)" },
       },
+      riseOut: {
+        "0%": { transform: "translateY(-100%)" },
+        "100%": { transform: "translateY(0)" },
+      },
+      riseLeft: {
+        "0%": { transform: "translateX(-100%)" },
+        "100%": { transform: "translateX(0)" },
+      },
+      riseRight: {
+        "0%": { transform: "translateX(100%)" },
+        "100%": { transform: "translateX(0)" },
+      },
       collapse: {
         "0%": { transform: "scale(1)" },
         "100%": { transform: "scale(0)" },
@@ -259,6 +320,15 @@ const theme = {
       "riseIn-short": "riseIn 400ms ease-out both",
       riseIn: "riseIn 800ms ease-out both",
       "riseIn-long": "riseIn 1000ms ease-out both",
+      "riseOut-short": "riseOut 400ms ease-out both",
+      riseOut: "riseOut 800ms ease-out both",
+      "riseOut-long": "riseOut 1000ms ease-out both",
+      "riseLeft-short": "riseLeft 400ms ease-out both",
+      riseLeft: "riseLeft 800ms ease-out both",
+      "riseLeft-long": "riseLeft 1000ms ease-out both",
+      "riseRight-short": "riseRight 400ms ease-out both",
+      riseRight: "riseRight 800ms ease-out both",
+      "riseRight-long": "riseRight 1000ms ease-out both",
       fadeIn: "fadeIn 400ms ease-in both",
       "fadeIn-long": "fadeIn 800ms ease-in both",
       fadeOut: "fadeOut 400ms ease-out both",
@@ -266,13 +336,47 @@ const theme = {
       "moveCard-short": "moveCard 400ms ease-out both",
       moveCard: "moveCard 800ms ease-out both",
       pulseArrow: "pulseArrow 800ms ease-out",
-
       "fadeIn-short": "fadeIn 250ms ease-in-out forwards",
       "fadeOut-short": "fadeOut 200ms ease-in-out forwards",
       "fadeOut-long": "fadeOut 1.5s ease-in-out forwards",
       collapse: "collapse 1.5s ease-in-out forwards",
       collapse3d: "collapse3d 1.5s ease-in-out forwards",
     },
+    textColor: {
+      skin: {
+        "blog-base": withOpacity("--color-text-base"),
+        "blog-accent": withOpacity("--color-accent"),
+        "blog-inverted": withOpacity("--color-fill"),
+      },
+    },
+    backgroundColor: {
+      skin: {
+        "blog-fill": withOpacity("--color-fill"),
+        "blog-accent": withOpacity("--color-accent"),
+        "blog-inverted": withOpacity("--color-text-base"),
+        "blog-card": withOpacity("--color-card"),
+        "blog-card-muted": withOpacity("--color-card-muted"),
+      },
+    },
+    outlineColor: {
+      skin: {
+        "blog-fill": withOpacity("--color-accent"),
+      },
+    },
+    borderColor: {
+      skin: {
+        "blog-line": withOpacity("--color-border"),
+        "blog-fill": withOpacity("--color-text-base"),
+        "blog-accent": withOpacity("--color-accent"),
+      },
+    },
+    fill: {
+      skin: {
+        "blog-base": withOpacity("--color-text-base"),
+        "blog-accent": withOpacity("--color-accent"),
+      },
+      "blog-transparent": "transparent",
+    },  
   }),
 };
 
