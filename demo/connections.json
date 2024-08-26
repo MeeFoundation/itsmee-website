@@ -1,0 +1,39 @@
+[
+    {
+      "name": "Google connection",
+      "image_url": "/demo/google-logo.png",
+      "enabled": true,
+      "details": {
+        "first_name": "Name",
+        "second_name": "Second Name",
+        "email": "test@gmail.com"
+
+      }
+    },
+    {
+      "name": "The Walt Disney",
+      "image_url": "/demo/disney.png",
+      "enabled": true
+    },
+    {
+      "name": "Disney Channel",
+      "enabled": true
+    },
+    {
+      "name": "The Washington Post",
+      "image_url": "/demo/TheWashingtonPost.png",
+      "enabled": true
+    },
+    {
+      "name": "The New York Times",
+      "image_url": "/demo/TheNewYorkTimes.png",
+      "enabled": false
+    },
+    {
+      "name": "The Guardian",
+      "image_url": "/demo/TheGuardian.png",
+      "enabled": true
+    }
+  ]
+  
+  
