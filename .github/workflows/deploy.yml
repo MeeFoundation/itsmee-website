@@ -14,12 +14,11 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
       - name: Install components
-        uses: withastro/action@v2
-        with:
-          path: mee-components
-          node-version: 20 
-          package-manager: pnpm@latest 
+        run: pnpm install
+        working-directory: mee-components
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
