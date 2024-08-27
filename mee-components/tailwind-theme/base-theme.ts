@@ -43,6 +43,7 @@ const theme = {
         "800": "rgb(var(--color-grey-800) / <alpha-value>)",
         "900": "rgb(var(--color-grey-900) / <alpha-value>)",
         "950": "rgb(var(--color-grey-950) / <alpha-value>)",
+        "scrollbar": "var(--color-scrollbar)",
       },
       error: {
         "50": "rgb(var(--color-error-50) / <alpha-value>)",
