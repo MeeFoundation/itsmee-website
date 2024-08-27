@@ -90,18 +90,12 @@ const {
     className,
   ]}
 >
-  <div
-    tabindex={0}
-    class:list={[
-      "relative z-10 flex items-center justify-between rounded-xl border border-grey-300 px-3 transition-all group-[.error]:border-error-700 peer-focus:border-brand-500 peer-focus:bg-red-600",
-      heightSizeStyles[labelPosition][size],
-    ]}
-  >
+  <div>
     {
       leftIcon && (
         <i
           class:list={[
-            "bi text-grey-500",
+            "bi absolute text-grey-500",
             "bi-" + leftIcon,
             iconSizeStyles[size],
           ]}
@@ -115,9 +109,11 @@ const {
       placeholder={label}
       autocomplete={autocomplete}
       class:list={[
-        "peer mx-2 h-full w-full text-grey-800 outline-0 transition-all placeholder:text-transparent",
+        "peer w-full px-2 text-grey-800 outline-0 transition-all placeholder:text-transparent",
+        "relative z-10 flex items-center justify-between rounded-xl border border-grey-300 px-3 transition-all focus:border-brand-500 group-[.error]:border-error-700",
         labelPosition === "inside" && "pt-4",
         inputTextStyles[size],
+        heightSizeStyles[labelPosition][size],
       ]}
     />
     {
@@ -127,25 +123,30 @@ const {
           data-size={size}
           for={id}
           class:list={[
-            "pointer-events-none absolute font-sans text-grey-500 transition-transform peer-focus:text-grey-800",
+            "pointer-events-none absolute left-0 top-0 z-10 origin-[0_0] font-sans text-grey-500 transition-transform peer-focus:text-grey-800",
             "group-[.error]:text-error-700 group-[.error]:peer-focus:text-error-700",
-            // labelPosition === "inside" &&
-            //   "transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-x-1 peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8] motion-reduce:transition-none",
             labelPosition === "inside" &&
-              "transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-x-5 peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8] motion-reduce:transition-none",
-            labelPosition === "outside" &&
-              "-top-6 left-0 peer-focus:-top-6 peer-focus:left-0 peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:left-0",
+              "left-4 top-4 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-x-2 peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8] motion-reduce:transition-none",
+            labelPosition === "inside" &&
+              size === "sm" &&
+              "peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:scale-[0.95]",
+            labelPosition === "inside" &&
+              leftIcon &&
+              "left-10 peer-focus:left-10 peer-[:not(:placeholder-shown)]:left-10",
+            labelPosition === "outside" && size === "sm" && "-top-5 left-1",
+            labelPosition === "outside" && size === "md" && "-top-5 left-1",
+            labelPosition === "outside" && size === "lg" && "-top-7 left-1",
             labelPosition === "edge" &&
-              "transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-x-1.5 peer-focus:bg-white peer-focus:px-1 peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-x-1.5 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-1 motion-reduce:transition-none",
+              "transition-[opacity,_transform] duration-200 ease-linear peer-focus:translate-x-3 peer-focus:bg-white peer-focus:px-1 peer-focus:py-0 peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-x-1.5 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-1 motion-reduce:transition-none",
             labelPosition === "edge" &&
               size === "sm" &&
-              "peer-focus:-translate-y-3.75 peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:-translate-y-3.75 peer-[:not(:placeholder-shown)]:scale-[0.95]",
-            labelPosition === "edge" &&
-              size === "lg" &&
-              "peer-focus:-translate-y-6 peer-focus:scale-[0.8] peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:scale-[0.8]",
+              "px-4 py-1.5 peer-focus:-translate-y-1 peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:-translate-y-3.75 peer-[:not(:placeholder-shown)]:scale-[0.95]",
             labelPosition === "edge" &&
               size === "md" &&
-              "peer-focus:-translate-y-5 peer-focus:scale-[0.85] peer-[:not(:placeholder-shown)]:-translate-y-5 peer-[:not(:placeholder-shown)]:scale-[0.85]",
+              "px-4 py-2.5 peer-focus:-translate-y-2.5 peer-focus:scale-[0.85] peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.85]",
+            labelPosition === "edge" &&
+              size === "lg" &&
+              "px-4 py-3 peer-focus:-translate-y-2 peer-focus:scale-[0.8] peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:scale-[0.8]",
             labelPosition === "edge" &&
               leftIcon &&
               "left-10 peer-focus:-translate-x-9 peer-[:not(:placeholder-shown)]:-translate-x-9",
@@ -153,12 +154,7 @@ const {
               size === "sm" &&
               leftIcon &&
               "left-10 peer-focus:-translate-x-8 peer-[:not(:placeholder-shown)]:-translate-x-8",
-            labelPosition === "inside" &&
-              size === "sm" &&
-              "peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:scale-[0.95]",
-            labelPosition === "inside" &&
-              leftIcon &&
-              "left-10 peer-focus:left-10 peer-[:not(:placeholder-shown)]:left-10",
+
             inputTextStyles[size],
           ]}
         >
@@ -168,8 +164,14 @@ const {
     }
     <i
       class:list={[
-        "bi bi-exclamation-circle mr-2 text-error-700",
+        "bi bi-exclamation-circle pointer-events-none absolute z-10 mr-2 text-error-700",
         "hidden group-[.error]:block",
+        size === "sm" && "right-2 top-1",
+        size === "md" && "right-2 top-1.5",
+        size === "lg" && "right-2 top-2",
+        labelPosition === "inside" && size === "sm" && "!top-3",
+        labelPosition === "inside" && size === "md" && "!top-3",
+        labelPosition === "inside" && size === "lg" && "!top-4",
         iconSizeStyles[size],
       ]}></i>
     {

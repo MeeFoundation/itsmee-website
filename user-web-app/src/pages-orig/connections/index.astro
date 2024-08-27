@@ -15,7 +15,7 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
 <Layout title="Connections">
   <main class="flex h-full min-h-screen p-6">
     <article
-      class="flex h-full w-full max-w-[1920px] flex-1 flex-col items-start justify-center gap-6"
+      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-center gap-6"
     >
       <div
         class="flex w-full flex-col flex-wrap justify-between gap-6 text-base font-semibold lg:flex-row"
@@ -86,12 +86,12 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
               </div>
               <div class="flex flex-col items-center p-0">
                 <p
-                  class="text-center text-sm leading-5 tracking-[0.005em] text-slate-700"
+                  class="text-center text-sm leading-5 tracking-0.02 text-slate-700"
                 >
                   Current profile
                 </p>
                 <p
-                  class="text-center text-xl font-semibold leading-[30px] tracking-[0.005em] text-slate-900"
+                  class="text-center text-xl font-semibold tracking-0.02 text-slate-900"
                   id="profile-name"
                 >
                 </p>
@@ -226,7 +226,7 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
         divName.className = "flex items-center gap-6";
         const divTitle = document.createElement("div");
         divTitle.className =
-          "font-semibold text-base md:text-xl leading-[30px] tracking-[0.005em]";
+          "font-semibold text-base md:text-xl md:tracking-0.02";
         const divTitleContent = document.createTextNode(connection.name);
         divTitle.appendChild(divTitleContent);
 

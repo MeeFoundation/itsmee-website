@@ -1,9 +1,10 @@
 import { merge } from "lodash-es";
 import defaultConfig from "tailwindcss/defaultConfig";
 import defaultTheme from "tailwindcss/defaultTheme";
+import { X } from "../dist/server/chunks/astro/assets-service_DN71SLHP.mjs";
 
 interface Opacity {
-  opacityValue?: string
+  opacityValue?: string;
 }
 function withOpacity(variableName: string) {
   return ({ opacityValue }: Opacity) => {
@@ -95,9 +96,9 @@ const theme = {
         "800": "rgb(var(--color-orange-800) / <alpha-value>)",
         "900": "rgb(var(--color-orange-900) / <alpha-value>)",
         "950": "rgb(var(--color-orange-950) / <alpha-value>)",
-        lighter: '#FCDCBB',
-        light: '#F9B689',
-        dark: '#8E764F',
+        lighter: "#FCDCBB",
+        light: "#F9B689",
+        dark: "#8E764F",
       },
       purple: {
         "50": "rgb(var(--color-purple-50) / <alpha-value>)",
@@ -111,13 +112,13 @@ const theme = {
         "800": "rgb(var(--color-purple-800) / <alpha-value>)",
         "900": "rgb(var(--color-purple-900) / <alpha-value>)",
         "950": "rgb(var(--color-purple-950) / <alpha-value>)",
-        light: '#8E4F85',
-        DEFAULT: '#BC52AD',
-        dark: '#764F8E',
+        light: "#8E4F85",
+        DEFAULT: "#BC52AD",
+        dark: "#764F8E",
       },
       transparent: "transparent",
       black02: "#00000020",
-      primary: "#4F868E",
+      primary: "rgb(var(--color-brand-500) / <alpha-value>)",
       black: {
         DEFAULT: "#000",
       },
@@ -126,30 +127,30 @@ const theme = {
         trans70: "#ffffffb3",
       },
       gray: {
-        philippine: '#90878F',
-        light: '#767676',
-        DEFAULT: '#4D4D4D',
-        dark: '#444444',
-        900: '#111827'
+        philippine: "#90878F",
+        light: "#767676",
+        DEFAULT: "#4D4D4D",
+        dark: "#444444",
+        900: "#111827",
       },
       blue: {
-        cadet: '#5299A3',
-        sky: '#7ED9E7',
-        DEFAULT: '#447F88',
-        dark: '#4F668E',
+        cadet: "#5299A3",
+        sky: "#7ED9E7",
+        DEFAULT: "#447F88",
+        dark: "#4F668E",
       },
       yellow: {
-        lighter: '#CBBC99',
-        light: '#F9DF89',
-        DEFAULT: '#FFDF80',
-        dark: '#C5C05C',
+        lighter: "#CBBC99",
+        light: "#F9DF89",
+        DEFAULT: "#FFDF80",
+        dark: "#C5C05C",
       },
       green: {
-        moss: '#858E4F',
-        DEFAULT: '#668E4F',
+        moss: "#858E4F",
+        DEFAULT: "#668E4F",
       },
       brown: {
-        spicy: '#8E564F',
+        spicy: "#8E564F",
       },
     },
     boxShadow: {
@@ -169,10 +170,12 @@ const theme = {
       "button-tertiary": "var(--shadow-button-tertiary)",
     },
     fontSize: {
-      "xxs": ["0.625rem", "0.875rem"],
-      "3xl": ["1.75rem", "1.5"],
-      "3.5xl": ["1.875rem", "1.5rem"],
-      "7xl": ["4rem", "1.3"],
+      xxs: ["0.625rem", "0.875rem"],
+      xl: ["1.25rem", "1.875rem"],
+      "3xl": ["1.875rem", "2.5rem"],
+      "4xl": ["2.25rem", "2.75rem"],
+      "5xl": ["3rem", "3.75rem"],
+      "7xl": ["4.5rem", "5rem"],
       "25xl": "6rem",
       meeBtn: ["22px", "26px"],
     },
@@ -195,6 +198,9 @@ const theme = {
       sans: ["Public Sans", ...defaultTheme.fontFamily.sans],
       imperial: ["NYT Imperial", ...defaultTheme.fontFamily.sans],
     },
+    letterSpacing: {
+      "0.02": "0.005rem",
+    },
     spacing: {
       ...defaultConfig.theme?.extend?.spacing,
       1.25: "0.313rem",
@@ -209,23 +215,39 @@ const theme = {
       14.5: "3.625rem",
       15: "3.75rem",
       16.5: "4.125rem",
+      17.25: '4.313rem',
       17.5: "4.375rem",
       21: "5.25rem",
       22.5: "5.625rem",
       23: "5.75rem",
       23.5: "5.875rem",
+      24.25: '6.063rem',
       24.5: "6.125rem",
       25: "6.25rem",
       30: "7.5rem",
       33: "8.25rem",
       34.5: "8.625rem",
       35.5: "8.875rem",
+      38.25: "9.563rem",
+      42: '10.5rem',
       44.5: "11.125rem",
       45: "11.25rem",
+      52.5: '13.125rem',
       58: "14.5rem",
+      65 : '16.25rem',
       73: "18.25rem",
+      93.5: '23.375rem',
+      100: "25rem",
+      120: '30rem',
+      125 : '31.25rem',
+      130: '32.5rem',
+      135: '33.75rem',
+      150: "37.5rem",
+      167: '41.75rem',
+      192: '48rem',
+      480 : '120rem',
       1250: "312.5rem",
-      5000: '1250rem',
+      5000: "1250rem",
     },
     width: {
       ...defaultConfig.theme?.extend?.width,
@@ -262,6 +284,7 @@ const theme = {
       999: "999",
     },
     borderRadius: {
+      8.5: '2.125rem',
       "1/2": "50%",
       "2.5xl": "20px",
     },
@@ -376,7 +399,7 @@ const theme = {
         "blog-accent": withOpacity("--color-accent"),
       },
       "blog-transparent": "transparent",
-    },  
+    },
   }),
 };
 

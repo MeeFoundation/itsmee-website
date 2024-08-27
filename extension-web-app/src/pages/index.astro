@@ -1,25 +1,25 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
-import LinkButton from "@components/LinkButton.astro";
+// import { ButtonLink } from "mee-components";
 import Footer from "@components/Footer.astro";
 ---
 
 <Layout title="Mee Chrome browser extension">
   <Header />
-  <main class="scrollContainer transform-gpu">
+  <main class="">
     <article
-      class="relative flex h-full min-h-[101vh] w-screen flex-col items-center gap-16 overflow-hidden"
+      class="relative flex h-full min-h-screen w-screen flex-col items-center gap-16 overflow-hidden"
     >
       <section
         class="section top-0 z-100 mb-3.5 flex w-screen items-center justify-center"
       >
         <div
-          class="flex max-w-[600px] flex-col items-center justify-center gap-6 px-6 transition-opacity duration-500 md:p-0"
+          class="flex max-w-150 flex-col items-center justify-center gap-6 px-6 transition-opacity duration-500 md:p-0"
         >
           <div class="overflow-hidden">
             <h1
-              class="marker animate-riseIn text-center text-4xl font-semibold text-slate-800 lg:text-7xl lg:leading-[85px] lg:tracking-[0.005em]"
+              class="marker animate-riseIn text-center text-4xl font-semibold text-gray-900 lg:text-7xl lg:tracking-0.02"
             >
               Chrome browser
               <mark class="whitespace-nowrap">extension</mark>
@@ -27,7 +27,7 @@ import Footer from "@components/Footer.astro";
           </div>
           <div class="overflow-hidden">
             <h3
-              class="animate-riseIn text-center text-base tracking-normal text-slate-800 md:text-lg lg:text-xl"
+              class="animate-riseIn text-center text-base tracking-normal text-gray-800 md:text-lg lg:text-xl"
             >
               Jump into our journey towards a big vision of building a
               human-centered user experience for the internet and control what
@@ -36,97 +36,92 @@ import Footer from "@components/Footer.astro";
           </div>
         </div>
       </section>
-      <section class="flex w-full flex-wrap items-center justify-center gap-6">
-        <LinkButton id="login" buttonType="secondary" className="!w-52" href="/"
-          >Explore Mee</LinkButton
-        >
-        <LinkButton
+      <!-- <section class="flex w-full flex-wrap items-center justify-center gap-6">
+        <ButtonLink
           id="join"
           className="!w-52"
           href="https://chromewebstore.google.com/"
-          target="_blank"
-          >Download extension</LinkButton
+          target="_blank">Download extension</ButtonLink
         >
-      </section>
+      </section> -->
       <section
         class="section relative top-0 my-28 flex w-screen flex-col items-center justify-center pt-28"
       >
-        <div class="bg-1 top-0 w-[400vw]"></div>
+        <div class="bg-1 top-0 bg-brand-50"></div>
         <div
-          class="z-10 flex flex-col items-center justify-center gap-16 px-6 transition-opacity duration-500"
+          class="z-10 flex flex-col items-center justify-center gap-16 bg-brand-50 px-6 transition-opacity duration-500"
         >
           <div class="overflow-hidden">
             <h2
-              class="marker animate-riseIn text-center text-2xl font-bold text-slate-900 md:text-2xl lg:text-5xl lg:leading-[60px] lg:tracking-[0.005em]"
+              class="marker animate-riseIn text-center text-2xl font-bold text-gray-900 md:text-2xl lg:text-5xl lg:tracking-0.02"
             >
               The Mee <mark class="whitespace-nowrap">benefits</mark>
             </h2>
           </div>
           <div
-            class="flex w-screen flex-col items-center justify-center gap-18.5 px-5 lg:flex-row lg:items-start"
+            class="flex w-screen flex-col items-center justify-center gap-18.5 bg-brand-50 px-5 lg:flex-row lg:items-start"
           >
             <div
-              class="platform__item flex max-w-[400px] flex-col items-center justify-center gap-5 text-center"
+              class="platform__item flex max-w-100 flex-col items-center justify-center gap-5 text-center"
             >
               <span
                 class="icon flex items-center justify-center text-base uppercase text-white"
                 ><img src="/images/auto-login.png" class="h-33" /></span
               >
               <h6
-                class="text-xl font-bold leading-thick text-black/[.8] md:text-2xl lg:text-3xl"
+                class="text-xl font-bold leading-thick text-gray-900 md:text-2xl lg:text-3xl"
               >
                 Auto-login
               </h6>
               <p
-                class="max-w-73 text-base font-normal leading-[1.6] text-black/[.8] md:text-xl"
+                class="max-w-73 text-base font-normal text-gray-800 md:text-xl"
               >
                 You're automatically logged in to your favorite website.
               </p>
             </div>
             <div
-              class="platform__item flex max-w-[400px] flex-col items-center justify-center gap-5 text-center"
+              class="platform__item flex max-w-100 flex-col items-center justify-center gap-5 text-center"
             >
               <span
                 class="icon flex items-center justify-center text-base uppercase text-white"
                 ><img src="/images/privacy.png" class="h-33" /></span
               >
               <h6
-                class="text-xl font-bold leading-thick text-black/[.8] md:text-2xl lg:text-3xl"
+                class="text-xl font-bold leading-thick text-gray-900 md:text-2xl lg:text-3xl"
               >
                 Privacy
               </h6>
               <p
-                class="max-w-73 text-base font-normal leading-[1.6] text-black/[.8] md:text-xl"
+                class="max-w-73 text-base font-normal text-gray-800 md:text-xl"
               >
                 Block the sharing and selling of your information.
               </p>
             </div>
             <div
-              class="platform__item flex max-w-[400px] flex-col items-center justify-center gap-5 text-center"
+              class="platform__item flex max-w-100 flex-col items-center justify-center gap-5 text-center"
             >
               <span
                 class="icon flex items-center justify-center text-base uppercase text-white"
                 ><img src="/images/privacy.png" class="h-33" /></span
               >
               <h6
-                class="text-xl font-bold leading-thick text-black/[.8] md:text-2xl lg:text-3xl"
+                class="text-xl font-bold leading-thick text-gray-900 md:text-2xl lg:text-3xl"
               >
                 Financial
               </h6>
               <p
-                class="max-w-73 text-base font-normal leading-[1.6] text-black/[.8] md:text-xl"
+                class="max-w-73 text-base font-normal text-gray-800 md:text-xl"
               >
                 Support your favorite apps at no cost to you.
               </p>
             </div>
           </div>
-          <LinkButton
+          <!-- <ButtonLink
             id="join"
             className="!w-52"
             href="https://chromewebstore.google.com/"
-            target="_blank"
-            >Download extension</LinkButton
-          >
+            target="_blank">Download extension</ButtonLink
+          > -->
         </div>
       </section>
       <Footer mode="dark" />
@@ -135,14 +130,14 @@ import Footer from "@components/Footer.astro";
 </Layout>
 <style>
   .bg-1 {
-    background: #f3f8f8;
     content: "";
     position: absolute;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
-    height: 150vh;
-
+    min-height: 150vh;
+    height: 140%;
     transform: translate3d(0, 0, 0);
     z-index: 1;
+    width: 400vw;
   }
 </style>

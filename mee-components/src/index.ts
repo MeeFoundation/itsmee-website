@@ -1,4 +1,5 @@
 export { default as Button } from './components/Button.astro'
+export { default as ButtonLink } from './components/ButtonLink.astro'
 export { default as Checkbox } from './components/Checkbox.astro'
 export { default as Notification } from './components/Notification.astro'
 export { default as Alert } from './components/Alert.astro'

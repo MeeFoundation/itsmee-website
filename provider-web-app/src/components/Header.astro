@@ -17,13 +17,13 @@ const { activePage, logoColor = "blue" } = Astro.props;
 <header id="header" class="fixed top-0 z-10 w-screen">
   <nav class="h-23 border-b border-solid border-b-slate-200 bg-white">
     <div
-      class="mx-auto flex h-full max-w-[1920px] flex-wrap items-center justify-between px-6"
+      class="mx-auto flex h-full max-w-480 flex-wrap items-center justify-between px-6"
     >
       <a
         href="/"
         id="mainLogo"
         class:list={[
-          "logo block h-5 w-[69px] pt-1.5 md:h-6 md:w-[81px] md:pt-0",
+          "logo block h-5 w-17.25 pt-1.5 md:h-6 md:w-[81px] md:pt-0",
           { "logo--contrast": logoColor === "blue" },
         ]}
       >
@@ -113,12 +113,12 @@ const { activePage, logoColor = "blue" } = Astro.props;
         </div>
         <div class="flex flex-col items-center p-0">
           <p
-            class="text-center text-sm leading-5 tracking-[0.005em] text-slate-700"
+            class="text-center text-sm leading-5 tracking-0.02 text-slate-700"
           >
             Current profile
           </p>
           <p
-            class="text-center text-xl font-semibold leading-[30px] tracking-[0.005em] text-slate-900"
+            class="text-center text-xl font-semibold tracking-0.02 text-slate-900"
             id="profile-name"
           >
           </p>

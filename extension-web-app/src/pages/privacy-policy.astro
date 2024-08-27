@@ -1,0 +1,167 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+---
+
+<Layout title="Mee - Privacy Policy">
+  <Header />
+  <main class="scrollContainer transform-gpu">
+    <section
+      class="flex h-full w-screen transform-gpu flex-col items-center justify-start bg-white"
+    >
+      <div class="mx-auto max-w-5xl">
+        <div class="mx-auto px-5 pb-20 text-base text-gray-800">
+          <h1 class="text-4xl font-medium text-primary">Privacy Policy</h1>
+          <p class="pt-10">
+            We (The Mee Foundation, Inc., a nonprofit registered in
+            Massachusetts, USA) are dedicated to the creation of a
+            human-centered user experience for the internet that gives you
+            control over your personal information and respects your right to
+            privacy. This privacy policy will help you understand what happens
+            to your data when you visit our website{" "}
+            <a
+              class="text-base font-medium text-primary underline"
+              href="https://mee.foundation"
+            >
+              https://mee.foundation
+            </a>.
+          </p>
+          {
+            [
+              {
+                title: "Questions or concerns?",
+                answer: (
+                  <span>
+                    Reading this privacy notice will help you understand your
+                    privacy rights and choices. If you do not agree with our
+                    policies and practices, please do not use our services. If
+                    you still have any questions or concerns, please contact us
+                    at{" "}
+                    <a
+                      class="text-base font-medium text-primary underline"
+                      href="mailto:contact@mee.foundation"
+                    >
+                      contact@mee.foundation
+                    </a>
+                    .
+                  </span>
+                ),
+              },
+            ].map((item) => (
+              <div class="pt-10">
+                <p class="font-bold text-primary">{item.title}</p>
+                <p class="pt-2">{item.answer}</p>
+              </div>
+            ))
+          }
+          <h2 class="pt-10 font-bold text-primary">KEY POINTS</h2>
+          {
+            [
+              {
+                title: "What personal information do we process?",
+                answer: (
+                  <span>
+                    With your consent, if you visit our website and subscribe to
+                    our newsletter, we collect and use your contact details
+                    (your first name and your email address) for the purpose of
+                    sending you our newsletter and other updates related to
+                    Foundation activities. We do not share or sell this
+                    information with third parties.
+                  </span>
+                ),
+              },
+              {
+                title: "Do we process any sensitive personal information?",
+                answer:
+                  "NO. We do not process any sensitive personal information.",
+              },
+              {
+                title: "Do we receive any information from third parties?",
+                answer:
+                  "NO. We don’t receive any information from third parties.",
+              },
+              {
+                title: "How do we process your information?",
+                answer: "We send our newsletter to your email address",
+              },
+              {
+                title:
+                  "In what situations and with which parties do we share personal information?",
+                answer:
+                  "We never share personal information with any other parties.",
+              },
+              {
+                title:
+                  "When and with whom do we share your personal information?",
+                answer: "We do not share any of your personal information.",
+              },
+              {
+                title: "How long do we keep your information?",
+                answer: (
+                  <span>
+                    We keep your contact details (your first name and your email
+                    address) until the moment you unsubscribe from our
+                    newsletter. After that, we will delete all of your personal
+                    information.
+                  </span>
+                ),
+              },
+              {
+                title: "Controls for do-not-track features?",
+                answer: (
+                  <span>
+                    We do not use cookies or trackers on our website. Your visit
+                    to our website or use of our app does not generate logs of
+                    any personally identifiable information.
+                  </span>
+                ),
+              },
+              {
+                title: "Do we make updates to this notice?",
+                answer: (
+                  <span>
+                    Yes, we will update this notice as necessary to stay
+                    compliant with the relevant laws. We may update this privacy
+                    notice from time to time. The updated version will be
+                    indicated by an updated “Revised” date and will be effective
+                    as soon as it is accessible. We encourage you to review this
+                    privacy notice frequently to be informed of how we are
+                    protecting your information.
+                  </span>
+                ),
+              },
+              {
+                title: "How can you contact us about this notice?",
+                answer: (
+                  <span>
+                    If you have questions or comments about this notice, you may
+                    email us at{" "}
+                    <a
+                      class="text-base font-medium text-primary underline"
+                      href="mailto:contact@mee.foundation"
+                    >
+                      contact@mee.foundation
+                    </a>{" "}
+                    or by mail to:{" "}
+                    <span class="font-medium">
+                      Mee Foundation Inc, 25 Craftsland Road, Chestnut Hill, MA
+                      02467, United States
+                    </span>
+                  </span>
+                ),
+              },
+            ].map((item) => (
+              <div class="pt-10">
+                <p class="font-bold text-primary">{item.title}</p>
+                <p class="pt-2">{item.answer}</p>
+              </div>
+            ))
+          }
+          <p class="pt-10">Last updated August 18, 2024</p>
+        </div>
+      </div>
+      <Footer mode="dark" />
+    </section>
+  </main>
+</Layout>
