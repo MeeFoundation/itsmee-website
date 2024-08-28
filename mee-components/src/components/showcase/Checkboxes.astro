@@ -2,13 +2,13 @@
 import Checkbox from "@components/Checkbox.astro";
 ---
 
-<div class="flex flex-col gap-10 p-20">
-  <h1 class="text-2xl font-semibold">Checkboxes</h1>
+<div class="flex flex-col gap-10 p-10">
   <div class="flex flex-wrap gap-10">
     <div class="flex flex-col gap-4">
-      <Checkbox
-      />
-    
+      <Checkbox label="Label" id="test" />
+      <Checkbox label="Label" id="test2" checked={true}/>
+      <Checkbox label="Label" id="test2" disabled/>
+      <Checkbox label="Label" id="test2" checked={true} disabled/>
     </div>
   </div>
 </div>

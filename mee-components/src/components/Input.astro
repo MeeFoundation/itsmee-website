@@ -83,12 +83,12 @@ const rightIconPadding = {
 
 const labelClassByPositionAndSize = {
   edge: {
-    sm: "translate-x-3 translate-y-1.5 px-1 peer-focus:-translate-y-2 peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-[0.95]",
-    md: "peer-focus:-translate-y-2.25 peer-[:not(:placeholder-shown)]:-translate-y-2.25 translate-x-3 translate-y-2 px-1 peer-focus:scale-[0.85] peer-[:not(:placeholder-shown)]:scale-[0.85]",
-    lg: "translate-x-3 translate-y-3 px-1 peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8]",
+    sm: "translate-x-3 translate-y-1.5 px-1 peer-focus:-translate-y-2 peer-focus:scale-95 peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-95",
+    md: "peer-focus:-translate-y-2.25 peer-[:not(:placeholder-shown)]:-translate-y-2.25 translate-x-3 translate-y-2 px-1 peer-focus:scale-85 peer-[:not(:placeholder-shown)]:scale-85",
+    lg: "translate-x-3 translate-y-3 px-1 peer-focus:-translate-y-2.5 peer-focus:scale-80 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-80",
   },
   inside: {
-    sm: "peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:scale-[0.95]",
+    sm: "peer-focus:scale-95 peer-[:not(:placeholder-shown)]:scale-95",
     md: "",
     lg: "",
   },
@@ -177,7 +177,7 @@ const {
             "pointer-events-none absolute z-10 origin-[0_0] font-sans text-grey-500 transition-transform peer-focus:text-grey-800",
             "group-[.error]:text-error-700 group-[.error]:peer-focus:text-error-700",
             labelPosition === "inside" &&
-              "left-4 top-4 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8] motion-reduce:transition-none",
+              "left-4 top-4 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2.5 peer-focus:scale-80 peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-80 motion-reduce:transition-none",
             labelPosition === "edge" &&
               "left-0 top-0 transition-all duration-200 ease-linear peer-focus:translate-x-3 peer-focus:bg-white peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:translate-x-3 peer-[:not(:placeholder-shown)]:bg-white motion-reduce:transition-none",
             labelClassByPositionAndSize[labelPosition][size],

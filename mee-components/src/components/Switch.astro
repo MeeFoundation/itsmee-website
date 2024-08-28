@@ -27,5 +27,5 @@ const { className, id, disabled, checked = false, label } = Astro.props;
       "peer-disabled:opacity-35",
       "before:peer-checked:absolute before:peer-checked:bottom-px before:peer-checked:h-5 before:peer-checked:w-5 before:peer-checked:translate-x-4 before:peer-checked:bg-white before:peer-checked:text-brand-800 before:peer-checked:content-['✓']",
     ]}></span>
-    <span class="ml-11">{label}</span>
+    <span class="ml-11 peer-disabled:opacity-35">{label}</span>
 </label>

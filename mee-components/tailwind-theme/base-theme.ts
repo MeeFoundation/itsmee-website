@@ -1,7 +1,6 @@
 import { merge } from "lodash-es";
 import defaultConfig from "tailwindcss/defaultConfig";
 import defaultTheme from "tailwindcss/defaultTheme";
-import { X } from "../dist/server/chunks/astro/assets-service_DN71SLHP.mjs";
 
 interface Opacity {
   opacityValue?: string;
@@ -253,6 +252,11 @@ const theme = {
       1250: "312.5rem",
       5000: "1250rem",
     },
+    scale: {
+      ...defaultConfig.theme?.extend?.scale,
+      80: '0.8',
+      85: '0.85',
+    },
     width: {
       ...defaultConfig.theme?.extend?.width,
       4.5: "1.125rem",
@@ -281,6 +285,7 @@ const theme = {
       "primary-gradient-hover": "var(--primary-gradient-hover)",
     },
     zIndex: {
+      1: "1",
       70: "70",
       100: "100",
       200: "200",

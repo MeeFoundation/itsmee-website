@@ -10,10 +10,15 @@ interface Props {
 const { className, id, disabled, checked = false, label } = Astro.props;
 ---
 
-<div class:list={["mb-[0.125rem] block min-h-[1.5rem] ps-[1.5rem]", className]}>
+<div class:list={["mb-0.5 block min-h-6 ps-6", className]}>
   <input
     class:list={[
-      "border-secondary-500 before:shadow-checkbox checked:focus:before:shadow-checkbox relative float-left -ms-[1.5rem] me-[6px] mt-[0.15rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid outline-none before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-transparent before:content-[''] checked:border-primary checked:bg-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:-mt-px checked:after:ms-[0.25rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-black/60 focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-black/60 focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:content-[''] checked:focus:before:scale-100 checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:-mt-px checked:focus:after:ms-[0.25rem] checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-l-0 checked:focus:after:border-t-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent",
+      "peer before:shadow-checkbox checked:focus:before:shadow-checkbox focus:after:z-1 relative float-left -ms-6 me-1.5 mt-0.5 h-5 w-5 appearance-none rounded border-2 border-solid border-gray-400 outline-none before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-transparent before:content-['']",
+      "hover:cursor-pointer hover:before:opacity-5 hover:before:shadow-black/60",
+      "disabled:opacity-35 disabled:pointer-events-none",
+      "checked:border-brand-900 checked:bg-brand-800 checked:before:opacity-15 checked:after:absolute checked:after:-mt-0.75 checked:after:ms-1.5 checked:after:block checked:after:h-3 checked:after:w-1.5 checked:after:rotate-45 checked:after:border-2 checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-['']",
+      "checked:focus:before:scale-100 checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:-mt-0.75 checked:focus:after:ms-1.5 checked:focus:after:h-3 checked:focus:after:w-1.5 checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-2 checked:focus:after:border-l-0 checked:focus:after:border-t-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent",
+      "focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-10 focus:before:shadow-black/60 focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:block focus:after:h-3.5 focus:after:w-3.5 focus:after:rounded focus:after:content-['']"
     ]}
     type="checkbox"
     value=""
@@ -21,7 +26,7 @@ const { className, id, disabled, checked = false, label } = Astro.props;
     checked={checked}
     id={id}
   />
-  <label class="inline-block ps-[0.15rem] hover:cursor-pointer" for={id}>
+  <label class="inline-block ps-0.5 hover:cursor-pointer peer-disabled:opacity-35 peer-disabled:pointer-events-none peer-disabled:cursor-default" for={id}>
     {label}
   </label>
 </div>
