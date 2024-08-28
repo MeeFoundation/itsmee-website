@@ -1,11 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
-// import { ButtonLink } from "mee-components";
-import Footer from "@components/Footer.astro";
+// import { ButtonLink, Footer } from "mee-components";
+import { Footer } from "mee-components";
 ---
 
-<Layout title="Mee Chrome browser extension">
+<Layout title="Mee Chrome Browser Extension">
   <Header />
   <main class="">
     <article
@@ -124,7 +124,16 @@ import Footer from "@components/Footer.astro";
           > -->
         </div>
       </section>
-      <Footer mode="dark" />
+      <Footer
+        mode="dark"
+        rightLinks={[
+          {
+            link: "/privacy-policy/",
+            name: "Privacy Policy",
+            target: "_blank",
+          },
+        ]}
+      />
     </article>
   </main>
 </Layout>

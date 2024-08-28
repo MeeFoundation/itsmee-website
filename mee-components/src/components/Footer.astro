@@ -1,12 +1,20 @@
 ---
-import twitterIconWhite from "../../public/images/twitter-logo-white.png";
-import twitterIconBlack from "../../public/images/twitter-logo-black.png";
+import twitterIconWhite from "./images/twitter-logo-white.png";
+import twitterIconBlack from "./images/twitter-logo-black.png";
 
 export interface Props {
   mode: "dark" | "light";
+  links?: Link[];
+  rightLinks?: Link[];
 }
 
-const { mode } = Astro.props;
+interface Link {
+  link: string;
+  target?: string;
+  name: string;
+}
+
+const { mode, links, rightLinks } = Astro.props;
 const twitterIcon = mode === "dark" ? twitterIconWhite : twitterIconBlack;
 ---
 
@@ -29,11 +37,25 @@ const twitterIcon = mode === "dark" ? twitterIconWhite : twitterIconBlack;
     <span class="hidden max-w-38.25 whitespace-nowrap xl:inline"
       >© {new Date().getFullYear()} The Mee Foundation, Inc.</span
     >
+    {
+      links && (
+        <ul class="mb-13 flex flex-col gap-7 text-center md:mb-0 md:flex-row md:gap-10">
+          {links.map((link) => (
+            <li>
+              <a href={link.link}>{link.name}</a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
     <div class="flex items-center gap-8">
-      <a href="https://mee.foundation/about/" target="_blank">About Us</a>
-      <a href="https://mee.foundation/privacy-policy/" target="_blank"
-        >Privacy Policy</a
-      >
+      {
+        rightLinks?.map((link) => (
+          <a href={link.link} target={link.target}>
+            {link.name}
+          </a>
+        ))
+      }
       <a href="https://x.com/mee_foundation" target="_blank">
         <img
           src={twitterIcon.src}

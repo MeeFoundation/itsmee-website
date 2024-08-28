@@ -3,19 +3,12 @@ export interface Props {
   size?: Size;
   id?: string;
   type?:
-    | "button"
-    | "checkbox"
-    | "color"
     | "date"
     | "datetime-local"
     | "email"
     | "hidden"
     | "number"
-    | "radio"
-    | "range"
-    | "reset"
     | "search"
-    | "submit"
     | "tel"
     | "text"
     | "time"
@@ -54,16 +47,73 @@ const heightSizeStyles = {
   },
 };
 
+const inputTextStyles: { [key: string]: string } = {
+  sm: "text-xs tracking-normal",
+  md: "text-sm tracking-normal",
+  lg: "text-base tracking-wide",
+};
+
 const iconSizeStyles = {
   sm: "text-sm",
   md: "text-base",
   lg: "text-xl",
 };
 
-const inputTextStyles: { [key: string]: string } = {
-  sm: "text-xs tracking-normal",
-  md: "text-sm tracking-normal",
-  lg: "text-base tracking-wide",
+const iconPosition = {
+  edge: { sm: "top-1", md: "top-1.5", lg: "top-2" },
+  inside: { sm: "top-3.5", md: "top-3.5", lg: "top-3.5" },
+  outside: { sm: "top-1", md: "top-1.5", lg: "top-2" },
+};
+const rightIconPosition = {
+  edge: { sm: "top-1", md: "top-1.5", lg: "top-2" },
+  inside: { sm: "top-3", md: "top-3", lg: "top-4" },
+  outside: { sm: "top-1", md: "top-1.5", lg: "top-2" },
+};
+const rightIconMargins = { sm: "!mr-9", md: "!mr-9", lg: "!mr-10" };
+const leftIconPadding = {
+  sm: "pl-8",
+  md: "pl-9",
+  lg: "pl-10",
+};
+const rightIconPadding = {
+  sm: "pr-8 group-[.error]:pr-14",
+  md: "pr-9 group-[.error]:pr-15",
+  lg: "pr-10 group-[.error]:pr-16",
+};
+
+const labelClassByPositionAndSize = {
+  edge: {
+    sm: "translate-x-3 translate-y-1.5 px-1 peer-focus:-translate-y-2 peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-[0.95]",
+    md: "peer-focus:-translate-y-2.25 peer-[:not(:placeholder-shown)]:-translate-y-2.25 translate-x-3 translate-y-2 px-1 peer-focus:scale-[0.85] peer-[:not(:placeholder-shown)]:scale-[0.85]",
+    lg: "translate-x-3 translate-y-3 px-1 peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8]",
+  },
+  inside: {
+    sm: "peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:scale-[0.95]",
+    md: "",
+    lg: "",
+  },
+  outside: {
+    sm: "-top-5 left-1",
+    md: "-top-6 left-1",
+    lg: "-top-7 left-1",
+  },
+};
+const labelClassByPositionAndSizeLeftIcon = {
+  edge: {
+    sm: "translate-x-7 peer-focus:-translate-x-9 peer-[:not(:placeholder-shown)]:-translate-x-9",
+    md: "translate-x-7.5 peer-focus:-translate-x-9 peer-[:not(:placeholder-shown)]:-translate-x-9",
+    lg: "translate-x-9 peer-focus:-translate-x-9 peer-[:not(:placeholder-shown)]:-translate-x-9",
+  },
+  inside: {
+    sm: "left-8",
+    md: "left-8",
+    lg: "left-9",
+  },
+  outside: {
+    sm: "",
+    md: "",
+    lg: "",
+  },
 };
 
 const {
@@ -95,9 +145,10 @@ const {
       leftIcon && (
         <i
           class:list={[
-            "bi absolute text-grey-500",
+            "bi pointer-events-none absolute left-3 z-20 text-grey-500 group-[.error]:text-error-700",
             "bi-" + leftIcon,
             iconSizeStyles[size],
+            iconPosition[labelPosition][size],
           ]}
         />
       )
@@ -109,9 +160,11 @@ const {
       placeholder={label}
       autocomplete={autocomplete}
       class:list={[
-        "peer w-full px-2 text-grey-800 outline-0 transition-all placeholder:text-transparent",
+        "peer w-full text-grey-800 outline-0 transition-all placeholder:text-transparent",
         "relative z-10 flex items-center justify-between rounded-xl border border-grey-300 px-3 transition-all focus:border-brand-500 group-[.error]:border-error-700",
         labelPosition === "inside" && "pt-4",
+        leftIcon && leftIconPadding[size],
+        rightIcon && rightIconPadding[size],
         inputTextStyles[size],
         heightSizeStyles[labelPosition][size],
       ]}
@@ -119,42 +172,17 @@ const {
     {
       label && (
         <label
-          data-position={labelPosition}
-          data-size={size}
           for={id}
           class:list={[
-            "pointer-events-none absolute left-0 top-0 z-10 origin-[0_0] font-sans text-grey-500 transition-transform peer-focus:text-grey-800",
+            "pointer-events-none absolute z-10 origin-[0_0] font-sans text-grey-500 transition-transform peer-focus:text-grey-800",
             "group-[.error]:text-error-700 group-[.error]:peer-focus:text-error-700",
             labelPosition === "inside" &&
-              "left-4 top-4 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-x-2 peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8] motion-reduce:transition-none",
-            labelPosition === "inside" &&
-              size === "sm" &&
-              "peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:scale-[0.95]",
-            labelPosition === "inside" &&
-              leftIcon &&
-              "left-10 peer-focus:left-10 peer-[:not(:placeholder-shown)]:left-10",
-            labelPosition === "outside" && size === "sm" && "-top-5 left-1",
-            labelPosition === "outside" && size === "md" && "-top-5 left-1",
-            labelPosition === "outside" && size === "lg" && "-top-7 left-1",
+              "left-4 top-4 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2.5 peer-focus:scale-[0.8] peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.8] motion-reduce:transition-none",
             labelPosition === "edge" &&
-              "transition-[opacity,_transform] duration-200 ease-linear peer-focus:translate-x-3 peer-focus:bg-white peer-focus:px-1 peer-focus:py-0 peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:-translate-x-1.5 peer-[:not(:placeholder-shown)]:bg-white peer-[:not(:placeholder-shown)]:px-1 motion-reduce:transition-none",
-            labelPosition === "edge" &&
-              size === "sm" &&
-              "px-4 py-1.5 peer-focus:-translate-y-1 peer-focus:scale-[0.95] peer-[:not(:placeholder-shown)]:-translate-y-3.75 peer-[:not(:placeholder-shown)]:scale-[0.95]",
-            labelPosition === "edge" &&
-              size === "md" &&
-              "px-4 py-2.5 peer-focus:-translate-y-2.5 peer-focus:scale-[0.85] peer-[:not(:placeholder-shown)]:-translate-y-2.5 peer-[:not(:placeholder-shown)]:scale-[0.85]",
-            labelPosition === "edge" &&
-              size === "lg" &&
-              "px-4 py-3 peer-focus:-translate-y-2 peer-focus:scale-[0.8] peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:scale-[0.8]",
-            labelPosition === "edge" &&
-              leftIcon &&
-              "left-10 peer-focus:-translate-x-9 peer-[:not(:placeholder-shown)]:-translate-x-9",
-            labelPosition === "edge" &&
-              size === "sm" &&
-              leftIcon &&
-              "left-10 peer-focus:-translate-x-8 peer-[:not(:placeholder-shown)]:-translate-x-8",
-
+              "left-0 top-0 transition-all duration-200 ease-linear peer-focus:translate-x-3 peer-focus:bg-white peer-focus:text-brand-500 peer-[:not(:placeholder-shown)]:translate-x-3 peer-[:not(:placeholder-shown)]:bg-white motion-reduce:transition-none",
+            labelClassByPositionAndSize[labelPosition][size],
+            leftIcon &&
+              labelClassByPositionAndSizeLeftIcon[labelPosition][size],
             inputTextStyles[size],
           ]}
         >
@@ -164,23 +192,20 @@ const {
     }
     <i
       class:list={[
-        "bi bi-exclamation-circle pointer-events-none absolute z-10 mr-2 text-error-700",
+        "bi bi-exclamation-circle pointer-events-none absolute right-0 z-10 mr-4 text-error-700",
         "hidden group-[.error]:block",
-        size === "sm" && "right-2 top-1",
-        size === "md" && "right-2 top-1.5",
-        size === "lg" && "right-2 top-2",
-        labelPosition === "inside" && size === "sm" && "!top-3",
-        labelPosition === "inside" && size === "md" && "!top-3",
-        labelPosition === "inside" && size === "lg" && "!top-4",
         iconSizeStyles[size],
+        rightIconPosition[labelPosition][size],
+        rightIcon && rightIconMargins[size],
       ]}></i>
     {
       rightIcon && (
         <i
           class:list={[
-            "bi text-grey-500",
+            "bi pointer-events-none absolute right-0 z-10 mr-4 text-grey-500 group-[.error]:text-error-700",
             "bi-" + rightIcon,
             iconSizeStyles[size],
+            rightIconPosition[labelPosition][size],
           ]}
         />
       )

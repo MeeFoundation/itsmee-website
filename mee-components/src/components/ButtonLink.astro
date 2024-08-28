@@ -35,14 +35,7 @@ const {
   target={target}
   class:list={[
     "box-border flex h-11 flex-none grow-0 flex-row items-center justify-center gap-2 rounded-xl border border-solid font-semibold z-10",
-    buttonType === "primary" && style == "filled" && "primary-filled",
-    buttonType === "primary" && style == "outlined" && "primary-outlined",
-    buttonType === "secondary" && style == "filled" && "secondary-filled",
-    buttonType === "secondary" && style == "outlined" && "secondary-outlined",
-    buttonType === "tertiary" && style == "filled" && "tertiary-filled",
-    buttonType === "tertiary" && style == "outlined" && "tertiary-outlined",
-    buttonType === "danger" && style == "filled" && "danger-filled",
-    buttonType === "danger" && style == "outlined" && "danger-outlined",
+    `${buttonType}-${style}`,
     disabled &&  "cursor-default opacity-60 pointer-events-none",
     size === "l" && "h-11 px-4 py-2.5 text-base",
     size === "m" && "h-9 px-3.5 py-2 text-sm",

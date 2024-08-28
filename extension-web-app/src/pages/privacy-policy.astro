@@ -1,10 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Footer from "../components/Footer.astro";
+import { Footer } from "mee-components";
 import Header from "../components/Header.astro";
 ---
 
-<Layout title="Mee - Privacy Policy">
+<Layout title="Mee Chrome Browser Extension - Privacy Policy">
   <Header />
   <main class="scrollContainer transform-gpu">
     <section
@@ -14,18 +14,13 @@ import Header from "../components/Header.astro";
         <div class="mx-auto px-5 pb-20 text-base text-gray-800">
           <h1 class="text-4xl font-medium text-primary">Privacy Policy</h1>
           <p class="pt-10">
-            We (The Mee Foundation, Inc., a nonprofit registered in
+            We (The Mee Foundation, Inc., a nonprofit corporation registered in
             Massachusetts, USA) are dedicated to the creation of a
             human-centered user experience for the internet that gives you
             control over your personal information and respects your right to
             privacy. This privacy policy will help you understand what happens
-            to your data when you visit our website{" "}
-            <a
-              class="text-base font-medium text-primary underline"
-              href="https://mee.foundation"
-            >
-              https://mee.foundation
-            </a>.
+            to your data if you choose to install our browser extension, Mee
+            Extension, into your browser.
           </p>
           {
             [
@@ -62,12 +57,9 @@ import Header from "../components/Header.astro";
                 title: "What personal information do we process?",
                 answer: (
                   <span>
-                    With your consent, if you visit our website and subscribe to
-                    our newsletter, we collect and use your contact details
-                    (your first name and your email address) for the purpose of
-                    sending you our newsletter and other updates related to
-                    Foundation activities. We do not share or sell this
-                    information with third parties.
+                    The extension has access to your browsing history. It
+                    processes this locally inside your browser and it never
+                    leaves your computer.
                   </span>
                 ),
               },
@@ -83,13 +75,40 @@ import Header from "../components/Header.astro";
               },
               {
                 title: "How do we process your information?",
-                answer: "We send our newsletter to your email address",
+                answer: (
+                  <span>
+                    Based on your browsing history, which never leaves your
+                    computer, the extension generates a set of anonymous
+                    interest data that is uploaded to a Mee server. This Mee
+                    server stores this interest data and uses it to assign you
+                    anonymously to groups of people with similar interests, but
+                    it never shares them with any other company. Mee-authorized
+                    ad networks tailor the ads you see based on the groups
+                    you’re in.
+                  </span>
+                ),
               },
               {
                 title:
                   "In what situations and with which parties do we share personal information?",
-                answer:
-                  "We never share personal information with any other parties.",
+                answer: (
+                  <span>
+                    We never share personal information with any other parties.
+                    All of your information, including your interest data
+                    remains private–they are never shared or transferred by the
+                    Mee Foundation.
+                  </span>
+                ),
+              },
+              {
+                title: "What information do we share?",
+                answer: (
+                  <span>
+                    Your information, including your interest data remains
+                    private–it is never shared or transferred by the Mee
+                    Foundation.
+                  </span>
+                ),
               },
               {
                 title:
@@ -100,10 +119,24 @@ import Header from "../components/Header.astro";
                 title: "How long do we keep your information?",
                 answer: (
                   <span>
-                    We keep your contact details (your first name and your email
-                    address) until the moment you unsubscribe from our
-                    newsletter. After that, we will delete all of your personal
-                    information.
+                    Mee Extension collects information about what websites you
+                    visit and summaries of the content of these sites. It stores
+                    this data, as well as the anonymous interest data generated
+                    from it, locally within the Mee Extension in your browser
+                    and retains it until you uninstall the extension. The
+                    extension uploads the locally generated interest data to a
+                    Mee server. This interest data does not contain personally
+                    identifying information. It is retained on the Mee server
+                    until you uninstall the extension.
+                  </span>
+                ),
+              },
+              {
+                title: "Can I access, change, or delete my data?",
+                answer: (
+                  <span>
+                    You can delete the locally stored interest data by
+                    uninstalling the extension.
                   </span>
                 ),
               },
@@ -111,9 +144,11 @@ import Header from "../components/Header.astro";
                 title: "Controls for do-not-track features?",
                 answer: (
                   <span>
-                    We do not use cookies or trackers on our website. Your visit
-                    to our website or use of our app does not generate logs of
-                    any personally identifiable information.
+                    Mee Extension does not generate logs of any personally
+                    identifiable information. Mee Extension includes a Global
+                    Privacy Control (GPC) feature that, by default, sends the
+                    GPC opt-out signal to any website you visit. You can change
+                    this default on any website you visit.
                   </span>
                 ),
               },
@@ -122,12 +157,12 @@ import Header from "../components/Header.astro";
                 answer: (
                   <span>
                     Yes, we will update this notice as necessary to stay
-                    compliant with the relevant laws. We may update this privacy
+                    compliant with relevant laws. We may update this privacy
                     notice from time to time. The updated version will be
-                    indicated by an updated “Revised” date and will be effective
-                    as soon as it is accessible. We encourage you to review this
-                    privacy notice frequently to be informed of how we are
-                    protecting your information.
+                    indicated by an updated “Revised” date and it will be
+                    effective as soon as it is accessible. We encourage you to
+                    review this privacy notice frequently to be informed of how
+                    we are protecting your information.
                   </span>
                 ),
               },
@@ -158,10 +193,19 @@ import Header from "../components/Header.astro";
               </div>
             ))
           }
-          <p class="pt-10">Last updated August 18, 2024</p>
+          <p class="pt-10">Last updated August 20, 2024</p>
         </div>
       </div>
-      <Footer mode="dark" />
+      <Footer
+        mode="dark"
+        rightLinks={[
+          {
+            link: "/privacy-policy/",
+            name: "Privacy Policy",
+            target: "_blank",
+          },
+        ]}
+      />
     </section>
   </main>
 </Layout>

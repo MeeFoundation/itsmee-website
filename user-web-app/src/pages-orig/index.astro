@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import LinkButton from "@components/LinkButton.astro";
 import Illustration from "@components/Illustration.astro";
-import Footer from "@components/Footer.astro";
+import { Footer } from "mee-components";
 ---
 
 <Layout title="Welcome to Mee">
@@ -50,8 +50,7 @@ import Footer from "@components/Footer.astro";
       <section
         class="section relative top-0 mb-28 flex w-screen flex-col items-center justify-center"
       >
-        <div class="bg-1 top-30 w-[400vw] sm:top-42 md:top-52.5">
-        </div>
+        <div class="bg-1 top-30 w-[400vw] sm:top-42 md:top-52.5"></div>
         <div class="z-10 w-120 max-w-full sm:w-135 md:w-167">
           <Illustration />
         </div>
@@ -83,7 +82,21 @@ import Footer from "@components/Footer.astro";
           </h3>
         </div>
       </section>
-      <Footer mode="dark" />
+      <Footer
+        mode="dark"
+        rightLinks={[
+          {
+            link: "https://mee.foundation/about/",
+            name: "About Us",
+            target: "_blank",
+          },
+          {
+            link: "https://mee.foundation/privacy-policy/",
+            name: "Privacy Policy",
+            target: "_blank",
+          },
+        ]}
+      />
     </article>
     <iframe height="0" id="singData" src="/sing-data"></iframe>
   </main>
