@@ -1,15 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
-// import Button from "@components/Button.astro";
-import {Button, Loading} from "mee-components";
+import { Button, Loading } from "mee-components";
 import SearchInput from "@components/SearchInput.astro";
 import ArrowDownIcon from "@components/icons/ArrowDownIcon.astro";
 import SettingsIcon from "@components/icons/SettingsIcon.astro";
 import FeedbackIcon from "@components/icons/FeedbackIcon.astro";
 import SignOutIcon from "@components/icons/SignOutIcon.astro";
-import EditIcon from "@components/icons/EditIcon.astro";
-import DeleteIcon from "@components/icons/DeleteIcon.astro";
-// import Loading from "@components/Loading.astro";
 ---
 
 <Layout title="Connections">
@@ -33,7 +29,8 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
             <Button
               id="filter"
               type="button"
-              buttonType="secondary"
+              buttonType="primary"
+              style="outlined"
               className="h-11 w-64">Filter</Button
             >
           </div>
@@ -50,10 +47,10 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
           </div>
           <div id="profile" class="self-end">
             <div
-              class="flex h-11 flex-row items-center rounded-xl border border-solid border-slate-300 bg-slate-50 p-0"
+              class="flex h-11 flex-row items-center rounded-xl border border-solid border-gray-300 bg-gray-50 p-0"
             >
               <div
-                class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-slate-300 px-4 py-2.5"
+                class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-gray-300 px-4 py-2.5"
               >
                 <div
                   class="isolate flex h-6 w-6 flex-col items-center justify-center rounded-none p-0"
@@ -86,38 +83,41 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
               </div>
               <div class="flex flex-col items-center p-0">
                 <p
-                  class="text-center text-sm leading-5 tracking-0.02 text-slate-700"
+                  class="text-center text-sm leading-5 tracking-0.02 text-gray-700"
                 >
                   Current profile
                 </p>
                 <p
-                  class="text-center text-xl font-semibold tracking-0.02 text-slate-900"
+                  class="text-center text-xl font-semibold tracking-0.02 text-gray-900"
                   id="profile-name"
                 >
                 </p>
               </div>
             </div>
             <div>
-              <Button id="edit-profile" type="button" buttonType="secondary"
-                >Edit profile</Button
+              <Button
+                id="edit-profile"
+                type="button"
+                buttonType="primary"
+                style="outlined">Edit profile</Button
               >
             </div>
           </div>
-          <div class="w-full border-b border-slate-300 text-slate-800">
+          <div class="w-full border-b border-gray-300 text-gray-800">
             <div
-              class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-slate-100"
+              class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
             >
               <div><SettingsIcon /></div>Settings
             </div>
             <div
-              class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-slate-100"
+              class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
             >
               <div><FeedbackIcon /></div>Send Feedback
             </div>
           </div>
-          <div class="w-full border-b-slate-300 text-slate-800">
+          <div class="w-full border-b-gray-300 text-gray-800">
             <div
-              class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-slate-100"
+              class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-gray-100"
             >
               <div><SignOutIcon /></div>Sign out
             </div>
@@ -126,15 +126,13 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
       </div>
       <Loading />
       <section
-        class="flex w-full flex-col items-start rounded-xl border border-solid border-slate-300 bg-white text-slate-800"
+        class="flex w-full flex-col items-start rounded-xl border border-solid border-gray-300 bg-white text-gray-800"
         id="connections-containter"
       >
       </section>
     </article>
   </main>
   <div class="hidden">
-    <div id="edit-icon" class="cursor-pointer"><EditIcon /></div>
-    <div id="delete-icon" class="cursor-pointer"><DeleteIcon /></div>
     <div class="flex rotate-90" id="arrow-right">
       <div class="flex rotate-180">
         <ArrowDownIcon />
@@ -219,7 +217,7 @@ import DeleteIcon from "@components/icons/DeleteIcon.astro";
 
         const div = document.createElement("div");
         div.className =
-          "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-slate-200 p-6 last:border-b-0 gap-6 cursor-pointer";
+          "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-grey-200 p-6 last:border-b-0 gap-6 cursor-pointer";
 
         const divName = document.createElement("div");
 

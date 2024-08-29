@@ -1,10 +1,7 @@
 ---
-// import Button from "@components/Button.astro";
-import {Button, Loading} from "mee-components";
+import { Button, Loading } from "mee-components";
 import Layout from "@layouts/Layout.astro";
-// import Loading from "@components/Loading.astro";
 import TextValue from "@components/TextValue.astro";
-import DeleteIcon from "@components/icons/DeleteIcon.astro";
 const { connection } = Astro.params;
 ---
 
@@ -17,13 +14,13 @@ const { connection } = Astro.params;
         class="flex w-full max-w-192 flex-col items-start justify-center gap-4"
       >
         <a
-          class="text-base font-semibold leading-6 text-[#3B5B63]"
+          class="text-base font-semibold leading-6 text-brand-700"
           href="/connections"
           ><span class="mr-2">&larr;</span>Back to connections</a
         >
         <Loading />
         <section
-          class="hidden w-full flex-col items-start gap-6 rounded-xl border border-solid border-slate-300 bg-white p-8 text-slate-800"
+          class="hidden w-full flex-col items-start gap-6 rounded-xl border border-solid border-gray-300 bg-white p-8 text-gray-800"
           id="connection-data"
         >
           <div class="flex w-full flex-col gap-6">
@@ -35,16 +32,25 @@ const { connection } = Astro.params;
               </div>
             </div>
             <div class="mx-auto flex w-full flex-col items-center gap-3">
-              <TextValue id="first_name" label="First name" className="w-full">Name</TextValue>
-              <TextValue id="second_name" label="Second name" className="w-full">Second Name</TextValue>
-              <TextValue id="email" label="Email" className="w-full">test@gmail.com</TextValue>
+              <TextValue id="first_name" label="First name" className="w-full"
+                >Name</TextValue
+              >
+              <TextValue id="second_name" label="Second name" className="w-full"
+                >Second Name</TextValue
+              >
+              <TextValue id="email" label="Email" className="w-full"
+                >test@gmail.com</TextValue
+              >
               <div class="self-end">
                 <Button
                   id="save-connection"
                   type="button"
-                  buttonType="secondary"
-                  className="w-auto px-4">Delete account<span class="ml-4 text-4xl font-thin"><DeleteIcon /></span></Button
-                >
+                  buttonType="primary"
+                  style="outlined"
+                  className="w-auto px-4"
+                  rightIcon="trash text-red-700"
+                  >Delete account
+                </Button>
               </div>
             </div>
 

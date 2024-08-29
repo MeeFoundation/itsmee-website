@@ -1,9 +1,6 @@
 ---
 import AuthForm from "@components/AuthForm.astro";
-// import Button from "@components/Button.astro";
-import { Button } from "mee-components";
-import Input from "@components/Input.astro";
-import LinkButton from "@components/LinkButton.astro";
+import { Button, Input, ButtonLink } from "mee-components";
 import PasswordInput from "@components/PasswordInput.astro";
 import Layout from "@layouts/Layout.astro";
 ---
@@ -27,17 +24,21 @@ import Layout from "@layouts/Layout.astro";
             id="email"
             type="email"
             label="Connect with email address"
-            placeholder="Enter an email"
+            size="lg"
+            labelPosition="inside"
             autocomplete="off"
             required
           />
 
-          <Button id="login-button" type="button">Log in</Button>
-          <LinkButton
+          <Button id="login-button" type="button" className="w-full"
+            >Log in</Button
+          >
+          <ButtonLink
             id="join"
-            buttonType="secondary"
             href="/sign-up"
-            className="border-none">Sign up</LinkButton
+            buttonType="primary"
+            style="outlined"
+            className="w-full border-none">Sign up</ButtonLink
           >
         </AuthForm>
         <AuthForm
@@ -55,33 +56,34 @@ import Layout from "@layouts/Layout.astro";
             required
             showRestorePassword
           />
-          <Button id="connect" type="button">Connect</Button>
+          <Button id="connect" type="button" className="w-full">Connect</Button>
           <Button
             id="go-back"
             type="button"
-            buttonType="secondary"
-            className="border-none">Go back</Button
+            buttonType="primary"
+            style="outlined"
+            className="w-full border-none">Go back</Button
           >
         </AuthForm>
         <div
-          class="w-full rounded-b-2xl border-t border-solid border-t-slate-200 bg-[#F8FAFC] px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-slate-600"
+          class="w-full rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-grey-600"
           id="policy"
         >
           By continuing, you agree to itsmee.org{" "}<a
-            class="cursor-pointer underline"
+            class="cursor-pointer text-brand-700 underline"
             href="https://mee.foundation/privacy-policy/"
             target="_blank">Privacy Policy</a
           >
         </div>
       </div>
       <div
-        class="text-center text-xs leading-4 tracking-0.02 text-[#8E3D12]"
+        class="text-center text-xs leading-4 tracking-0.02 text-yellow-800"
         id="hosted-by"
       >
         Hosted by <a
           href="https://mee.foundation/"
           target="_blank"
-          class="text-[#3B5B63] underline">The Mee Foundation</a
+          class="text-brand-700 underline">The Mee Foundation</a
         >, a non-profit that works on behalf of all Mee users and never shares
         your data with anyone.
       </div>
@@ -89,10 +91,6 @@ import Layout from "@layouts/Layout.astro";
   </main>
 </Layout>
 <style>
-  .button {
-    background: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
-  }
-
   .bg {
     background: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%);
   }
@@ -144,7 +142,7 @@ import Layout from "@layouts/Layout.astro";
     }
   };
   const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
-    window.location.href = "/connections/"
+    window.location.href = "/connections/";
     const passwordData = Array.from(inputs).reduce(
       (acc, input) => ({ ...acc, [input.id]: input.value }),
       { password: "" }

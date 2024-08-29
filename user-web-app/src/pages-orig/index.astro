@@ -1,9 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
-import LinkButton from "@components/LinkButton.astro";
 import Illustration from "@components/Illustration.astro";
-import { Footer } from "mee-components";
+import { Footer, ButtonLink } from "mee-components";
 ---
 
 <Layout title="Welcome to Mee">
@@ -20,7 +19,7 @@ import { Footer } from "mee-components";
         >
           <div class="overflow-hidden">
             <h1
-              class="marker animate-riseIn text-center text-4xl font-semibold text-slate-800 lg:text-7xl lg:tracking-0.02"
+              class="marker animate-riseIn text-center text-4xl font-semibold text-gray-800 lg:text-7xl lg:tracking-0.02"
             >
               Dive into a <mark class="whitespace-nowrap">human-centered</mark>
               user experience
@@ -28,7 +27,7 @@ import { Footer } from "mee-components";
           </div>
           <div class="overflow-hidden">
             <h3
-              class="animate-riseIn text-center text-base tracking-normal text-slate-800 md:text-lg lg:text-xl"
+              class="animate-riseIn text-center text-base tracking-normal text-gray-800 md:text-lg lg:text-xl"
             >
               Less tedium. Your activities remain private. All about your
               interests.
@@ -37,14 +36,15 @@ import { Footer } from "mee-components";
         </div>
       </section>
       <section class="flex w-full flex-wrap items-center justify-center gap-6">
-        <LinkButton id="join" className="!w-40" href="/sign-up"
-          >Join Mee</LinkButton
+        <ButtonLink id="join" className="!w-40" href="/sign-up"
+          >Join Mee</ButtonLink
         >
-        <LinkButton
+        <ButtonLink
           id="login"
-          buttonType="secondary"
+          buttonType="primary"
+          style="outlined"
           className="!w-40"
-          href="/sign-in">Log in</LinkButton
+          href="/sign-in">Log in</ButtonLink
         >
       </section>
       <section
@@ -59,7 +59,7 @@ import { Footer } from "mee-components";
         >
           <div class="overflow-hidden">
             <h2
-              class="marker animate-riseIn text-center text-2xl font-bold text-slate-900 md:text-2xl lg:text-5xl lg:tracking-0.02"
+              class="marker animate-riseIn text-center text-2xl font-bold text-gray-900 md:text-2xl lg:text-5xl lg:tracking-0.02"
             >
               Gravitate towards <mark class="whitespace-nowrap">Mee System</mark
               >
@@ -67,7 +67,7 @@ import { Footer } from "mee-components";
           </div>
           <h3
             id="test-valid"
-            class="text animation-delay-800 max-w-3xl animate-riseIn px-6 text-center text-lg leading-relaxed tracking-0.02 text-black/80 text-slate-800 md:text-xl"
+            class="text animation-delay-800 max-w-3xl animate-riseIn px-6 text-center text-lg leading-relaxed tracking-0.02 text-black/80 text-gray-800 md:text-xl"
           >
             Mee figured out a way to keep the web open, free, and ad supported
             without surveillance. You can exercise your legal right to control
@@ -75,7 +75,7 @@ import { Footer } from "mee-components";
           </h3>
           <h3
             id="test-sing"
-            class="animation-delay-800 max-w-3xl animate-riseIn px-6 text-center text-lg leading-relaxed tracking-0.02 text-black/80 text-slate-800 md:text-xl"
+            class="animation-delay-800 max-w-3xl animate-riseIn px-6 text-center text-lg leading-relaxed tracking-0.02 text-black/80 text-gray-800 md:text-xl"
           >
             Hosted by The Mee Foundation, a non-profit that works on behalf of
             all Mee users and never shares your data with anyone.
