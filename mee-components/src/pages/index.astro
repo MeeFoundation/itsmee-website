@@ -11,6 +11,7 @@ import Notifications from "@components/showcase/Notifications.astro";
 import Alerts from "@components/showcase/Alerts.astro";
 import Loader from "@components/showcase/Loader.astro";
 import Checkboxes from "@components/showcase/Checkboxes.astro";
+import Scrollbars from "@components/showcase/Scrollbars.astro";
 ---
 
 <Layout title="Showcase">
@@ -34,5 +35,6 @@ import Checkboxes from "@components/showcase/Checkboxes.astro";
     >
     <Accordion title="Alerts" icon="app-indicator"><Alerts /></Accordion>
     <Accordion title="Loaders" icon="hourglass-split"><Loader /></Accordion>
+    <Accordion title="Scrollbars" icon="arrows-move" collapse={false}><Scrollbars /></Accordion>
   </main>
 </Layout>

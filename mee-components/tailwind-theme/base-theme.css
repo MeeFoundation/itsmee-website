@@ -117,6 +117,8 @@
     --primary-gradient-hover: linear-gradient(0deg, #374e53 0%, #374e53 100%);
 
     --auth-gradient: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%)
+
+    --color-scrollbar: rgba(2, 6, 23, 0.35);
   }
 
   input:where(:not([type])):focus,
