@@ -1,4 +1,5 @@
 let isFirstScroll = true;
+let isDragging = false;
 
 const throttle = (callback: Function, delay: number) => {
   let isWaiting = false;
@@ -13,8 +14,8 @@ const throttle = (callback: Function, delay: number) => {
 };
 
 const createScrollIndicator = (
-  scrollWrap: Element, 
-  direction: 'vertical' | 'horizontal', 
+  scrollWrap: Element,
+  direction: 'vertical' | 'horizontal',
   scrolledElement: (Window & typeof globalThis) | HTMLDivElement
 ) => {
   const scrollContainer = document.createElement('div');
@@ -40,12 +41,12 @@ const createScrollIndicator = (
     "duration-300",
   );
 
-  direction === 'vertical' 
-  ? scrollIndicator.classList.add('scrollVertical', 'right-0.5', 'w-1.5') 
+  direction === 'vertical'
+  ? scrollIndicator.classList.add('scrollVertical', 'right-0.5', 'w-1.5')
   : scrollIndicator.classList.add('scrollHorizontal', 'bottom-0.5', 'h-1.5');
 
-  direction === 'vertical' 
-  ? scrollContainer.classList.add('right-0.5', 'w-1.5', 'h-full') 
+  direction === 'vertical'
+  ? scrollContainer.classList.add('right-0.5', 'w-1.5', 'h-full')
   : scrollContainer.classList.add('bottom-0.5', 'h-1.5', 'w-full');
 
   scrollContainer.appendChild(scrollIndicator);
@@ -59,7 +60,6 @@ const initScrollListeners = (
   { scrollWrap, scrolledElement, scrollIndicator, scrollContainer, direction }
   : {scrollWrap: Element, scrolledElement: (Window & typeof globalThis) | HTMLDivElement, scrollIndicator: HTMLElement, scrollContainer: HTMLElement, direction: 'vertical' | 'horizontal'}
 ) => {
-  let isDragging = false;
   let startDragY = 0;
   let startDragX = 0;
   let startY = 0;
@@ -69,6 +69,8 @@ const initScrollListeners = (
 
   const dragScrollbar = (e: MouseEvent) => {
     e.preventDefault();
+
+    (isDragging);
     if (isDragging) {
       const scrollContent = scrollWrap.querySelector('.scrollContent') as HTMLElement;
       const contentElement = checkIsBodyParentComponent(scrollWrap) ? scrollWrap : scrollContent;
@@ -130,7 +132,7 @@ const initScrollListeners = (
     scrollIndicator.addEventListener('mousemove', throttledDragScrollbar);
   });
 
-  scrollContainer.addEventListener('mouseup', () => {
+  const mouseUpHandler = () => {
     isDragging = false;
     startDragY = 0;
     startDragX = 0;
@@ -139,8 +141,11 @@ const initScrollListeners = (
     contentTop = 0;
     contentLeft = 0;
 
+    scrollEndHandler(scrollWrap);
     scrollIndicator.removeEventListener('mousemove', throttledDragScrollbar);
-  });
+  };
+
+  document.addEventListener('mouseup', mouseUpHandler);
 
   scrollContainer.addEventListener('mouseenter', () => {
     scrollIndicator.style.boxShadow = '0 0 0 1px rgba(255, 255, 255, 0.35)';
@@ -148,9 +153,12 @@ const initScrollListeners = (
   });
 
   scrollContainer.addEventListener('mouseleave', () => {
-    scrollIndicator.style.boxShadow = 'none';
-    scrollIndicator.style.backgroundColor = 'transparent';
-    scrollIndicator.removeEventListener('mousemove', throttledDragScrollbar);
+    if (!isDragging) {
+      scrollIndicator.style.boxShadow = 'none';
+      scrollIndicator.style.backgroundColor = 'transparent';
+      scrollIndicator.removeEventListener('mousemove', throttledDragScrollbar);
+    } else {
+    }
   });
 };
 
@@ -201,18 +209,20 @@ const setWidth = (scrollWrap: Element, scrolledElement: (Window & typeof globalT
 const checkIsBodyParentComponent = (scrollWrap: Element) => scrollWrap.parentElement?.tagName === 'BODY';
 
 const scrollEndHandler = (scrollWrap: Element) => {
+  if (!isDragging) {
     setTimeout(() => {
       const scrollVerticalIndicator = scrollWrap.querySelector('.scrollVertical') as HTMLElement;
       const scrollHorizontalIndicator = scrollWrap.querySelector('.scrollHorizontal') as HTMLElement;
 
       if (scrollVerticalIndicator || scrollHorizontalIndicator) {
-      scrollVerticalIndicator.style.boxShadow = 'none';
-      scrollHorizontalIndicator.style.boxShadow = 'none';
+        scrollVerticalIndicator.style.boxShadow = 'none';
+        scrollHorizontalIndicator.style.boxShadow = 'none';
 
-      scrollVerticalIndicator.style.backgroundColor = 'transparent';
-      scrollHorizontalIndicator.style.backgroundColor = 'transparent';
+        scrollVerticalIndicator.style.backgroundColor = 'transparent';
+        scrollHorizontalIndicator.style.backgroundColor = 'transparent';
       }
     }, 400);
+  }
 };
 
 const scrollEndPolifill = (scrollWrap: Element) => {
@@ -353,9 +363,9 @@ const initScroll = () => {
 
      scrolledElement.addEventListener('resize', resizeHandler.bind(null, scrollWrap, scrolledElement ));
 
-     window.addEventListener('beforeunload', 
+     window.addEventListener('beforeunload',
        () => {
-         resetBeforeUnload.bind(null, 
+         resetBeforeUnload.bind(null,
           scrollWrap,
           scrolledElement,
          );
