@@ -1,28 +1,26 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Button, Loading } from "mee-components";
-import SearchInput from "@components/SearchInput.astro";
-import ArrowDownIcon from "@components/icons/ArrowDownIcon.astro";
-import SettingsIcon from "@components/icons/SettingsIcon.astro";
-import FeedbackIcon from "@components/icons/FeedbackIcon.astro";
-import SignOutIcon from "@components/icons/SignOutIcon.astro";
+import { Button, Loading, Input } from "mee-components";
 ---
 
 <Layout title="Connections">
   <main class="flex h-full min-h-screen p-6">
     <article
-      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-center gap-6"
+      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-start gap-6"
     >
       <div
-        class="flex w-full flex-col flex-wrap justify-between gap-6 text-base font-semibold lg:flex-row"
+        class="flex w-full flex-col flex-wrap items-center justify-between gap-6 text-base font-semibold lg:flex-row"
       >
-        <div class="order-2 flex flex-wrap gap-4 lg:order-none">
-          <SearchInput
-            className="max-w-80"
+        <div
+          class="order-2 flex flex-wrap items-center gap-4 self-start lg:order-none"
+        >
+          <Input
             id="search"
-            label="Search"
-            placeholder="Search"
+            label="Search apps"
+            className="!w-80"
+            labelPosition="inside"
             autocomplete="off"
+            leftIcon="search"
             required
           />
           <div>
@@ -31,18 +29,21 @@ import SignOutIcon from "@components/icons/SignOutIcon.astro";
               type="button"
               buttonType="primary"
               style="outlined"
-              className="h-11 w-64">Filter</Button
+              size="l"
+              className="w-64">Filter</Button
             >
           </div>
         </div>
         <div
-          class="lex-row order-1 float-right flex flex-shrink-0 justify-between gap-4 lg:order-none"
+          class="order-1 float-right flex w-full flex-shrink-0 flex-row justify-between gap-4 lg:order-none lg:w-auto"
         >
           <div class="">
-            <Button id="add-connection" type="button" className="w-auto px-4"
-              ><span class="text-4xl font-thin">+</span><span
-                class="ml-4 hidden sm:block">Add connection</span
-              ></Button
+            <Button
+              id="add-connection"
+              type="button"
+              className="w-auto px-4"
+              leftIcon="plus-lg text-xl"
+              ><span class="hidden sm:block">Add connection</span></Button
             >
           </div>
           <div id="profile" class="self-end">
@@ -50,7 +51,7 @@ import SignOutIcon from "@components/icons/SignOutIcon.astro";
               class="flex h-11 flex-row items-center rounded-xl border border-solid border-gray-300 bg-gray-50 p-0"
             >
               <div
-                class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-gray-300 px-4 py-2.5"
+                class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-gray-300 px-4"
               >
                 <div
                   class="isolate flex h-6 w-6 flex-col items-center justify-center rounded-none p-0"
@@ -60,20 +61,20 @@ import SignOutIcon from "@components/icons/SignOutIcon.astro";
                 <p>Profile</p>
               </div>
               <div
-                class="flex h-full cursor-pointer flex-row items-center justify-center px-4 py-2.5 transition-all data-[active]:rotate-180"
+                class="flex h-full cursor-pointer flex-row items-center justify-center px-4 transition-all data-[active]:rotate-180"
                 id="open-profile-modal"
               >
-                <ArrowDownIcon />
+                <i class="bi bi-chevron-down text-2xl"></i>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="absolute right-4 top-20 z-20 hidden flex-col items-start rounded-lg border border-solid border-[#BFC6CF] bg-white p-0 shadow-[0px_2px_25px_-5px_rgba(0,0,0,0.07),0px_25px_21px_-5px_rgba(0,0,0,0.04)]"
+          class="absolute right-4 top-20 z-100 hidden flex-col items-start rounded-lg border border-solid border-brand-300 bg-white p-0 shadow-2"
           id="profile-modal"
         >
           <div
-            class="flex flex-col items-center gap-4 rounded-t-lg border-b border-[#C3DCDE] bg-[#F3F8F8] px-6 py-8"
+            class="flex flex-col items-center gap-4 rounded-t-lg border-b border-brand-300 bg-brand-50 px-6 py-8"
           >
             <div class="flex flex-col items-center gap-2 p-0">
               <div
@@ -107,19 +108,19 @@ import SignOutIcon from "@components/icons/SignOutIcon.astro";
             <div
               class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
             >
-              <div><SettingsIcon /></div>Settings
+              <div><i class="bi bi-gear text-xl"></i></div>Settings
             </div>
             <div
               class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
             >
-              <div><FeedbackIcon /></div>Send Feedback
+              <div><i class="bi bi-send text-xl"></i></div>Send Feedback
             </div>
           </div>
           <div class="w-full border-b-gray-300 text-gray-800">
             <div
               class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-gray-100"
             >
-              <div><SignOutIcon /></div>Sign out
+              <div><i class="bi bi-box-arrow-left text-xl"></i></div>Sign out
             </div>
           </div>
         </div>
@@ -135,7 +136,7 @@ import SignOutIcon from "@components/icons/SignOutIcon.astro";
   <div class="hidden">
     <div class="flex rotate-90" id="arrow-right">
       <div class="flex rotate-180">
-        <ArrowDownIcon />
+        <i class="bi bi-chevron-down text-2xl"></i>
       </div>
     </div>
   </div>

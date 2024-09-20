@@ -15,19 +15,20 @@ import Checkboxes from "@components/showcase/Checkboxes.astro";
 
 <Layout title="Showcase">
   <main>
-    <Accordion title="Buttons" icon="menu-button-wide" collapse={false}>
+    <Accordion title="Buttons" icon="menu-button-wide">
       <Buttons />
     </Accordion>
     <Accordion title="Shadows" icon="shadows">
       <Shadows />
     </Accordion>
-    <Accordion title="Password Inputs" icon="eye-slash"
+    <Accordion title="Password Inputs" icon="eye-slash" collapse={false}
       ><PasswordInputs /></Accordion
     >
     <Accordion title="Inputs" icon="input-cursor-text"><Inputs /></Accordion>
     <Accordion title="Switches" icon="toggle-on"><Switches /></Accordion>
     <Accordion title="Radio Inputs" icon="ui-radios"><RadioInputs /></Accordion>
-    <Accordion title="Checkboxes" icon="check2-square"><Checkboxes /></Accordion>
+    <Accordion title="Checkboxes" icon="check2-square"><Checkboxes /></Accordion
+    >
     <Accordion title="Notifications" icon="app-indicator"
       ><Notifications /></Accordion
     >

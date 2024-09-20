@@ -1,9 +1,6 @@
 ---
-import {Button, Switch} from "mee-components"
-import Input from "@components/Input.astro";
+import { Button, Switch, Loading, Input } from "mee-components";
 import Layout from "@layouts/Layout.astro";
-import Loading from "@components/Loading.astro";
-import EditIcon from "@components/icons/EditIcon.astro";
 const { provider_id, agent_service } = Astro.params;
 ---
 
@@ -14,11 +11,11 @@ const { provider_id, agent_service } = Astro.params;
     id="main"
   >
     <article
-      class="flex h-full w-full flex-1 flex-col items-center justify-center"
+      class="flex h-full w-full flex-1 flex-col items-center justify-start"
     >
       <div class="flex w-full flex-col items-start justify-center gap-4">
         <a
-          class="text-base font-semibold leading-6 text-[#3B5B63]"
+          class="text-base font-semibold leading-6 text-brand-700"
           href={`/providers/${provider_id}`}
           ><span class="mr-2">&larr;</span>Back to provider</a
         >
@@ -49,7 +46,8 @@ const { provider_id, agent_service } = Astro.params;
                 id="agent_service_url"
                 type="text"
                 label="Agent Service Url"
-                placeholder="Agent Service Url"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -58,7 +56,8 @@ const { provider_id, agent_service } = Astro.params;
                 id="agent_service_id"
                 type="text"
                 label="Agent Service Id"
-                placeholder="Agent Service Id"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -73,7 +72,9 @@ const { provider_id, agent_service } = Astro.params;
       </div>
     </article>
     <div class="hidden">
-      <div id="edit-icon" class="cursor-pointer"><EditIcon /></div>
+      <div id="edit-icon" class="cursor-pointer">
+        <i class="bi bi-pencil text-2xl text-brand-700"></i>
+      </div>
     </div>
   </main>
 </Layout>

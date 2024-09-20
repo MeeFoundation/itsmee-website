@@ -1,8 +1,6 @@
 ---
 import { Button, Input, Loading } from "mee-components";
-// import Input from "@components/Input.astro";
 import Layout from "@layouts/Layout.astro";
-// import Loading from "@components/Loading.astro";
 const { id } = Astro.params;
 ---
 
@@ -11,7 +9,7 @@ const { id } = Astro.params;
     <article class="flex h-full w-full flex-1 flex-col">
       <div class="flex w-full flex-col items-start justify-center gap-4">
         <a
-          class="text-base font-semibold leading-6 text-[#3B5B63]"
+          class="text-base font-semibold leading-6 text-brand-700"
           href="/users"><span class="mr-2">&larr;</span>Back to users</a
         >
         <Loading />
@@ -36,7 +34,8 @@ const { id } = Astro.params;
                 labelPosition="inside"
                 type="email"
                 label="Email"
-                placeholder="Email"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -47,7 +46,8 @@ const { id } = Astro.params;
                 label="Phone"
                 size="lg"
                 labelPosition="inside"
-                placeholder="Phone"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />

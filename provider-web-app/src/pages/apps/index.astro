@@ -1,38 +1,37 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Button } from "mee-components";
+import { Button, Input } from "mee-components";
 import Header from "@components/Header.astro";
-// import Button from "@components/Button.astro";
-import LinkIcon from "@components/icons/LinkIcon.astro";
-import EditIcon from "@components/icons/EditIcon.astro";
-import DeleteIcon from "@components/icons/DeleteIcon.astro";
-import SearchInput from "@components/SearchInput.astro";
 ---
 
 <Layout title="Apps">
   <Header />
   <main class="flex h-full min-h-screen pt-24">
     <article
-      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-center gap-6 p-6"
+      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-start gap-6 p-6"
     >
       <div
         class="flex w-full flex-wrap justify-between gap-6 text-base font-semibold"
       >
         <div class="flex flex-wrap gap-4">
-          <SearchInput
-            className="w-80"
+          <Input
             id="search"
             label="Search apps"
-            placeholder="Search apps"
+            size="md"
+            className="!w-80"
+            labelPosition="inside"
             autocomplete="off"
+            leftIcon="search"
             required
           />
           <div>
             <Button
               id="filter"
               type="button"
-              buttonType="secondary"
-              className="h-11 w-64">Filter</Button
+              buttonType="primary"
+              style="outlined"
+              size="l"
+              className="h-12 w-64">Filter</Button
             >
           </div>
         </div>
@@ -43,16 +42,22 @@ import SearchInput from "@components/SearchInput.astro";
         </div>
       </div>
       <section
-        class="flex w-full flex-col items-start rounded-xl border border-solid border-slate-300 bg-white text-slate-800"
+        class="flex w-full flex-col items-start rounded-xl border border-solid border-gray-300 bg-white text-gray-800"
         id="apps-containter"
       >
       </section>
     </article>
   </main>
   <div class="hidden">
-    <div id="edit-icon" class="cursor-pointer"><EditIcon /></div>
-    <div id="delete-icon" class="cursor-pointer"><DeleteIcon /></div>
-    <div id="link-icon" class="cursor-pointer"><LinkIcon /></div>
+    <div id="edit-icon" class="cursor-pointer">
+      <i class="bi bi-pencil text-2xl text-brand-700"></i>
+    </div>
+    <div id="delete-icon" class="cursor-pointer">
+      <i class="bi bi-trash text-2xl text-red-700"></i>
+    </div>
+    <div id="link-icon" class="cursor-pointer">
+      <i class="bi bi-link-45deg text-lg text-gray-800"></i>
+    </div>
   </div>
 </Layout>
 
@@ -78,7 +83,7 @@ import SearchInput from "@components/SearchInput.astro";
         const appUrl = "/apps/" + i;
         const div = document.createElement("div");
         div.className =
-          "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-slate-200 p-6 last:border-b-0";
+          "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-gray-200 p-6 last:border-b-0";
 
         const divName = document.createElement("div");
 

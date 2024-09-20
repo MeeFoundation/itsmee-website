@@ -1,16 +1,14 @@
 ---
-import Button from "./Button.astro";
+import { Button } from "mee-components";
 import MeeGuy from "./MeeGuy.astro";
 import Modal from "./Modal.astro";
 ---
 
 <>
   <Modal id="license-modal">
-    <div
-      class="z-30 flex w-[1024px] flex-col rounded-xl bg-white text-slate-800"
-    >
+    <div class="z-30 flex w-256 flex-col rounded-xl bg-white text-gray-800">
       <div
-        class="border-b border-solid border-b-slate-200 p-4 text-xl font-medium"
+        class="border-b border-solid border-b-gray-200 p-4 text-xl font-medium"
       >
         Welcome to Mee!
       </div>
@@ -20,12 +18,10 @@ import Modal from "./Modal.astro";
           agreement
         </div>
         <div
-          class="isolate flex h-[470px] w-full flex-col items-start gap-10 overflow-y-scroll rounded-xl border border-solid border-[#4F868E] p-6 text-xl shadow-[0px_0px_0px_3px_rgba(79,134,142,0.2)]"
+          class="isolate flex h-120 w-full flex-col items-start gap-10 overflow-y-scroll rounded-xl border border-solid border-brand-500 p-6 text-xl shadow-button"
         >
           <div>
-            <div class="text-4xl font-semibold">
-              Mee Data License
-            </div>
+            <div class="text-4xl font-semibold">Mee Data License</div>
             <div class="text-3xl font-semibold leading-10">
               Legal Agreement for Businesses
             </div>
@@ -79,26 +75,31 @@ import Modal from "./Modal.astro";
               >I agree to the Mee Data License</label
             >
           </div>
-          <div class="ml-5 text-sm leading-5 text-slate-500">
+          <div class="ml-5 text-sm leading-5 text-gray-500">
             By agreeing you bind to it and agree to change your apps to support
             Mee.
           </div>
         </div>
       </div>
       <div
-        class="relative flex w-full flex-col flex-wrap items-center justify-center gap-4 rounded-b-xl border-t border-solid border-t-slate-200 bg-slate-50 p-4 md:flex-row"
+        class="relative flex w-full flex-col flex-wrap items-center justify-center gap-4 rounded-b-xl border-t border-solid border-t-gray-200 bg-gray-50 p-4 md:flex-row"
       >
         <div class="flex-1 flex-shrink">
-          <Button id="decline" type="button" buttonType="secondary"
-            >Decline agreement</Button
+          <Button
+            id="decline"
+            type="button"
+            buttonType="primary"
+            style="outlined"
+            className="w-full">Decline agreement</Button
           >
         </div>
         <div class="flex-1 flex-shrink">
           <Button
             id="confirm"
             type="button"
-            buttonType="secondary"
-            className="w-auto">Confirm agreement</Button
+            buttonType="primary"
+            style="outlined"
+            className="w-full">Confirm agreement</Button
           >
         </div>
       </div>
@@ -106,7 +107,7 @@ import Modal from "./Modal.astro";
   </Modal>
   <Modal id="successfully-agreed-modal">
     <div
-      class="z-30 flex w-125 flex-col gap-2.5 rounded-xl bg-white text-slate-800"
+      class="z-30 flex w-125 flex-col gap-2.5 rounded-xl bg-white text-gray-800"
     >
       <div class="flex h-full w-full flex-1 items-center justify-center p-4">
         <div
@@ -115,12 +116,12 @@ import Modal from "./Modal.astro";
           <div><MeeGuy /></div>
           <div class="flex flex-col gap-2">
             <div
-              class="text-center text-4xl font-semibold tracking-0.02 text-slate-800"
+              class="text-center text-4xl font-semibold tracking-0.02 text-gray-800"
             >
               Successfully agreed to the Mee Data License
             </div>
             <div
-              class="max-w-93.5 text-center text-lg font-normal leading-7 tracking-0.02 text-slate-800"
+              class="max-w-93.5 text-center text-lg font-normal leading-7 tracking-0.02 text-gray-800"
             >
               You can now continue with adding your apps to the Mee platform to
               allow your users to connect privately and secure.
@@ -129,9 +130,9 @@ import Modal from "./Modal.astro";
         </div>
       </div>
       <div
-        class="relative flex w-full flex-row items-center justify-center gap-4 rounded-b-xl border-t border-solid border-t-slate-200 bg-slate-50 p-4"
+        class="relative flex w-full flex-row items-center justify-center gap-4 rounded-b-xl border-t border-solid border-t-gray-200 bg-gray-50 p-4"
       >
-        <Button id="continue" type="button">Continue</Button>
+        <Button id="continue" type="button" className="w-full">Continue</Button>
       </div>
     </div>
   </Modal>

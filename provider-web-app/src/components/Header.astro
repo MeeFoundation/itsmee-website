@@ -1,10 +1,5 @@
 ---
-import Button from "./Button.astro";
-import Logo from "./Logo.astro";
-import ArrowDownIcon from "@components/icons/ArrowDownIcon.astro";
-import SettingsIcon from "@components/icons/SettingsIcon.astro";
-import FeedbackIcon from "@components/icons/FeedbackIcon.astro";
-import SignOutIcon from "@components/icons/SignOutIcon.astro";
+import { Button, MeeLogo } from "mee-components";
 
 export interface Props {
   activePage?: string;
@@ -15,7 +10,7 @@ const { activePage, logoColor = "blue" } = Astro.props;
 ---
 
 <header id="header" class="fixed top-0 z-10 w-screen">
-  <nav class="h-23 border-b border-solid border-b-slate-200 bg-white">
+  <nav class="h-23 border-b border-solid border-b-gray-200 bg-white">
     <div
       class="mx-auto flex h-full max-w-480 flex-wrap items-center justify-between px-6"
     >
@@ -23,27 +18,31 @@ const { activePage, logoColor = "blue" } = Astro.props;
         href="/"
         id="mainLogo"
         class:list={[
-          "logo block h-5 w-17.25 pt-1.5 md:h-6 md:w-[81px] md:pt-0",
+          "logo block h-5 w-17.25 pt-1.5 md:h-6 md:w-20 md:pt-0",
           { "logo--contrast": logoColor === "blue" },
         ]}
       >
-        <Logo />
+        <MeeLogo />
       </a>
       <div id="profile" class="hidden">
         <div
-          class="flex h-11 flex-row items-center rounded-xl border border-solid border-slate-300 bg-slate-50 p-0"
+          class="flex h-11 flex-row items-center rounded-xl border border-solid border-gray-300 bg-gray-50 p-0"
         >
           <div
-            class="flex h-full flex-row items-center justify-center border-r border-solid border-slate-300 px-4 py-2.5"
+            class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-gray-300 px-4 py-2.5"
           >
-            <div></div>
+            <div
+              class="isolate flex h-6 w-6 flex-col items-center justify-center rounded-none p-0"
+              id="profile-image-preview"
+            >
+            </div>
             <p>Profile</p>
           </div>
           <div
             class="flex h-full cursor-pointer flex-row items-center justify-center px-4 py-2.5 transition-all data-[active]:rotate-180"
             id="open-profile-modal"
           >
-            <ArrowDownIcon />
+            <i class="bi bi-chevron-down text-2xl"></i>
           </div>
         </div>
       </div>
@@ -99,11 +98,11 @@ const { activePage, logoColor = "blue" } = Astro.props;
     </div>
   </nav>
   <div
-    class="absolute right-4 top-20 hidden flex-col items-start rounded-lg border border-solid border-[#BFC6CF] bg-white p-0 shadow-[0px_2px_25px_-5px_rgba(0,0,0,0.07),0px_25px_21px_-5px_rgba(0,0,0,0.04)]"
+    class="absolute right-4 top-20 z-100 hidden flex-col items-start rounded-lg border border-solid border-brand-300 bg-white p-0 shadow-2"
     id="profile-modal"
   >
     <div
-      class="flex flex-col items-center gap-4 rounded-t-lg border-b border-[#C3DCDE] bg-[#F3F8F8] px-6 py-8"
+      class="flex flex-col items-center gap-4 rounded-t-lg border-b border-brand-300 bg-brand-50 px-6 py-8"
     >
       <div class="flex flex-col items-center gap-2 p-0">
         <div
@@ -112,41 +111,42 @@ const { activePage, logoColor = "blue" } = Astro.props;
         >
         </div>
         <div class="flex flex-col items-center p-0">
-          <p
-            class="text-center text-sm leading-5 tracking-0.02 text-slate-700"
-          >
+          <p class="text-center text-sm leading-5 tracking-0.02 text-gray-700">
             Current profile
           </p>
           <p
-            class="text-center text-xl font-semibold tracking-0.02 text-slate-900"
+            class="text-center text-xl font-semibold tracking-0.02 text-gray-900"
             id="profile-name"
           >
           </p>
         </div>
       </div>
       <div>
-        <Button id="edit-profile" type="button" buttonType="secondary"
-          >Edit profile</Button
+        <Button
+          id="edit-profile"
+          type="button"
+          buttonType="primary"
+          style="outlined">Edit profile</Button
         >
       </div>
     </div>
-    <div class="w-full border-b border-slate-300 text-slate-800">
+    <div class="w-full border-b border-gray-300 text-gray-800">
       <div
-        class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-slate-100"
+        class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
       >
-        <div><SettingsIcon /></div>Settings
+        <div><i class="bi bi-gear text-xl"></i></div>Settings
       </div>
       <div
-        class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-slate-100"
+        class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
       >
-        <div><FeedbackIcon /></div>Send Feedback
+        <div><i class="bi bi-send text-xl"></i></div>Send Feedback
       </div>
     </div>
-    <div class="w-full border-b-slate-300 text-slate-800">
+    <div class="w-full border-b-gray-300 text-gray-800">
       <div
-        class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-slate-100"
+        class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-gray-100"
       >
-        <div><SignOutIcon /></div>Sign out
+        <div><i class="bi bi-box-arrow-left text-xl"></i></div>Sign out
       </div>
     </div>
   </div>
@@ -158,6 +158,7 @@ const { activePage, logoColor = "blue" } = Astro.props;
   let isProfileModalOpened = false;
   const profileModal = document.getElementById("profile-modal");
   const profileName = document.getElementById("profile-name");
+  const profileImagePreview = document.getElementById("profile-image-preview");
   const profileImage = document.getElementById("profile-image");
   const openProfileModal = document.getElementById("open-profile-modal");
   const menu = document.getElementById("menu");
@@ -203,6 +204,12 @@ const { activePage, logoColor = "blue" } = Astro.props;
     menu?.classList.add("hidden");
     if (profileName) {
       profileName.innerHTML = randomUser.email;
+    }
+    if (profileImagePreview) {
+      const image = document.createElement("img");
+      image.src = randomUser.picture.medium;
+      image.className = "rounded-full";
+      profileImagePreview.append(image);
     }
     if (profileImage) {
       const image = document.createElement("img");

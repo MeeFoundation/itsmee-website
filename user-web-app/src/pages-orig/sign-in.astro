@@ -1,17 +1,18 @@
 ---
-import AuthForm from "@components/AuthForm.astro";
-import { Button, Input, ButtonLink } from "mee-components";
+import { Button, Input, ButtonLink, AuthForm } from "mee-components";
 import PasswordInput from "@components/PasswordInput.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Sign In">
-  <main class="bg flex h-screen w-screen flex-col items-center justify-center">
+  <main
+    class="flex h-screen w-screen flex-col items-center justify-center bg-auth-gradient"
+  >
     <div
       class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6"
     >
       <div
-        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-[0px_2px_25px_-5px_rgba(0,0,0,0.07),0px_25px_21px_-5px_rgba(0,0,0,0.04)] md:w-130"
+        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130"
       >
         <AuthForm
           id="first-form"
@@ -90,11 +91,6 @@ import Layout from "@layouts/Layout.astro";
     </div>
   </main>
 </Layout>
-<style>
-  .bg {
-    background: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%);
-  }
-</style>
 
 <script>
   import config from "@config";
