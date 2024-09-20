@@ -1,24 +1,22 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
-// import Button from "@components/Button.astro";
-import { Button } from "mee-components";
-import Input from "@components/Input.astro";
+import { Button, Input } from "mee-components";
 ---
 
 <Layout title="Create App">
   <Header />
   <main class="flex h-full min-h-screen pt-28">
     <article
-      class="flex h-full w-full flex-1 flex-col items-center justify-center"
+      class="flex h-full w-full flex-1 flex-col items-center justify-start"
     >
       <div class="flex w-192 flex-col items-start justify-center gap-4">
         <a
-          class="text-base font-semibold leading-6 text-[#3B5B63]"
+          class="text-brand-700 text-base font-semibold leading-6"
           href="/new-app"><span class="mr-2">&larr;</span>Back to apps</a
         >
         <section
-          class="flex w-full flex-col items-start gap-6 rounded-xl border border-solid border-slate-300 bg-white p-8 text-slate-800"
+          class="flex w-full flex-col items-start gap-6 rounded-xl border border-solid border-gray-300 bg-white p-8 text-gray-800"
         >
           <div class="flex w-full flex-col gap-6">
             <div class="flex flex-col gap-2">
@@ -36,7 +34,8 @@ import Input from "@components/Input.astro";
                 id="name"
                 type="text"
                 label="App name"
-                placeholder="App name"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -45,7 +44,8 @@ import Input from "@components/Input.astro";
                 id="app-url"
                 type="text"
                 label="App URL"
-                placeholder="App URL"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -54,7 +54,8 @@ import Input from "@components/Input.astro";
                 id="cloud-node-url"
                 type="text"
                 label="Cloud node URL"
-                placeholder="Cloud node URL"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -63,15 +64,14 @@ import Input from "@components/Input.astro";
                 id="cloud-node-id"
                 type="text"
                 label="Cloud node ID"
-                placeholder="Cloud node ID"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
               <div class="self-end">
-                <Button
-                  id="save-app"
-                  type="button"
-                  className="w-auto px-4">Save app</Button
+                <Button id="save-app" type="button" className="w-auto px-4"
+                  >Save app</Button
                 >
               </div>
             </form>

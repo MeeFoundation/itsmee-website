@@ -1,26 +1,23 @@
 ---
-// import Button from "@components/Button.astro";
-import { Button, Loading } from "mee-components";
-import Input from "@components/Input.astro";
+import { Button, Loading, Input } from "mee-components";
 import Layout from "@layouts/Layout.astro";
-// import Loading from "@components/Loading.astro";
 import Header from "@components/Header.astro";
 const { app } = Astro.params;
 ---
 
 <Layout title="Create App">
   <Header />
-  <main class="flex h-full min-h-screen pt-28" data-id={app} id="main">
+  <main class="flex h-full min-h-screen pt-24" data-id={app} id="main">
     <article
-      class="flex h-full w-full flex-1 flex-col items-center justify-center"
+      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-start gap-6 p-6"
     >
       <div class="flex w-192 flex-col items-start justify-center gap-4">
-        <a class="text-base font-semibold leading-6 text-[#3B5B63]" href="/apps"
+        <a class="text-base font-semibold leading-6 text-brand-700" href="/apps"
           ><span class="mr-2">&larr;</span>Back to apps</a
         >
         <Loading />
         <section
-          class="hidden w-full flex-col items-start gap-6 rounded-xl border border-solid border-slate-300 bg-white p-8 text-slate-800"
+          class="hidden w-full flex-col items-start gap-6 rounded-xl border border-solid border-gray-300 bg-white p-8 text-gray-800"
           id="app-data"
         >
           <div class="flex w-full flex-col gap-6">
@@ -39,7 +36,8 @@ const { app } = Astro.params;
                 id="name"
                 type="text"
                 label="Name"
-                placeholder="Name"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -48,7 +46,8 @@ const { app } = Astro.params;
                 id="url"
                 type="text"
                 label="Url"
-                placeholder="Url"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -57,7 +56,8 @@ const { app } = Astro.params;
                 id="agent_service_url"
                 type="text"
                 label="Agent Service Url"
-                placeholder="Agent Service Url"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -66,15 +66,14 @@ const { app } = Astro.params;
                 id="agent_service_id"
                 type="text"
                 label="Agent Service Id"
-                placeholder="Agent Service Id"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
               <div class="self-end">
-                <Button
-                  id="save-app"
-                  type="button"
-                  className="w-auto px-4">Save app</Button
+                <Button id="save-app" type="button" className="w-auto px-4"
+                  >Save app</Button
                 >
               </div>
             </form>

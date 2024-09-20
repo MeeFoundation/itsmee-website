@@ -22,11 +22,17 @@ import Layout from "@layouts/Layout.astro";
       console.log("addEventListener", message);
       if (message.method === "sing") {
         const result = await signMessage(message.data);
-        window.parent.postMessage({ signature: result, method: "sing" }, origin);
+        window.parent.postMessage(
+          { signature: result, method: "sing" },
+          origin
+        );
       }
       if (message.method === "validate" && message.signature) {
         const result = await verifyMessage(message.data, message.signature);
-        window.parent.postMessage({ valid: result, method: "validate" }, origin);
+        window.parent.postMessage(
+          { valid: result, method: "validate" },
+          origin
+        );
       }
     },
     false

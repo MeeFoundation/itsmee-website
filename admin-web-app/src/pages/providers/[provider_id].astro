@@ -1,9 +1,6 @@
 ---
-import {Button, Switch} from "mee-components"
-import Input from "@components/Input.astro";
+import { Button, Switch, Loading, Input } from "mee-components";
 import Layout from "@layouts/Layout.astro";
-import Loading from "@components/Loading.astro";
-import EditIcon from "@components/icons/EditIcon.astro";
 const { provider_id } = Astro.params;
 ---
 
@@ -18,7 +15,7 @@ const { provider_id } = Astro.params;
     >
       <div class="flex w-full flex-col items-start justify-center gap-4">
         <a
-          class="text-base font-semibold leading-6 text-[#3B5B63]"
+          class="text-base font-semibold leading-6 text-brand-700"
           href="/providers"><span class="mr-2">&larr;</span>Back to providers</a
         >
         <Loading />
@@ -46,7 +43,8 @@ const { provider_id } = Astro.params;
                 id="name"
                 type="text"
                 label="Name"
-                placeholder="Name"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -55,7 +53,8 @@ const { provider_id } = Astro.params;
                 id="email"
                 type="email"
                 label="Email"
-                placeholder="Email"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -64,7 +63,8 @@ const { provider_id } = Astro.params;
                 id="phone"
                 type="text"
                 label="Phone"
-                placeholder="Phone"
+                size="lg"
+                labelPosition="inside"
                 autocomplete="off"
                 required
               />
@@ -165,7 +165,9 @@ const { provider_id } = Astro.params;
       </div>
     </article>
     <div class="hidden">
-      <div id="edit-icon" class="cursor-pointer"><EditIcon /></div>
+      <div id="edit-icon" class="cursor-pointer">
+        <i class="bi bi-pencil text-2xl text-brand-700"></i>
+      </div>
     </div>
   </main>
 </Layout>

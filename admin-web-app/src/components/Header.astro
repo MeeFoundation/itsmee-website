@@ -1,5 +1,5 @@
 ---
-import Logo from "./Logo.astro";
+import { MeeLogo } from "mee-components";
 
 export interface Props {
   activePage?: string;
@@ -22,7 +22,7 @@ const { activePage, logoColor = 'blue' } = Astro.props;
           { "logo--contrast": logoColor === "blue" },
         ]}
       >
-        <Logo />
+        <MeeLogo />
       </a>
       <button
         id="menu-toggle"

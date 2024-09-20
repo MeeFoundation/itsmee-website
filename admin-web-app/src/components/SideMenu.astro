@@ -1,5 +1,5 @@
 ---
-import Logo from "./Logo.astro";
+import { MeeLogo } from "mee-components";
 
 export interface Props {
   logoColor?: "blue" | "white";
@@ -21,7 +21,7 @@ const { logoColor = "blue", activePage } = Astro.props;
         { "logo--contrast": logoColor === "blue" },
       ]}
     >
-      <Logo />
+      <MeeLogo />
     </a>
   </div>
   <div id="scrollContainer">

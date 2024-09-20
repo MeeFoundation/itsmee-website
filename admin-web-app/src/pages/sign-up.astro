@@ -1,19 +1,16 @@
 ---
-import AuthForm from "@components/AuthForm.astro";
-import { Button } from "mee-components";
-import Input from "@components/Input.astro";
-import LinkButton from "@components/LinkButton.astro";
+import { AuthForm, Input, Button, ButtonLink } from "mee-components";
 import PasswordInput from "@components/PasswordInput.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout title="Sign Up" disabledMenu={true}>
-  <main class="bg flex h-screen w-screen flex-col items-center justify-center">
+  <main class="bg-auth-gradient flex h-screen w-screen flex-col items-center justify-center">
     <div
       class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6"
     >
       <div
-        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-[0px_2px_25px_-5px_rgba(0,0,0,0.07),0px_25px_21px_-5px_rgba(0,0,0,0.04)] md:w-130"
+        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130"
       >
         <AuthForm
           id="first-form"
@@ -26,7 +23,8 @@ import Layout from "@layouts/Layout.astro";
             id="email"
             type="email"
             label="Connect with email address"
-            placeholder="Enter an email"
+            size="lg"
+            labelPosition="inside"
             autocomplete="off"
             required
           />
@@ -34,11 +32,12 @@ import Layout from "@layouts/Layout.astro";
           <Button id="sign-up-button" type="button" className="w-full"
             >Sign up</Button
           >
-          <LinkButton
+          <ButtonLink
             id="join"
-            buttonType="secondary"
+            buttonType="primary"
+            style="outlined"
             href="/sign-in"
-            className="border-none">Log in</LinkButton
+            className="w-full border-none">Log in</ButtonLink
           ></AuthForm
         >
         <AuthForm
@@ -53,7 +52,8 @@ import Layout from "@layouts/Layout.astro";
             id="verify_code"
             type="text"
             label="Enter code"
-            placeholder="Enter code"
+            size="lg"
+            labelPosition="inside"
             required
           />
           <Button id="check-code" type="button" className="w-full"
@@ -62,7 +62,8 @@ import Layout from "@layouts/Layout.astro";
           <Button
             id="go-back"
             type="button"
-            buttonType="secondary"
+            buttonType="primary"
+            style="outlined"
             className="w-full border-none">Go back</Button
           ></AuthForm
         >
@@ -92,7 +93,8 @@ import Layout from "@layouts/Layout.astro";
           <Button
             id="go-back-2"
             type="button"
-            buttonType="secondary"
+            buttonType="primary"
+            style="outlined"
             className="w-full border-none">Go back</Button
           ></AuthForm
         >
@@ -108,39 +110,39 @@ import Layout from "@layouts/Layout.astro";
             id="tel"
             type="tel"
             label="Enter phone number"
-            placeholder="Enter phone number"
+            size="lg"
+            labelPosition="inside"
             autocomplete="off"
-            pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
           />
 
           <Button id="send" type="button" className="w-full">Connect</Button>
           <Button
             id="go-back-3"
             type="button"
-            className="w-full"
-            buttonType="secondary"
-            className="border-none">Go back</Button
+            buttonType="primary"
+            style="outlined"
+            className="w-full border-none">Go back</Button
           ></AuthForm
         >
         <div
-          class="w-full rounded-b-2xl border-t border-solid border-t-slate-200 bg-[#F8FAFC] px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-slate-600"
+          class="w-full rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-grey-600"
           id="policy"
         >
           By continuing, you agree to itsmee.org{" "}<a
-            class="cursor-pointer underline"
+            class="cursor-pointer text-brand-700 underline"
             href="https://mee.foundation/privacy-policy/"
             target="_blank">Privacy Policy</a
           >
         </div>
       </div>
       <div
-        class="text-center text-xs leading-4 tracking-0.02 text-[#8E3D12]"
+        class="text-center text-xs leading-4 tracking-0.02 text-yellow-800"
         id="hosted-by"
       >
         Hosted by <a
           href="https://mee.foundation/"
           target="_blank"
-          class="text-[#3B5B63] underline">The Mee Foundation</a
+          class="text-brand-700 underline">The Mee Foundation</a
         >, a non-profit that works on behalf of all Mee users and never shares
         your data with anyone.
       </div>
@@ -148,15 +150,10 @@ import Layout from "@layouts/Layout.astro";
   </main>
 </Layout>
 <style>
-  .button {
-    background: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
-  }
-
   .bg {
     background: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%);
   }
 </style>
-
 <script>
   import config from "@config";
   import { addFormListeners, validateForm } from "@utils/validation";

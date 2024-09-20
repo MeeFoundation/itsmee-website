@@ -1,11 +1,10 @@
 ---
-import EditIcon from "@components/icons/EditIcon.astro";
-import Loading from "@components/Loading.astro";
+import { Loading } from "mee-components";
 ---
 
 <main class="flex h-full min-h-screen flex-1">
   <article
-    class="flex h-full w-full flex-col items-start justify-center gap-6 p-6"
+    class="flex h-full w-full flex-col items-start justify-start gap-6 p-6"
   >
     <Loading />
     <section class="hidden w-full flex-col" id="users-table">
@@ -28,7 +27,9 @@ import Loading from "@components/Loading.astro";
     </section>
   </article>
   <div class="hidden">
-    <div id="edit-icon" class="cursor-pointer"><EditIcon /></div>
+    <div id="edit-icon" class="cursor-pointer">
+      <i class="bi bi-pencil text-2xl text-brand-700"></i>
+    </div>
   </div>
 </main>
 
