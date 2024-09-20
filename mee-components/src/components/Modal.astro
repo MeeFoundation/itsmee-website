@@ -1,0 +1,23 @@
+---
+interface Props {
+    title: string;
+    id: string;
+    width?: number;
+}
+const { id, title, width } = Astro.props;
+---
+
+<dialog data-title={title} data-width={width} id={id}>
+  <div data-name='content'>
+    <slot name='content'></slot>
+  </div>
+  <div data-name='footer'>
+    <slot name='footer'></slot>
+  </div>
+</dialog>
+
+<script>
+  import ModalHelper from '../helpers/modal'
+
+  ModalHelper.init();
+</script>
