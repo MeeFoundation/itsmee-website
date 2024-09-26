@@ -44,6 +44,7 @@ const theme = {
         "900": "rgb(var(--color-grey-900) / <alpha-value>)",
         "950": "rgb(var(--color-grey-950) / <alpha-value>)",
         "scrollbar": "var(--color-scrollbar)",
+        "modal-overlay": "var(--color-modal-overlay)",
       },
       error: {
         "50": "rgb(var(--color-error-50) / <alpha-value>)",
@@ -342,6 +343,7 @@ const theme = {
     },
     borderWidth: {
       ...defaultConfig.theme?.extend?.borderWidth,
+      "1": "1px",
       "1.5": "1.5px",
     },
     transitionDuration: {

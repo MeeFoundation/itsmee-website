@@ -121,6 +121,7 @@
     --auth-gradient: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%)
 
     --color-scrollbar: rgba(2, 6, 23, 0.35);
+    --color-modal-overlay: rgba(2, 6, 23, 0.35);
   }
 
   input:where(:not([type])):focus,

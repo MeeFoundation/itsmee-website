@@ -15,14 +15,18 @@ import Modal from "@components/Modal.astro";
                 Show modal
             </Button>
             <Modal 
-              id="modal" 
-              title="Lorem Ipsum"
+              id="modal"
+              title="Modal title"
+              withCloseIcon={true}
+              enableOutsideClick={true}
+              withFooter={true}
+            
             >
-              <div slot="content">
+              <Fragment slot="content">
                   <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                   <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                   <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-              </div>
+              </Fragment>
               <Fragment slot="footer">
                 <Button 
                     type="button" 
@@ -38,7 +42,7 @@ import Modal from "@components/Modal.astro";
                     >
                     Save changes
                 </Button>
-              </div>
+              </Fragment>
             </Modal>
         </div>
     </div>
@@ -48,6 +52,6 @@ import Modal from "@components/Modal.astro";
     const button = document.querySelector("#visibleModal");
 
     document && button && button.addEventListener("click", () => {
-        document?.getElementById('modal')?.showModal()
+        (document?.getElementById('modal') as HTMLDialogElement)?.showModal();
     });
 </script>
