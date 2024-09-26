@@ -70,7 +70,6 @@ const initScrollListeners = (
   const dragScrollbar = (e: MouseEvent) => {
     e.preventDefault();
 
-    (isDragging);
     if (isDragging) {
       const scrollContent = scrollWrap.querySelector('.scrollContent') as HTMLElement;
       const contentElement = checkIsBodyParentComponent(scrollWrap) ? scrollWrap : scrollContent;
@@ -129,7 +128,7 @@ const initScrollListeners = (
       }
     }
 
-    scrollIndicator.addEventListener('mousemove', throttledDragScrollbar);
+    document.addEventListener('mousemove', throttledDragScrollbar);
   });
 
   const mouseUpHandler = () => {
@@ -142,7 +141,7 @@ const initScrollListeners = (
     contentLeft = 0;
 
     scrollEndHandler(scrollWrap);
-    scrollIndicator.removeEventListener('mousemove', throttledDragScrollbar);
+    document.removeEventListener('mousemove', throttledDragScrollbar);
   };
 
   document.addEventListener('mouseup', mouseUpHandler);
