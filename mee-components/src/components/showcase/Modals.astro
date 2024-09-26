@@ -1,0 +1,57 @@
+---
+import Button from "@components/Button.astro";
+import Modal from "@components/Modal.astro";
+---
+
+<div class="flex flex-col gap-10 p-20">
+    <div class="flex flex-wrap gap-10">
+        <div class="flex flex-row gap-4">
+            <Button 
+                type="button" 
+                id="visibleModal" 
+                buttonType="primary" 
+                style="outlined"
+                >
+                Show modal
+            </Button>
+            <Modal 
+              id="modal"
+              title="Modal title"
+              withCloseIcon={true}
+              enableOutsideClick={true}
+              withFooter={true}
+            
+            >
+              <Fragment slot="content">
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                  <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                  <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+              </Fragment>
+              <Fragment slot="footer">
+                <Button 
+                    type="button" 
+                    buttonType="secondary" 
+                    style="outlined"
+                    >
+                    Cancel
+                </Button>
+                <Button 
+                    type="button" 
+                    buttonType="secondary" 
+                    style="outlined"
+                    >
+                    Save changes
+                </Button>
+              </Fragment>
+            </Modal>
+        </div>
+    </div>
+</div>
+
+<script>
+    const button = document.querySelector("#visibleModal");
+
+    document && button && button.addEventListener("click", () => {
+        (document?.getElementById('modal') as HTMLDialogElement)?.showModal();
+    });
+</script>

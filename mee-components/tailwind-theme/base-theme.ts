@@ -44,6 +44,7 @@ const theme = {
         "900": "rgb(var(--color-grey-900) / <alpha-value>)",
         "950": "rgb(var(--color-grey-950) / <alpha-value>)",
         "scrollbar": "var(--color-scrollbar)",
+        "modal-overlay": "var(--color-modal-overlay)",
       },
       error: {
         "50": "rgb(var(--color-error-50) / <alpha-value>)",
@@ -165,6 +166,7 @@ const theme = {
       "4-strong": "var(--shadow-4-strong)",
       "5": "var(--shadow-5)",
       "5-strong": "var(--shadow-5-strong)",
+      "modal": "var(--shadow-modal)",
       button: "var(--shadow-button)",
       "button-danger": "var(--shadow-button-danger)",
       "button-tertiary": "var(--shadow-button-tertiary)",
@@ -341,6 +343,7 @@ const theme = {
     },
     borderWidth: {
       ...defaultConfig.theme?.extend?.borderWidth,
+      "1": "1px",
       "1.5": "1.5px",
     },
     transitionDuration: {

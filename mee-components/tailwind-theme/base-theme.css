@@ -113,12 +113,15 @@
     --shadow-button-danger: 0px 0px 0px 3px rgba(238, 108, 88, 0.2);
     --shadow-button-tertiary: 0px 0px 0px 3px rgba(100, 116, 139, 0.2);
 
+    --chadow-modal: 0px 2px 25px -5px rgba(0, 0, 0, 0.16), 0px 25px 21px -5px rgba(0, 0, 0, 0.10);
+
     --primary-gradient: linear-gradient(92.42deg, #3b5b63 0%, #4f868e 100%);
     --primary-gradient-hover: linear-gradient(0deg, #374e53 0%, #374e53 100%);
 
     --auth-gradient: radial-gradient(50% 50% at 50% 50%, #fef7ee 0%, #fcdcbb 100%);
 
     --color-scrollbar: rgba(2, 6, 23, 0.35);
+    --color-modal-overlay: rgba(2, 6, 23, 0.35);
   }
 
   input:where(:not([type])):focus,

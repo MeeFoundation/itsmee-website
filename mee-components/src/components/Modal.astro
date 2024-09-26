@@ -1,0 +1,69 @@
+---
+interface Props {
+    title?: string;
+    withCloseIcon?: boolean;
+    id: string;
+    width?: string;
+    enableOutsideClick?: boolean;
+    withFooter?: boolean;
+}
+const { id, title, withCloseIcon, width = '500', enableOutsideClick, withFooter } = Astro.props;
+---
+
+<dialog data-width={width} data-enableoutsideclick={String(enableOutsideClick)} id={id} class="rounded-xl shadow-modal">
+  <div class="modal-inner">
+    <div class="modal-content">
+      {title && 
+        <div class="flex justify-between items-center w-full p-4 border-0 border-b-1 border-grey-200">
+          <h3 class="text-grey-800 font-medium text-xl">{title}</h3>
+          {withCloseIcon && <i class="close-btn bi text-3xl text-grey-800 font-thin bi-x hover:cursor-pointer"></i>}
+        </div>
+      }
+      <div class="flex flex-col pt-4 pl-4 pr-4 pb-7">
+        {withCloseIcon && !title && 
+        <div class="flex justify-end">
+          <i class="close-btn w-auto bi text-3xl text-grey-800 font-thin bi-x hover:cursor-pointer"></i>
+          </div>
+        }
+        <div class="p-4 leading-6 rounded-md border-brand-200 border border-dashed bg-brand-50">
+          <slot name='content'></slot>
+        </div>
+    </div>
+    {withFooter && 
+      <div class="flex justify-between items-center w-full p-4 border-0 border-t-1 border-grey-200 bg-grey-50">
+        <slot name='footer'></slot>
+      </div>
+    }
+  </div>
+</dialog>
+
+<style>
+  dialog::backdrop {
+    background-color: var(--color-modal-overlay);
+  }
+</style>
+
+<script>
+  const dialogContainers = document.querySelectorAll('dialog');
+
+  dialogContainers.forEach(dialog => {
+      if (dialog) {
+        const enableOutsideClick = dialog.dataset.enableoutsideclick === 'true';
+        const width = dialog.dataset.width;
+
+        dialog.style.width = `${width}px`;
+
+        const closeButton = dialog.querySelector('.close-btn');
+
+        closeButton && closeButton.addEventListener('click', () => {
+            dialog.close();
+        });
+
+        enableOutsideClick && document.addEventListener('click', (event) => {
+            if (event.target === dialog) {
+                dialog.close();
+            }
+        });
+      }
+  });
+</script>
