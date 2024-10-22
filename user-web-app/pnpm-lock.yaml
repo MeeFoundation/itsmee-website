@@ -13,10 +13,10 @@ importers:
         version: 0.7.0(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.5.4)
       '@astrojs/node':
         specifier: ^8.3.2
-        version: 8.3.2(astro@4.13.1)
+        version: 8.3.2(astro@4.13.1(typescript@5.5.4))
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.13.1)(tailwindcss@3.4.8)
+        version: 5.1.0(astro@4.13.1(typescript@5.5.4))(tailwindcss@3.4.8)
       astro:
         specifier: ^4.11.5
         version: 4.13.1(typescript@5.5.4)
@@ -24,8 +24,8 @@ importers:
         specifier: ^1.11.3
         version: 1.11.3
       mee-components:
-        specifier: link:../mee-components
-        version: link:../mee-components
+        specifier: ^0.0.12
+        version: 0.0.12(prettier-plugin-astro@0.14.1)(prettier@3.3.3)
       superstruct:
         specifier: ^2.0.0
         version: 2.0.2
@@ -38,7 +38,7 @@ importers:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.0.1
-        version: 8.0.1(@typescript-eslint/parser@8.0.1)(eslint@9.8.0)(typescript@5.5.4)
+        version: 8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4)
       '@typescript-eslint/parser':
         specifier: ^8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.5.4)
@@ -50,7 +50,7 @@ importers:
         version: 9.1.0(eslint@9.8.0)
       eslint-plugin-prettier:
         specifier: ^5.1.3
-        version: 5.2.1(eslint-config-prettier@9.1.0)(eslint@9.8.0)(prettier@3.3.3)
+        version: 5.2.1(eslint-config-prettier@9.1.0(eslint@9.8.0))(eslint@9.8.0)(prettier@3.3.3)
       prettier:
         specifier: ^3.3.2
         version: 3.3.3
@@ -1558,6 +1558,9 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
@@ -1618,6 +1621,9 @@ packages:
 
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
+
+  mee-components@0.0.12:
+    resolution: {integrity: sha512-80VgFCEnBLQCFfVEDjeQVCXHVFnF2gJkXJg1sxsk9qqRlVe/2EnBzTLH5cieXrEUSVT76722KbRsiNt6bbCg5A==}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -2622,8 +2628,6 @@ snapshots:
       '@volar/typescript': 2.4.0-alpha.18
       fast-glob: 3.3.2
       muggle-string: 0.4.1
-      prettier: 3.3.3
-      prettier-plugin-astro: 0.14.1
       volar-service-css: 0.0.59(@volar/language-service@2.4.0-alpha.18)
       volar-service-emmet: 0.0.59(@volar/language-service@2.4.0-alpha.18)
       volar-service-html: 0.0.59(@volar/language-service@2.4.0-alpha.18)
@@ -2632,6 +2636,9 @@ snapshots:
       volar-service-typescript-twoslash-queries: 0.0.59(@volar/language-service@2.4.0-alpha.18)
       vscode-html-languageservice: 5.3.0
       vscode-uri: 3.0.8
+    optionalDependencies:
+      prettier: 3.3.3
+      prettier-plugin-astro: 0.14.1
     transitivePeerDependencies:
       - typescript
 
@@ -2658,7 +2665,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@8.3.2(astro@4.13.1)':
+  '@astrojs/node@8.3.2(astro@4.13.1(typescript@5.5.4))':
     dependencies:
       astro: 4.13.1(typescript@5.5.4)
       send: 0.18.0
@@ -2670,7 +2677,7 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/tailwind@5.1.0(astro@4.13.1)(tailwindcss@3.4.8)':
+  '@astrojs/tailwind@5.1.0(astro@4.13.1(typescript@5.5.4))(tailwindcss@3.4.8)':
     dependencies:
       astro: 4.13.1(typescript@5.5.4)
       autoprefixer: 10.4.20(postcss@8.4.41)
@@ -3175,7 +3182,7 @@ snapshots:
 
   '@types/unist@3.0.2': {}
 
-  '@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1)(eslint@9.8.0)(typescript@5.5.4)':
+  '@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4)':
     dependencies:
       '@eslint-community/regexpp': 4.11.0
       '@typescript-eslint/parser': 8.0.1(eslint@9.8.0)(typescript@5.5.4)
@@ -3188,6 +3195,7 @@ snapshots:
       ignore: 5.3.1
       natural-compare: 1.4.0
       ts-api-utils: 1.3.0(typescript@5.5.4)
+    optionalDependencies:
       typescript: 5.5.4
     transitivePeerDependencies:
       - supports-color
@@ -3200,6 +3208,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 8.0.1
       debug: 4.3.6
       eslint: 9.8.0
+    optionalDependencies:
       typescript: 5.5.4
     transitivePeerDependencies:
       - supports-color
@@ -3215,6 +3224,7 @@ snapshots:
       '@typescript-eslint/utils': 8.0.1(eslint@9.8.0)(typescript@5.5.4)
       debug: 4.3.6
       ts-api-utils: 1.3.0(typescript@5.5.4)
+    optionalDependencies:
       typescript: 5.5.4
     transitivePeerDependencies:
       - eslint
@@ -3232,6 +3242,7 @@ snapshots:
       minimatch: 9.0.5
       semver: 7.6.3
       ts-api-utils: 1.3.0(typescript@5.5.4)
+    optionalDependencies:
       typescript: 5.5.4
     transitivePeerDependencies:
       - supports-color
@@ -3705,13 +3716,14 @@ snapshots:
     dependencies:
       eslint: 9.8.0
 
-  eslint-plugin-prettier@5.2.1(eslint-config-prettier@9.1.0)(eslint@9.8.0)(prettier@3.3.3):
+  eslint-plugin-prettier@5.2.1(eslint-config-prettier@9.1.0(eslint@9.8.0))(eslint@9.8.0)(prettier@3.3.3):
     dependencies:
       eslint: 9.8.0
-      eslint-config-prettier: 9.1.0(eslint@9.8.0)
       prettier: 3.3.3
       prettier-linter-helpers: 1.0.0
       synckit: 0.9.1
+    optionalDependencies:
+      eslint-config-prettier: 9.1.0(eslint@9.8.0)
 
   eslint-scope@8.0.2:
     dependencies:
@@ -4165,6 +4177,8 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
+  lodash-es@4.17.21: {}
+
   lodash.merge@4.6.2: {}
 
   log-symbols@6.0.0:
@@ -4304,6 +4318,31 @@ snapshots:
   mdast-util-to-string@4.0.0:
     dependencies:
       '@types/mdast': 4.0.4
+
+  mee-components@0.0.12(prettier-plugin-astro@0.14.1)(prettier@3.3.3):
+    dependencies:
+      '@astrojs/check': 0.7.0(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.5.4)
+      '@astrojs/node': 8.3.2(astro@4.13.1(typescript@5.5.4))
+      '@astrojs/tailwind': 5.1.0(astro@4.13.1(typescript@5.5.4))(tailwindcss@3.4.8)
+      astro: 4.13.1(typescript@5.5.4)
+      bootstrap-icons: 1.11.3
+      lodash-es: 4.17.21
+      superstruct: 2.0.2
+      tailwindcss: 3.4.8
+      typescript: 5.5.4
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - prettier
+      - prettier-plugin-astro
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - ts-node
 
   merge-stream@2.0.0: {}
 
@@ -4688,8 +4727,9 @@ snapshots:
   postcss-load-config@4.0.2(postcss@8.4.41):
     dependencies:
       lilconfig: 3.1.2
-      postcss: 8.4.41
       yaml: 2.5.0
+    optionalDependencies:
+      postcss: 8.4.41
 
   postcss-nested@6.2.0(postcss@8.4.41):
     dependencies:
@@ -4730,6 +4770,7 @@ snapshots:
   prettier-plugin-tailwindcss@0.6.5(prettier-plugin-astro@0.14.1)(prettier@3.3.3):
     dependencies:
       prettier: 3.3.3
+    optionalDependencies:
       prettier-plugin-astro: 0.14.1
 
   prettier@3.3.3: {}
@@ -5117,7 +5158,7 @@ snapshots:
   ts-interface-checker@0.1.13: {}
 
   tsconfck@3.1.1(typescript@5.5.4):
-    dependencies:
+    optionalDependencies:
       typescript: 5.5.4
 
   tslib@2.6.3: {}
@@ -5225,51 +5266,57 @@ snapshots:
       fsevents: 2.3.3
 
   vitefu@0.2.5(vite@5.4.0):
-    dependencies:
+    optionalDependencies:
       vite: 5.4.0
 
   volar-service-css@0.0.59(@volar/language-service@2.4.0-alpha.18):
     dependencies:
-      '@volar/language-service': 2.4.0-alpha.18
       vscode-css-languageservice: 6.3.0
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.4.0-alpha.18
 
   volar-service-emmet@0.0.59(@volar/language-service@2.4.0-alpha.18):
     dependencies:
       '@emmetio/css-parser': 0.4.0
       '@emmetio/html-matcher': 1.3.0
-      '@volar/language-service': 2.4.0-alpha.18
       '@vscode/emmet-helper': 2.9.3
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.4.0-alpha.18
 
   volar-service-html@0.0.59(@volar/language-service@2.4.0-alpha.18):
     dependencies:
-      '@volar/language-service': 2.4.0-alpha.18
       vscode-html-languageservice: 5.3.0
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.4.0-alpha.18
 
   volar-service-prettier@0.0.59(@volar/language-service@2.4.0-alpha.18)(prettier@3.3.3):
     dependencies:
+      vscode-uri: 3.0.8
+    optionalDependencies:
       '@volar/language-service': 2.4.0-alpha.18
       prettier: 3.3.3
-      vscode-uri: 3.0.8
 
   volar-service-typescript-twoslash-queries@0.0.59(@volar/language-service@2.4.0-alpha.18):
     dependencies:
-      '@volar/language-service': 2.4.0-alpha.18
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.4.0-alpha.18
 
   volar-service-typescript@0.0.59(@volar/language-service@2.4.0-alpha.18):
     dependencies:
-      '@volar/language-service': 2.4.0-alpha.18
       path-browserify: 1.0.1
       semver: 7.6.3
       typescript-auto-import-cache: 0.3.3
       vscode-languageserver-textdocument: 1.0.12
       vscode-nls: 5.2.0
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.4.0-alpha.18
 
   vscode-css-languageservice@6.3.0:
     dependencies:
