@@ -26,7 +26,7 @@ export const RedirectPage: React.FC = () => {
                 <ActionButton
                     text="Continue"
                     onClick={() => {
-                        window.location.href = 'meeuntied://redirect';
+                        window.location.href = `${document.referrer}payment`;
                     }}
                 />
             </div>
