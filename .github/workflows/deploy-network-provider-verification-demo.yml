@@ -1,0 +1,42 @@
+name: Deploy Network Provider Verification Demo 
+
+env:
+  bucket_name: network-provider-verification-demo-bucket
+  host: verification-demo.mee.foundation
+  url_map: dev-url-map
+  path_to_app: ./verification-demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: ${{ env.path_to_app }}
+      - name: Build
+        run: pnpm run build
+        working-directory: ${{ env.path_to_app }}
+      - name: configure gcp credentials
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/1043231896197/locations/global/workloadIdentityPools/github-actions-pool/providers/github"
+          service_account: "github-actions@the-mee-foundation.iam.gserviceaccount.com"
+      - name: deploy to bucket
+        run: |
+          gcloud storage rsync --recursive ${{ env.path_to_app }}/dist gs://${{ env.bucket_name }}
+          gcloud compute url-maps invalidate-cdn-cache ${{ env.url_map }} --project the-mee-foundation --path "/*" --host "${{ env.host }}" --async  
