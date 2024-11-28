@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Button, Loading, Input } from "mee-components";
+import { Button, Loading, Input, Avatar } from "mee-components";
 ---
 
 <Layout title="Connections">
@@ -53,11 +53,7 @@ import { Button, Loading, Input } from "mee-components";
               <div
                 class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-gray-300 px-4"
               >
-                <div
-                  class="isolate flex h-6 w-6 flex-col items-center justify-center rounded-none p-0"
-                  id="profile-image-preview"
-                >
-                </div>
+                <Avatar size="sm" id="profile-image-preview" isActive={true} />
                 <p>Profile</p>
               </div>
               <div
@@ -77,11 +73,7 @@ import { Button, Loading, Input } from "mee-components";
             class="flex flex-col items-center gap-4 rounded-t-lg border-b border-brand-300 bg-brand-50 px-6 py-8"
           >
             <div class="flex flex-col items-center gap-2 p-0">
-              <div
-                class="isolate flex h-16 w-16 flex-col items-center justify-center rounded-none p-0"
-                id="profile-image"
-              >
-              </div>
+              <Avatar size="xl" id="profile-image" isActive={true} />
               <div class="flex flex-col items-center p-0">
                 <p
                   class="text-center text-sm leading-5 tracking-0.02 text-gray-700"
@@ -144,6 +136,7 @@ import { Button, Loading, Input } from "mee-components";
 
 <script>
   import type { Connection } from "@utils/types";
+  import { AvatarHelper } from "mee-components";
   const addConnectionButton = document.getElementById("add-connection");
   const filterButton = document.getElementById("filter");
   const connectionsContainer = document.getElementById(
@@ -156,8 +149,6 @@ import { Button, Loading, Input } from "mee-components";
   let isProfileModalOpened = false;
   const profileModal = document.getElementById("profile-modal");
   const profileName = document.getElementById("profile-name");
-  const profileImagePreview = document.getElementById("profile-image-preview");
-  const profileImage = document.getElementById("profile-image");
   const openProfileModal = document.getElementById("open-profile-modal");
   const toggleProfile = () => {
     if (isProfileModalOpened) {
@@ -192,18 +183,16 @@ import { Button, Loading, Input } from "mee-components";
     if (profileName) {
       profileName.innerHTML = randomUser.email;
     }
-    if (profileImagePreview) {
-      const image = document.createElement("img");
-      image.src = randomUser.picture.medium;
-      image.className = "rounded-full";
-      profileImagePreview.append(image);
-    }
-    if (profileImage) {
-      const image = document.createElement("img");
-      image.src = randomUser.picture.medium;
-      image.className = "rounded-full";
-      profileImage.append(image);
-    }
+    AvatarHelper.setAvatar(
+      "profile-image-preview",
+      `${randomUser.name.first} ${randomUser.name.last}`,
+      randomUser.picture.medium,
+    );
+    AvatarHelper.setAvatar(
+      "profile-image",
+      `${randomUser.name.first} ${randomUser.name.last}`,
+      randomUser.picture.medium,
+    );
   }
 
   addConnectionButton?.addEventListener("click", () => {
