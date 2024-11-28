@@ -19,9 +19,6 @@ jobs:
         with:
           version: 9
           run_install: false
-      - name: Install components
-        run: pnpm install
-        working-directory: mee-components
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
