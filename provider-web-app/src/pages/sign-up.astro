@@ -1,12 +1,44 @@
 ---
-import { AuthForm, Input, Button, ButtonLink } from "mee-components";
-import PasswordInput from "@components/PasswordInput.astro";
+import {
+  AuthForm,
+  Button,
+  ButtonLink,
+  Input,
+  PasswordInput,
+} from "mee-components";
 import Layout from "@layouts/Layout.astro";
+
+const accountTypes = [
+  {
+    title: "User",
+    subtitle: "View and manage your connections.",
+    image: "/images/user.svg",
+    id: "user",
+  },
+  {
+    title: "Personal Data Agent",
+    subtitle: "Apply for HIL and manage attributes.",
+    image: "/images/personal-data-agents.svg",
+    id: "personal-data-agent",
+  },
+  {
+    title: "Provider",
+    subtitle: "Apply for HIL and sign a contract.",
+    image: "/images/hill-icon.svg",
+    id: "provider",
+  },
+  {
+    title: "Ad Profile Service",
+    subtitle: "Apply for HIL and sign a contract.",
+    image: "/images/mee-foundation-inc.svg",
+    id: "ad-profile-service",
+  },
+];
 ---
 
 <Layout title="Sign Up">
   <main
-    class="flex h-screen w-screen flex-col items-center justify-center bg-auth-gradient"
+    class="min-w-screen flex min-h-screen flex-col items-center justify-center bg-auth-gradient"
   >
     <div
       class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6"
@@ -15,10 +47,35 @@ import Layout from "@layouts/Layout.astro";
         class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130"
       >
         <AuthForm
+          id="zero-form"
+          title="Choose your account type"
+          subtitle="Please choose a user role to continue with a tailored user experience."
+          formId="choose-account-type-form"
+        >
+          <div class="flex flex-col gap-2">
+            {
+              accountTypes.map((accountType) => (
+                <button
+                  id={accountType.id}
+                  type="button"
+                  class="account-type flex w-full flex-col items-center justify-center gap-4 rounded-xl border border-grey-300 bg-grey-50 p-4 hover:shadow-3-strong md:flex-row md:items-start md:justify-start md:p-6"
+                >
+                  <img src={accountType.image} class="h-12 w-12" />
+                  <div class="flex w-full flex-col items-center md:items-start">
+                    <div class="text-xl font-bold">{accountType.title}</div>
+                    <div>{accountType.subtitle}</div>
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+        </AuthForm>
+        <AuthForm
           id="first-form"
-          title='Get <mark class="whitespace-nowrap">Mee to manage</mark> your personal info on compatible websites and apps'
-          subtitle="Sign up to see and control who has access to your data."
+          title="Create account"
+          subtitle="See and control who has access to your data. Get Mee to manage your personal info on compatible websites and apps."
           formId="sign-up-form"
+          className="hidden"
         >
           <Input
             className="w-full"
@@ -34,14 +91,7 @@ import Layout from "@layouts/Layout.astro";
           <Button id="sign-up-button" type="button" className="w-full"
             >Sign up</Button
           >
-          <ButtonLink
-            id="join"
-            buttonType="primary"
-            style="outlined"
-            href="/sign-in"
-            className="w-full border-none">Log in</ButtonLink
-          ></AuthForm
-        >
+        </AuthForm>
         <AuthForm
           id="second-form"
           title="Verify your email"
@@ -61,17 +111,10 @@ import Layout from "@layouts/Layout.astro";
           <Button id="check-code" type="button" className="w-full"
             >Check Code</Button
           >
-          <Button
-            id="go-back"
-            type="button"
-            buttonType="primary"
-            style="outlined"
-            className="w-full border-none">Go back</Button
-          ></AuthForm
-        >
+        </AuthForm>
         <AuthForm
           id="third-form"
-          title="Confirm your identity"
+          title="Secure your account"
           subtitle="Create a password to confirm your identity when you want to connect."
           formId="sign-up-form-3"
           className="hidden"
@@ -80,26 +123,19 @@ import Layout from "@layouts/Layout.astro";
             className="w-full"
             id="password"
             label="Password"
-            placeholder="Enter a password"
+            size="lg"
             required
           />
           <PasswordInput
             className="w-full"
             id="confirm_password"
             label="Confirm password"
-            placeholder="Confirm a password"
+            size="lg"
             autocomplete="off"
             required
           />
           <Button id="connect" type="button" className="w-full">Connect</Button>
-          <Button
-            id="go-back-2"
-            type="button"
-            buttonType="primary"
-            style="outlined"
-            className="w-full border-none">Go back</Button
-          ></AuthForm
-        >
+        </AuthForm>
         <AuthForm
           id="fourth-form"
           title="Fortify your account"
@@ -118,14 +154,7 @@ import Layout from "@layouts/Layout.astro";
           />
 
           <Button id="send" type="button" className="w-full">Connect</Button>
-          <Button
-            id="go-back-3"
-            type="button"
-            buttonType="primary"
-            style="outlined"
-            className="w-full border-none">Go back</Button
-          ></AuthForm
-        >
+        </AuthForm>
         <div
           class="w-full rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-grey-600"
           id="policy"
@@ -136,9 +165,29 @@ import Layout from "@layouts/Layout.astro";
             target="_blank">Privacy Policy</a
           >
         </div>
+        <div
+          class="hidden w-full justify-between rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600"
+          id="navigation"
+        >
+          <Button
+            id="go-back"
+            type="button"
+            leftIcon="chevron-left text-lg"
+            buttonType="tertiary"
+            style="outlined"
+            className="border-none">Go back</Button
+          >
+          <ButtonLink
+            id="join"
+            buttonType="tertiary"
+            style="outlined"
+            href="/sign-in"
+            className="border-none">Log in</ButtonLink
+          >
+        </div>
       </div>
       <div
-        class="text-center text-xs leading-4 tracking-0.02 text-yellow-800"
+        class="text-center text-xs leading-4 tracking-0.02 text-grey-700"
         id="hosted-by"
       >
         Hosted by <a
@@ -154,39 +203,46 @@ import Layout from "@layouts/Layout.astro";
 
 <script>
   import config from "@config";
+  let accountType: string;
   import { addFormListeners, validateForm } from "@utils/validation";
 
+  const chooseAccountTypeForm = document.getElementById(
+    "choose-account-type-form",
+  ) as HTMLFormElement | null;
+
   const signUpForm = document.getElementById(
-    "sign-up-form"
+    "sign-up-form",
   ) as HTMLFormElement | null;
   const signUpForm2 = document.getElementById(
-    "sign-up-form-2"
+    "sign-up-form-2",
   ) as HTMLFormElement | null;
   const signUpForm3 = document.getElementById(
-    "sign-up-form-3"
+    "sign-up-form-3",
   ) as HTMLFormElement | null;
   const signUpForm4 = document.getElementById(
-    "sign-up-form-4"
+    "sign-up-form-4",
   ) as HTMLFormElement | null;
   const signUpButton = document.getElementById("sign-up-button");
+  const zeroForm = document.getElementById("zero-form");
   const firstForm = document.getElementById("first-form");
   const secondForm = document.getElementById("second-form");
   const thirdForm = document.getElementById("third-form");
   const fourthForm = document.getElementById("fourth-form");
   const goBackButton = document.getElementById("go-back");
-  const goBackButton2 = document.getElementById("go-back-2");
-  const goBackButton3 = document.getElementById("go-back-3");
+
   const checkCodeButton = document.getElementById("check-code");
   const connectButton = document.getElementById("connect");
   const sendButton = document.getElementById("send");
   const policyBlock = document.getElementById("policy");
+  const navigationBlock = document.getElementById("navigation");
   const hostedByBlock = document.getElementById("hosted-by");
   const data = { email: "", password: "", verify_code: "", tel: "" };
 
   const changeForm = (
     activeForm: HTMLElement | null,
     nextForm: HTMLElement | null,
-    showPolicy?: boolean
+    showNavigation?: boolean,
+    showPolicy?: boolean,
   ) => {
     activeForm?.classList.remove("flex");
     activeForm?.classList.add("hidden");
@@ -199,17 +255,39 @@ import Layout from "@layouts/Layout.astro";
       policyBlock?.classList.add("hidden");
       hostedByBlock?.classList.add("hidden");
     }
+    if (showNavigation) {
+      navigationBlock?.classList.remove("hidden");
+      navigationBlock?.classList.add("flex");
+    } else {
+      navigationBlock?.classList.remove("flex");
+      navigationBlock?.classList.add("hidden");
+    }
   };
+
+  goBackButton?.addEventListener("click", () => {
+    if (!firstForm?.classList.contains("hidden")) {
+      changeForm(firstForm, zeroForm, false, true);
+    }
+    if (!secondForm?.classList.contains("hidden")) {
+      changeForm(secondForm, firstForm, true);
+    }
+    if (!thirdForm?.classList.contains("hidden")) {
+      changeForm(thirdForm, secondForm, true);
+    }
+    if (!fourthForm?.classList.contains("hidden")) {
+      changeForm(fourthForm, thirdForm, true);
+    }
+  });
 
   const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
     const formValid = validateForm(inputs);
     if (formValid) {
       const emailData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { email: "" }
+        { email: "" },
       );
       data.email = emailData.email;
-      changeForm(firstForm, secondForm);
+      changeForm(firstForm, secondForm, true);
     }
   };
 
@@ -218,10 +296,10 @@ import Layout from "@layouts/Layout.astro";
     if (formValid) {
       const passwordData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { verify_code: "" }
+        { verify_code: "" },
       );
       data.verify_code = passwordData.verify_code;
-      changeForm(secondForm, thirdForm);
+      changeForm(secondForm, thirdForm, true);
     }
   };
   const submitForm3 = (inputs: NodeListOf<HTMLInputElement>) => {
@@ -229,10 +307,10 @@ import Layout from "@layouts/Layout.astro";
     if (formValid) {
       const passwordData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { password: "" }
+        { password: "" },
       );
       data.password = passwordData.password;
-      changeForm(thirdForm, fourthForm);
+      changeForm(thirdForm, fourthForm, true);
     }
   };
   const submitForm4 = async (inputs: NodeListOf<HTMLInputElement>) => {
@@ -240,21 +318,21 @@ import Layout from "@layouts/Layout.astro";
     if (formValid) {
       const passwordData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { tel: "" }
+        { tel: "" },
       );
       data.tel = passwordData.tel;
 
       if (data && formValid) {
         try {
           const { auth_token } = await fetch(
-            config.backendUrl + "/api/v1/users/register",
+            `${config.backendUrl}/api/v1/${accountType}/register`,
             {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(data),
-            }
+            },
           ).then((r) => r.json());
 
           console.log("auth_token", auth_token);
@@ -264,6 +342,19 @@ import Layout from "@layouts/Layout.astro";
       }
     }
   };
+  const selectAccountType = (type: string) => {
+    accountType = type;
+    changeForm(zeroForm, firstForm, true);
+  };
+
+  if (chooseAccountTypeForm) {
+    const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
+    buttons?.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectAccountType(button.id);
+      });
+    });
+  }
 
   if (signUpForm) {
     const inputs = signUpForm.querySelectorAll("input");
@@ -280,9 +371,6 @@ import Layout from "@layouts/Layout.astro";
   if (signUpForm2) {
     const inputs = signUpForm2.querySelectorAll("input");
     addFormListeners(inputs);
-    goBackButton?.addEventListener("click", () => {
-      changeForm(secondForm, firstForm, true);
-    });
     checkCodeButton?.addEventListener("click", () => {
       submitForm2(inputs);
     });
@@ -294,9 +382,6 @@ import Layout from "@layouts/Layout.astro";
   if (signUpForm3) {
     const inputs = signUpForm3.querySelectorAll("input");
     addFormListeners(inputs);
-    goBackButton2?.addEventListener("click", () => {
-      changeForm(thirdForm, secondForm);
-    });
     connectButton?.addEventListener("click", () => {
       submitForm3(inputs);
     });
@@ -308,9 +393,6 @@ import Layout from "@layouts/Layout.astro";
   if (signUpForm4) {
     const inputs = signUpForm4.querySelectorAll("input");
     addFormListeners(inputs);
-    goBackButton3?.addEventListener("click", () => {
-      changeForm(fourthForm, thirdForm);
-    });
     sendButton?.addEventListener("click", () => {
       submitForm4(inputs);
     });

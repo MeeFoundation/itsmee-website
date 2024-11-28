@@ -1,5 +1,5 @@
 ---
-import { Button, MeeLogo } from "mee-components";
+import { Button, MeeLogo, Avatar } from "mee-components";
 
 export interface Props {
   activePage?: string;
@@ -31,11 +31,7 @@ const { activePage, logoColor = "blue" } = Astro.props;
           <div
             class="flex h-full flex-row items-center justify-center gap-4 border-r border-solid border-gray-300 px-4 py-2.5"
           >
-            <div
-              class="isolate flex h-6 w-6 flex-col items-center justify-center rounded-none p-0"
-              id="profile-image-preview"
-            >
-            </div>
+            <Avatar size="sm" id="profile-image-preview" isActive={true} />
             <p>Profile</p>
           </div>
           <div
@@ -105,11 +101,7 @@ const { activePage, logoColor = "blue" } = Astro.props;
       class="flex flex-col items-center gap-4 rounded-t-lg border-b border-brand-300 bg-brand-50 px-6 py-8"
     >
       <div class="flex flex-col items-center gap-2 p-0">
-        <div
-          class="isolate flex h-16 w-16 flex-col items-center justify-center rounded-none p-0"
-          id="profile-image"
-        >
-        </div>
+        <Avatar size="xl" id="profile-image" isActive={true} />
         <div class="flex flex-col items-center p-0">
           <p class="text-center text-sm leading-5 tracking-0.02 text-gray-700">
             Current profile
@@ -153,13 +145,12 @@ const { activePage, logoColor = "blue" } = Astro.props;
 </header>
 
 <script>
-  const menuTiggle = document.getElementById("menu-toggle");
+  import { AvatarHelper } from "mee-components";
+  const menuToggle = document.getElementById("menu-toggle");
   const profile = document.getElementById("profile");
   let isProfileModalOpened = false;
   const profileModal = document.getElementById("profile-modal");
   const profileName = document.getElementById("profile-name");
-  const profileImagePreview = document.getElementById("profile-image-preview");
-  const profileImage = document.getElementById("profile-image");
   const openProfileModal = document.getElementById("open-profile-modal");
   const menu = document.getElementById("menu");
   const navbar = document.getElementById("navbar");
@@ -176,7 +167,7 @@ const { activePage, logoColor = "blue" } = Astro.props;
       toggleProfile();
     }
   });
-  menuTiggle?.addEventListener("click", onButtonClick);
+  menuToggle?.addEventListener("click", onButtonClick);
   const toggleProfile = () => {
     if (isProfileModalOpened) {
       openProfileModal && delete openProfileModal.dataset.active;
@@ -198,6 +189,7 @@ const { activePage, logoColor = "blue" } = Astro.props;
   });
   const response = await fetch("https://randomuser.me/api");
   const data = await response.json();
+ 
   const randomUser = data.results[0];
   if (randomUser) {
     profile?.classList.remove("hidden");
@@ -205,17 +197,15 @@ const { activePage, logoColor = "blue" } = Astro.props;
     if (profileName) {
       profileName.innerHTML = randomUser.email;
     }
-    if (profileImagePreview) {
-      const image = document.createElement("img");
-      image.src = randomUser.picture.medium;
-      image.className = "rounded-full";
-      profileImagePreview.append(image);
-    }
-    if (profileImage) {
-      const image = document.createElement("img");
-      image.src = randomUser.picture.medium;
-      image.className = "rounded-full";
-      profileImage.append(image);
-    }
+    AvatarHelper.setAvatar(
+      "profile-image-preview",
+      `${randomUser.name.first} ${randomUser.name.last}`,
+      randomUser.picture.medium,
+    );
+    AvatarHelper.setAvatar(
+      "profile-image",
+      `${randomUser.name.first} ${randomUser.name.last}`,
+      randomUser.picture.medium,
+    );
   }
 </script>

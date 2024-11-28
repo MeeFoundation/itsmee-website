@@ -1,6 +1,11 @@
 ---
-import { Button, Input, ButtonLink, AuthForm } from "mee-components";
-import PasswordInput from "@components/PasswordInput.astro";
+import {
+  Button,
+  Input,
+  ButtonLink,
+  AuthForm,
+  PasswordInput,
+} from "mee-components";
 import Layout from "@layouts/Layout.astro";
 ---
 
@@ -15,10 +20,10 @@ import Layout from "@layouts/Layout.astro";
         class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130"
       >
         <AuthForm
-          id="first-form"
-          title='The <mark class="whitespace-nowrap">human-centered</mark><br /> user experience'
-          subtitle="Login to your Mee account."
-          formId="sign-in-form"
+          id="sign-in-email"
+          title="Welcome back"
+          subtitle="Get back to your account."
+          formId="sign-in-email-form"
         >
           <Input
             className="w-full"
@@ -34,51 +39,46 @@ import Layout from "@layouts/Layout.astro";
           <Button id="login-button" type="button" className="w-full"
             >Log in</Button
           >
-          <ButtonLink
-            id="join"
-            href="/sign-up"
-            buttonType="primary"
-            style="outlined"
-            className="w-full border-none">Sign up</ButtonLink
-          >
         </AuthForm>
         <AuthForm
-          id="second-form"
+          id="sign-in-password"
           title="Confirm your identity"
           subtitle="Enter your password to confirm your identity."
-          formId="sign-in-form-2"
+          formId="sign-in-password-form"
           className="hidden"
         >
           <PasswordInput
             className="w-full"
             id="password"
+            size="lg"
             label="Password"
-            placeholder="Enter a password"
             required
-            showRestorePassword
+            rightLink={{ link: "/forgot-password", title: "Forgot password" }}
           />
           <Button id="connect" type="button" className="w-full">Connect</Button>
+        </AuthForm>
+        <div
+          class="flex w-full justify-center rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600"
+        >
+          <ButtonLink
+            id="sign-up"
+            buttonType="tertiary"
+            style="outlined"
+            href="/sign-up"
+            className="border-none">Sign up</ButtonLink
+          >
           <Button
             id="go-back"
             type="button"
-            buttonType="primary"
+            leftIcon="chevron-left text-lg"
+            buttonType="tertiary"
             style="outlined"
-            className="w-full border-none">Go back</Button
-          >
-        </AuthForm>
-        <div
-          class="w-full rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-grey-600"
-          id="policy"
-        >
-          By continuing, you agree to itsmee.org{" "}<a
-            class="cursor-pointer text-brand-700 underline"
-            href="https://mee.foundation/privacy-policy/"
-            target="_blank">Privacy Policy</a
+            className="hidden border-none">Go back</Button
           >
         </div>
       </div>
       <div
-        class="text-center text-xs leading-4 tracking-0.02 text-yellow-800"
+        class="text-center text-xs leading-4 tracking-0.02 text-grey-700"
         id="hosted-by"
       >
         Hosted by <a
@@ -95,15 +95,16 @@ import Layout from "@layouts/Layout.astro";
 <script>
   import config from "@config";
 
-  const signInForm = document.getElementById(
-    "sign-in-form"
+  const signInEmailForm = document.getElementById(
+    "sign-in-email-form"
   ) as HTMLFormElement | null;
-  const signInForm2 = document.getElementById(
-    "sign-in-form-2"
+  const signInPasswordForm = document.getElementById(
+    "sign-in-password-form"
   ) as HTMLFormElement | null;
   const loginButton = document.getElementById("login-button");
-  const firstForm = document.getElementById("first-form");
-  const secondForm = document.getElementById("second-form");
+  const signInEmail = document.getElementById("sign-in-email");
+  const signInPassword = document.getElementById("sign-in-password");
+  const signUpButton = document.getElementById("sign-up");
   const goBackButton = document.getElementById("go-back");
   const connectButton = document.getElementById("connect");
   const policyBlock = document.getElementById("policy");
@@ -122,9 +123,13 @@ import Layout from "@layouts/Layout.astro";
     if (showPolicy) {
       policyBlock?.classList.remove("hidden");
       hostedByBlock?.classList.remove("hidden");
+      signUpButton?.classList.remove("hidden");
+      goBackButton?.classList.add("hidden");
     } else {
       policyBlock?.classList.add("hidden");
       hostedByBlock?.classList.add("hidden");
+      signUpButton?.classList.add("hidden");
+      goBackButton?.classList.remove("hidden");
     }
   };
   const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
@@ -134,11 +139,11 @@ import Layout from "@layouts/Layout.astro";
     );
     data.email = emailData.email;
     if (data.email) {
-      changeForm(firstForm, secondForm);
+      changeForm(signInEmail, signInPassword);
     }
   };
   const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
-    window.location.href = "/connections/";
+    // window.location.href = "/connections/";
     const passwordData = Array.from(inputs).reduce(
       (acc, input) => ({ ...acc, [input.id]: input.value }),
       { password: "" }
@@ -167,26 +172,26 @@ import Layout from "@layouts/Layout.astro";
     }
   };
 
-  if (signInForm) {
-    const inputs = signInForm.querySelectorAll("input");
+  if (signInEmailForm) {
+    const inputs = signInEmailForm.querySelectorAll("input");
     loginButton?.addEventListener("click", () => {
       submitForm1(inputs);
     });
-    signInForm.onsubmit = (e) => {
+    signInEmailForm.onsubmit = (e) => {
       e.preventDefault();
       submitForm1(inputs);
     };
   }
 
-  if (signInForm2) {
-    const inputs = signInForm2.querySelectorAll("input");
+  if (signInPasswordForm) {
+    const inputs = signInPasswordForm.querySelectorAll("input");
     goBackButton?.addEventListener("click", () => {
-      changeForm(secondForm, firstForm, true);
+      changeForm(signInPassword, signInEmail, true);
     });
     connectButton?.addEventListener("click", async () => {
       submitForm2(inputs);
     });
-    signInForm2.onsubmit = (e) => {
+    signInPasswordForm.onsubmit = (e) => {
       e.preventDefault();
       submitForm2(inputs);
     };

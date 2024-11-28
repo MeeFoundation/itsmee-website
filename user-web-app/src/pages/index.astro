@@ -1,15 +1,61 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Illustration from "@components/Illustration.astro";
+import { Header, Footer, AppButtons, ButtonLink } from "mee-components";
+import { header, footer } from "../../astro.config.mjs";
 ---
 
 <Layout title="Welcome to Mee">
-  <main class="scrollContainer transform-gpu">
-    <div class="flex h-screen w-screen items-center justify-center">
-      <div class="flex h-full w-full max-w-3xl items-center justify-center">
-        <Illustration />
-      </div>
-    </div>
+  <Header header={header} disableMobileMenu={true} />
+  <main class="dark:bg-darky w-screen overflow-hidden">
+    <article
+      class="relative mt-27 flex h-full w-screen flex-col items-center justify-between gap-10 overflow-hidden md:gap-20"
+    >
+      <section
+        class="mt-10 flex h-full w-screen flex-col items-center justify-center gap-10 md:mt-20 md:gap-20"
+      >
+        <div
+          class="flex max-w-7xl flex-col items-center justify-center gap-4 px-6 transition-opacity duration-500"
+        >
+          <h1
+            class="marker text-center text-3xl font-semibold text-grey-900 md:text-5xl lg:text-7xl"
+          >
+            Hello! It's Mee.<br class="md:hidden" /> Your digital twin.
+          </h1>
+          <h3
+            class="text animation-delay-800 text-pretty text-center text-lg text-grey-900 md:text-xl lg:text-2xl"
+          >
+            Mee represents you on the internet, putting you in control of your
+            personal information.
+          </h3>
+          <ButtonLink href="/sign-up" className="md:hidden">Sign up</ButtonLink>
+        </div>
+      </section>
+      <section
+        class="flex h-full w-screen max-w-7xl flex-col items-center justify-center"
+      >
+        <img src="/images/illustration.svg" />
+      </section>
+      <section
+        class="mb-10 flex h-full w-screen max-w-7xl flex-col items-center justify-center gap-10 md:mb-20 md:gap-20"
+      >
+        <div
+          class="flex flex-col items-center justify-center gap-4 px-6 transition-opacity duration-500"
+        >
+          <h1
+            class="marker text-center text-2xl font-semibold text-grey-900 md:text-3xl lg:text-5xl lg:tracking-0.02"
+          >
+            Get the latest build of our experimental app
+          </h1>
+          <h3
+            class="text text-pretty text-center text-lg leading-relaxed text-grey-900 md:text-xl lg:text-2xl"
+          >
+            Available for iOS and Android. Support for desktop platforms is
+            planned.
+          </h3>
+        </div>
+        <AppButtons btnSize="normal" noDescription={true} class="z-100" />
+      </section>
+      <Footer footer={footer} mode="dark" />
+    </article>
   </main>
 </Layout>
-

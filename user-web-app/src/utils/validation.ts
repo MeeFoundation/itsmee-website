@@ -77,35 +77,23 @@ export const validateInput = (
   }
 };
 export const addErrorMessage = (input: HTMLInputElement, message: string) => {
-  const validationMessage = input.parentElement?.querySelector(
-    ".validation-message",
+  const inputContainer = input.closest(".input-container");
+  const validationMessage = inputContainer?.querySelector(
+    ".error-message",
   );
-  const label = input.parentElement?.querySelector("label");
-  const eyeContainer = input.parentElement?.querySelector(".eye-container");
   if (validationMessage) {
     validationMessage.innerHTML = message;
-    validationMessage?.classList.remove("hidden");
-    validationMessage?.classList.add("inline-flex");
-    input.classList.add("border-red-600", "focus:ring-red-600");
-    label?.classList.add("text-red-600");
-    label?.classList.add("peer-focus:text-red-600");
-    eyeContainer?.classList.add("fill-red-600");
+    inputContainer?.classList.add("error")
   }
 };
 export const clearInputValidation = (input: HTMLInputElement) => {
-  const validationMessage = input.parentElement?.querySelector(
-    ".validation-message",
+  const inputContainer = input.closest(".input-container");
+  const validationMessage = inputContainer?.querySelector(
+    ".error-message",
   );
-  const label = input.parentElement?.querySelector("label");
-  const eyeContainer = input.parentElement?.querySelector(".eye-container");
   if (validationMessage) {
     validationMessage.innerHTML = "";
-    validationMessage?.classList.remove("inline-flex");
-    validationMessage?.classList.add("hidden");
-    input.classList.remove("border-red-600", "focus:ring-red-600");
-    label?.classList.remove("text-red-600");
-    label?.classList.remove("peer-focus:text-red-600");
-    eyeContainer?.classList.remove("fill-red-600");
+    inputContainer?.classList.remove("error")
   }
 };
 
