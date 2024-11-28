@@ -18,23 +18,7 @@ export const header = {
       id: "discord",
     },
   ],
-  userLinks: [
-    {
-      name: "Log in",
-      link: "/sign-in",
-      buttonType: "primary",
-      style: "outlined",
-      id: "sign-in",
-    },
-    {
-      name: "Sign up",
-      link: "/sign-up",
-      buttonType: "primary",
-      className: "hidden md:flex",
-      style: "filled",
-      id: "sign-up",
-    },
-  ],
+  userLinks: true,
   footerLinks: [
     {
       name: "About us",
@@ -81,7 +65,7 @@ export const footer = {
 };
 // https://astro.build/config
 export default defineConfig({
-  output: "static",
+  output: "server",
   integrations: [tailwind()],
   adapter: node({
     mode: "standalone",

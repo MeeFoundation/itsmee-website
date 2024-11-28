@@ -23,9 +23,15 @@ importers:
       bootstrap-icons:
         specifier: ^1.11.3
         version: 1.11.3
+      fsevents:
+        specifier: ^2.3.3
+        version: 2.3.3
       mee-components:
-        specifier: ^0.0.29
-        version: 0.0.29(@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.13.1(typescript@5.5.4))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@rollup/rollup-darwin-arm64@4.20.0)(@rollup/rollup-linux-x64-gnu@4.20.0)(prettier-plugin-astro@0.14.1)(prettier@3.3.3)
+        specifier: ^0.0.30
+        version: 0.0.30(@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.13.1(typescript@5.5.4))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@rollup/rollup-darwin-arm64@4.20.0)(@rollup/rollup-linux-x64-gnu@4.20.0)(prettier-plugin-astro@0.14.1)(prettier@3.3.3)
+      queue-tick:
+        specifier: ^1.0.1
+        version: 1.0.1
       superstruct:
         specifier: ^2.0.0
         version: 2.0.2
@@ -1871,8 +1877,8 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
-  mee-components@0.0.29:
-    resolution: {integrity: sha512-BRKWFFT73k0fVxNPvkS5ZYXYH5ywRd8dWmEk53L4bS4jItZzVBNpO/v2aeHUOQ/kNLDwXQ5ylkObjGxW5R2tcw==}
+  mee-components@0.0.30:
+    resolution: {integrity: sha512-8u5cau4MuGWJBwR96CNOFbv82cVJDz9rNt7LMP4oBReRIPYI3ywHX0dIAHV/L0pk8TOaFduZUvy/aw9q/DYITA==}
     peerDependencies:
       '@astrojs/starlight': ^0.27.1
       '@astrojs/starlight-tailwind': ^2.0.3
@@ -2336,6 +2342,9 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  queue-tick@1.0.1:
+    resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
 
   range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
@@ -4527,8 +4536,7 @@ snapshots:
 
   fresh@0.5.2: {}
 
-  fsevents@2.3.3:
-    optional: true
+  fsevents@2.3.3: {}
 
   function-bind@1.1.2: {}
 
@@ -5178,7 +5186,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mee-components@0.0.29(@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.13.1(typescript@5.5.4))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@rollup/rollup-darwin-arm64@4.20.0)(@rollup/rollup-linux-x64-gnu@4.20.0)(prettier-plugin-astro@0.14.1)(prettier@3.3.3):
+  mee-components@0.0.30(@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.13.1(typescript@5.5.4))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.27.1(astro@4.13.1(typescript@5.5.4)))(@rollup/rollup-darwin-arm64@4.20.0)(@rollup/rollup-linux-x64-gnu@4.20.0)(prettier-plugin-astro@0.14.1)(prettier@3.3.3):
     dependencies:
       '@astrojs/check': 0.7.0(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.5.4)
       '@astrojs/node': 8.3.2(astro@4.13.1(typescript@5.5.4))
@@ -5764,6 +5772,8 @@ snapshots:
   punycode@2.3.1: {}
 
   queue-microtask@1.2.3: {}
+
+  queue-tick@1.0.1: {}
 
   range-parser@1.2.1: {}
 
