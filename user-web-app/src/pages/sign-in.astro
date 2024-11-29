@@ -11,13 +11,13 @@ import Layout from "@layouts/Layout.astro";
 
 <Layout title="Sign In">
   <main
-    class="flex h-screen w-screen flex-col items-center justify-center bg-auth-gradient"
+    class="flex h-screen w-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
   >
     <div
       class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6"
     >
       <div
-        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130"
+        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130 dark:border dark:border-grey-800 dark:bg-grey-900"
       >
         <AuthForm
           id="sign-in-email"
@@ -58,33 +58,33 @@ import Layout from "@layouts/Layout.astro";
           <Button id="connect" type="button" className="w-full">Connect</Button>
         </AuthForm>
         <div
-          class="flex w-full justify-center rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600"
+          class="flex w-full justify-center rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600 dark:border-t-grey-800 dark:bg-grey-900"
         >
           <ButtonLink
             id="sign-up"
-            buttonType="tertiary"
-            style="outlined"
+            buttonType="primary"
             href="/sign-up"
-            className="border-none">Sign up</ButtonLink
+            style="transparent">Sign up</ButtonLink
           >
           <Button
             id="go-back"
             type="button"
             leftIcon="chevron-left text-lg"
-            buttonType="tertiary"
-            style="outlined"
-            className="hidden border-none">Go back</Button
+            buttonType="primary"
+            style="transparent"
+            className="hidden">Go back</Button
           >
         </div>
       </div>
       <div
-        class="text-center text-xs leading-4 tracking-0.02 text-grey-700"
+        class="text-center text-xs leading-4 tracking-0.02 text-grey-700 dark:text-grey-300"
         id="hosted-by"
       >
         Hosted by <a
           href="https://mee.foundation/"
           target="_blank"
-          class="text-brand-700 underline">The Mee Foundation</a
+          class="text-brand-700 underline dark:text-brand-300"
+          >The Mee Foundation</a
         >, a non-profit that works on behalf of all Mee users and never shares
         your data with anyone.
       </div>

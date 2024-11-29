@@ -6,7 +6,7 @@ import { header, footer } from "../../astro.config.mjs";
 
 <Layout title="Welcome to Mee">
   <Header header={header} disableMobileMenu={true} />
-  <main class="dark:bg-darky w-screen overflow-hidden">
+  <main class="w-screen overflow-hidden dark:bg-darky">
     <article
       class="relative mt-27 flex h-full w-screen flex-col items-center justify-between gap-10 overflow-hidden md:gap-20"
     >
@@ -17,12 +17,12 @@ import { header, footer } from "../../astro.config.mjs";
           class="flex max-w-7xl flex-col items-center justify-center gap-4 px-6 transition-opacity duration-500"
         >
           <h1
-            class="marker text-center text-3xl font-semibold text-grey-900 md:text-5xl lg:text-7xl"
+            class="marker text-center text-3xl font-semibold text-grey-900 md:text-5xl lg:text-7xl dark:text-grey-50"
           >
             Hello! It's Mee.<br class="md:hidden" /> Your digital twin.
           </h1>
           <h3
-            class="text animation-delay-800 text-pretty text-center text-lg text-grey-900 md:text-xl lg:text-2xl"
+            class="text animation-delay-800 text-pretty text-center text-lg text-grey-900 md:text-xl lg:text-2xl dark:text-grey-50"
           >
             Mee represents you on the internet, putting you in control of your
             personal information.
@@ -33,7 +33,11 @@ import { header, footer } from "../../astro.config.mjs";
       <section
         class="flex h-full w-screen max-w-7xl flex-col items-center justify-center"
       >
-        <img src="/images/illustration.svg" />
+        <img class="w-full dark:hidden" src="/images/illustration.svg" />
+        <img
+          class="hidden w-full dark:block"
+          src="/images/illustration-dark.svg"
+        />
       </section>
       <section
         class="mb-10 flex h-full w-screen max-w-7xl flex-col items-center justify-center gap-10 md:mb-20 md:gap-20"
@@ -42,12 +46,12 @@ import { header, footer } from "../../astro.config.mjs";
           class="flex flex-col items-center justify-center gap-4 px-6 transition-opacity duration-500"
         >
           <h1
-            class="marker text-center text-2xl font-semibold text-grey-900 md:text-3xl lg:text-5xl lg:tracking-0.02"
+            class="marker text-center text-2xl font-semibold text-grey-900 md:text-3xl lg:text-5xl lg:tracking-0.02 dark:text-grey-50"
           >
             Get the latest build of our experimental app
           </h1>
           <h3
-            class="text text-pretty text-center text-lg leading-relaxed text-grey-900 md:text-xl lg:text-2xl"
+            class="text text-pretty text-center text-lg leading-relaxed text-grey-900 md:text-xl lg:text-2xl dark:text-grey-50"
           >
             Available for iOS and Android. Support for desktop platforms is
             planned.
