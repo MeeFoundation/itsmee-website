@@ -5,52 +5,54 @@ import {
   ButtonLink,
   Input,
   PasswordInput,
+  ThemeSelect,
 } from "mee-components";
 import Layout from "@layouts/Layout.astro";
 
-const accountTypes = [
-  {
-    title: "User",
-    subtitle: "View and manage your connections.",
-    image: "/images/user.svg",
-    imageDark: "/images/user-dark.svg",
-    id: "user",
-  },
-  {
-    title: "Personal Data Agent",
-    subtitle: "Apply for HIL and manage attributes.",
-    image: "/images/personal-data-agents.svg",
-    imageDark: "/images/personal-data-agents-dark.svg",
-    id: "personal-data-agent",
-  },
-  {
-    title: "Provider",
-    subtitle: "Apply for HIL and sign a contract.",
-    image: "/images/hill-icon.svg",
-    imageDark: "/images/hill-icon-dark.svg",
-    id: "provider",
-  },
-  {
-    title: "Ad Profile Service",
-    subtitle: "Apply for HIL and sign a contract.",
-    image: "/images/mee-foundation-inc.svg",
-    imageDark: "/images/mee-foundation-inc-dark.svg",
-    id: "ad-profile-service",
-  },
-];
+// const accountTypes = [
+//   {
+//     title: "User",
+//     subtitle: "View and manage your connections.",
+//     image: "/images/user.svg",
+//     imageDark: "/images/user-dark.svg",
+//     id: "user",
+//   },
+//   {
+//     title: "Personal Data Agent",
+//     subtitle: "Apply for HIL and manage attributes.",
+//     image: "/images/personal-data-agents.svg",
+//     imageDark: "/images/personal-data-agents-dark.svg",
+//     id: "personal-data-agent",
+//   },
+//   {
+//     title: "Provider",
+//     subtitle: "Apply for HIL and sign a contract.",
+//     image: "/images/hill-icon.svg",
+//     imageDark: "/images/hill-icon-dark.svg",
+//     id: "provider",
+//   },
+//   {
+//     title: "Ad Profile Service",
+//     subtitle: "Apply for HIL and sign a contract.",
+//     image: "/images/mee-foundation-inc.svg",
+//     imageDark: "/images/mee-foundation-inc-dark.svg",
+//     id: "ad-profile-service",
+//   },
+// ];
 ---
 
 <Layout title="Sign Up">
   <main
-    class="min-w-screen flex min-h-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
+    class="min-w-screen relative flex min-h-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
   >
+    <div class="absolute top-2 z-70"><ThemeSelect /></div>
     <div
-      class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6"
+      class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6 pt-10"
     >
       <div
         class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130 dark:border dark:border-grey-800 dark:bg-grey-900"
       >
-        <AuthForm
+        <!-- <AuthForm
           id="zero-form"
           title="Choose your account type"
           subtitle="Please choose a user role to continue with a tailored user experience."
@@ -77,13 +79,12 @@ const accountTypes = [
               ))
             }
           </div>
-        </AuthForm>
+        </AuthForm> -->
         <AuthForm
           id="first-form"
           title="Create account"
           subtitle="See and control who has access to your data. Get Mee to manage your personal info on compatible websites and apps."
           formId="sign-up-form"
-          className="hidden"
         >
           <Input
             className="w-full"
@@ -210,12 +211,12 @@ const accountTypes = [
 
 <script>
   import config from "@config";
-  let accountType: string;
+  // let accountType: string;
   import { addFormListeners, validateForm } from "@utils/validation";
 
-  const chooseAccountTypeForm = document.getElementById(
-    "choose-account-type-form"
-  ) as HTMLFormElement | null;
+  // const chooseAccountTypeForm = document.getElementById(
+  //   "choose-account-type-form"
+  // ) as HTMLFormElement | null;
 
   const signUpForm = document.getElementById(
     "sign-up-form"
@@ -230,7 +231,7 @@ const accountTypes = [
     "sign-up-form-4"
   ) as HTMLFormElement | null;
   const signUpButton = document.getElementById("sign-up-button");
-  const zeroForm = document.getElementById("zero-form");
+  // const zeroForm = document.getElementById("zero-form");
   const firstForm = document.getElementById("first-form");
   const secondForm = document.getElementById("second-form");
   const thirdForm = document.getElementById("third-form");
@@ -272,11 +273,11 @@ const accountTypes = [
   };
 
   goBackButton?.addEventListener("click", () => {
-    if (!firstForm?.classList.contains("hidden")) {
-      changeForm(firstForm, zeroForm, false, true);
-    }
+    // if (!firstForm?.classList.contains("hidden")) {
+    //   changeForm(firstForm, zeroForm, false, true);
+    // }
     if (!secondForm?.classList.contains("hidden")) {
-      changeForm(secondForm, firstForm, true);
+      changeForm(secondForm, firstForm, false, true);
     }
     if (!thirdForm?.classList.contains("hidden")) {
       changeForm(thirdForm, secondForm, true);
@@ -332,7 +333,7 @@ const accountTypes = [
       if (data && formValid) {
         try {
           const { auth_token } = await fetch(
-            `${config.backendUrl}/api/v1/${accountType}/register`,
+            `${config.backendUrl}/api/v1/user/register`,
             {
               method: "POST",
               headers: {
@@ -349,19 +350,19 @@ const accountTypes = [
       }
     }
   };
-  const selectAccountType = (type: string) => {
-    accountType = type;
-    changeForm(zeroForm, firstForm, true);
-  };
-
-  if (chooseAccountTypeForm) {
-    const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
-    buttons?.forEach((button) => {
-      button.addEventListener("click", () => {
-        selectAccountType(button.id);
-      });
-    });
-  }
+  // const selectAccountType = (type: string) => {
+  //   accountType = type;
+  //   changeForm(zeroForm, firstForm, true);
+  // };
+  //
+  // if (chooseAccountTypeForm) {
+  //   const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
+  //   buttons?.forEach((button) => {
+  //     button.addEventListener("click", () => {
+  //       selectAccountType(button.id);
+  //     });
+  //   });
+  // }
 
   if (signUpForm) {
     const inputs = signUpForm.querySelectorAll("input");
