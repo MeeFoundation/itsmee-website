@@ -1,0 +1,42 @@
+<img src="./images/logo-m.svg" width="91" height="64" class="flex flex-shrink-0" />
+<img src="./images/logo-e.svg" width="64" height="64" class="flex flex-shrink-0" />
+<img
+  src="./images/logo-e.svg"
+  width="64"
+  height="64"
+  class="flex flex-shrink-0 img-filter -scale-x-100 anim-mirror"
+/>
+
+<style>
+  .img-filter {
+    filter: brightness(0) saturate(100%) invert(81%) sepia(20%) saturate(350%) hue-rotate(137deg) brightness(91%)
+      contrast(85%);
+  }
+
+  .anim-mirror {
+    animation: 6000ms linear 1s both mirror;
+  }
+
+  @keyframes mirror {
+    0% {
+      transform: scaleX(-1);
+      filter: brightness(0) saturate(100%) invert(47%) sepia(57%) saturate(304%) hue-rotate(140deg) brightness(90%)
+        contrast(81%);
+    }
+    3% {
+      transform: scaleX(1);
+      filter: brightness(0) saturate(100%) invert(81%) sepia(20%) saturate(350%) hue-rotate(137deg) brightness(91%)
+        contrast(85%);
+    }
+    96% {
+      transform: scaleX(1);
+      filter: brightness(0) saturate(100%) invert(81%) sepia(20%) saturate(350%) hue-rotate(137deg) brightness(91%)
+        contrast(85%);
+    }
+    100% {
+      transform: scaleX(-1);
+      filter: brightness(0) saturate(100%) invert(47%) sepia(57%) saturate(304%) hue-rotate(140deg) brightness(90%)
+        contrast(81%);
+    }
+  }
+</style>

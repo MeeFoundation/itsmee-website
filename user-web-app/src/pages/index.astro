@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { Header, Footer, ButtonLink } from "mee-components";
 import { header, footer } from "../../astro.config.mjs";
+import TypingLogo from "@components/TypingLogo.astro";
 ---
 
 <Layout title="Welcome to Mee">
@@ -39,7 +40,7 @@ import { header, footer } from "../../astro.config.mjs";
           src="/images/illustration-dark.svg"
         />
       </section>
-      <section class="md:mb-10"></section>
+      <section><TypingLogo /></section>
       <!-- <section
         class="mb-10 flex h-full w-screen max-w-7xl flex-col items-center justify-center gap-10 md:mb-20 md:gap-20"
       > -->

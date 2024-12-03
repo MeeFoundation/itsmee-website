@@ -1,0 +1,46 @@
+---
+import Logo from "./Logo.astro";
+---
+
+<article class="my-24 flex h-[64px] items-baseline">
+  <Logo />
+  <p
+    class="flex gap-0 text-[112px] leading-[20px] text-brand-300"
+    id="logo-wording-opacity"
+  >
+  </p>
+</article>
+
+<script>
+  const text = "lectronically";
+  const logoWordingsOpacity = document.getElementById("logo-wording-opacity");
+
+  let j = 0;
+  let speed = 90;
+
+  function typeWriterOpacity() {
+    if (j < text.length) {
+      const wordSpan = document.createElement("span");
+      wordSpan.classList.add("anim-fade-in");
+      wordSpan.appendChild(document.createTextNode(text.charAt(j)));
+      logoWordingsOpacity?.appendChild(wordSpan);
+
+      j++;
+      setTimeout(typeWriterOpacity, speed);
+    }
+  }
+
+  function removeWrittenTextOpacity() {
+    if (j > 0) {
+      if (logoWordingsOpacity && logoWordingsOpacity.lastChild) {
+        logoWordingsOpacity.removeChild(logoWordingsOpacity.lastChild);
+      }
+
+      j--;
+      setTimeout(removeWrittenTextOpacity, speed / 3);
+    }
+  }
+
+  setTimeout(typeWriterOpacity, 1150);
+  setTimeout(removeWrittenTextOpacity, 6100);
+</script>
