@@ -5,48 +5,54 @@ import {
   ButtonLink,
   Input,
   PasswordInput,
+  ThemeSelect,
 } from "mee-components";
 import Layout from "@layouts/Layout.astro";
 
-const accountTypes = [
-  {
-    title: "User",
-    subtitle: "View and manage your connections.",
-    image: "/images/user.svg",
-    id: "user",
-  },
-  {
-    title: "Personal Data Agent",
-    subtitle: "Apply for HIL and manage attributes.",
-    image: "/images/personal-data-agents.svg",
-    id: "personal-data-agent",
-  },
-  {
-    title: "Provider",
-    subtitle: "Apply for HIL and sign a contract.",
-    image: "/images/hill-icon.svg",
-    id: "provider",
-  },
-  {
-    title: "Ad Profile Service",
-    subtitle: "Apply for HIL and sign a contract.",
-    image: "/images/mee-foundation-inc.svg",
-    id: "ad-profile-service",
-  },
-];
+// const accountTypes = [
+//   {
+//     title: "User",
+//     subtitle: "View and manage your connections.",
+//     image: "/images/user.svg",
+//     imageDark: "/images/user-dark.svg",
+//     id: "user",
+//   },
+//   {
+//     title: "Personal Data Agent",
+//     subtitle: "Apply for HIL and manage attributes.",
+//     image: "/images/personal-data-agents.svg",
+//     imageDark: "/images/personal-data-agents-dark.svg",
+//     id: "personal-data-agent",
+//   },
+//   {
+//     title: "Provider",
+//     subtitle: "Apply for HIL and sign a contract.",
+//     image: "/images/hill-icon.svg",
+//     imageDark: "/images/hill-icon-dark.svg",
+//     id: "provider",
+//   },
+//   {
+//     title: "Ad Profile Service",
+//     subtitle: "Apply for HIL and sign a contract.",
+//     image: "/images/mee-foundation-inc.svg",
+//     imageDark: "/images/mee-foundation-inc-dark.svg",
+//     id: "ad-profile-service",
+//   },
+// ];
 ---
 
 <Layout title="Sign Up">
   <main
-    class="min-w-screen flex min-h-screen flex-col items-center justify-center bg-auth-gradient"
+    class="min-w-screen relative flex min-h-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
   >
+    <div class="absolute top-2 z-70"><ThemeSelect /></div>
     <div
-      class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6"
+      class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6 pt-10"
     >
       <div
-        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130"
+        class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130 dark:border dark:border-grey-800 dark:bg-grey-900"
       >
-        <AuthForm
+        <!-- <AuthForm
           id="zero-form"
           title="Choose your account type"
           subtitle="Please choose a user role to continue with a tailored user experience."
@@ -58,9 +64,13 @@ const accountTypes = [
                 <button
                   id={accountType.id}
                   type="button"
-                  class="account-type flex w-full flex-col items-center justify-center gap-4 rounded-xl border border-grey-300 bg-grey-50 p-4 hover:shadow-3-strong md:flex-row md:items-start md:justify-start md:p-6"
+                  class="account-type flex w-full flex-col items-center justify-center gap-4 rounded-xl border border-grey-300 bg-grey-50 p-4 hover:shadow-3-strong md:flex-row md:items-start md:justify-start md:p-6 dark:border-grey-600 dark:bg-grey-900 dark:text-grey-50 dark:hover:bg-dark-hover-gradient"
                 >
-                  <img src={accountType.image} class="h-12 w-12" />
+                  <img src={accountType.image} class="h-12 w-12 dark:hidden" />
+                  <img
+                    src={accountType.imageDark}
+                    class="hidden h-12 w-12 dark:block"
+                  />
                   <div class="flex w-full flex-col items-center md:items-start">
                     <div class="text-xl font-bold">{accountType.title}</div>
                     <div>{accountType.subtitle}</div>
@@ -69,13 +79,12 @@ const accountTypes = [
               ))
             }
           </div>
-        </AuthForm>
+        </AuthForm> -->
         <AuthForm
           id="first-form"
           title="Create account"
           subtitle="See and control who has access to your data. Get Mee to manage your personal info on compatible websites and apps."
           formId="sign-up-form"
-          className="hidden"
         >
           <Input
             className="w-full"
@@ -156,17 +165,17 @@ const accountTypes = [
           <Button id="send" type="button" className="w-full">Connect</Button>
         </AuthForm>
         <div
-          class="w-full rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-grey-600"
+          class="w-full rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-grey-600 dark:border-t-grey-800 dark:bg-grey-900 dark:text-grey-400"
           id="policy"
         >
           By continuing, you agree to itsmee.org{" "}<a
-            class="cursor-pointer text-brand-700 underline"
+            class="cursor-pointer text-brand-700 underline dark:text-brand-300"
             href="https://mee.foundation/privacy-policy/"
             target="_blank">Privacy Policy</a
           >
         </div>
         <div
-          class="hidden w-full justify-between rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600"
+          class="hidden w-full justify-between rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600 dark:border-t-grey-800 dark:bg-grey-900"
           id="navigation"
         >
           <Button
@@ -174,26 +183,25 @@ const accountTypes = [
             type="button"
             leftIcon="chevron-left text-lg"
             buttonType="tertiary"
-            style="outlined"
-            className="border-none">Go back</Button
+            style="transparent">Go back</Button
           >
           <ButtonLink
             id="join"
             buttonType="tertiary"
-            style="outlined"
-            href="/sign-in"
-            className="border-none">Log in</ButtonLink
+            style="transparent"
+            href="/sign-in">Log in</ButtonLink
           >
         </div>
       </div>
       <div
-        class="text-center text-xs leading-4 tracking-0.02 text-grey-700"
+        class="text-center text-xs leading-4 tracking-0.02 text-grey-700 dark:text-grey-300"
         id="hosted-by"
       >
         Hosted by <a
           href="https://mee.foundation/"
           target="_blank"
-          class="text-brand-700 underline">The Mee Foundation</a
+          class="text-brand-700 underline dark:text-brand-300"
+          >The Mee Foundation</a
         >, a non-profit that works on behalf of all Mee users and never shares
         your data with anyone.
       </div>
@@ -203,27 +211,27 @@ const accountTypes = [
 
 <script>
   import config from "@config";
-  let accountType: string;
+  // let accountType: string;
   import { addFormListeners, validateForm } from "@utils/validation";
 
-  const chooseAccountTypeForm = document.getElementById(
-    "choose-account-type-form",
-  ) as HTMLFormElement | null;
+  // const chooseAccountTypeForm = document.getElementById(
+  //   "choose-account-type-form"
+  // ) as HTMLFormElement | null;
 
   const signUpForm = document.getElementById(
-    "sign-up-form",
+    "sign-up-form"
   ) as HTMLFormElement | null;
   const signUpForm2 = document.getElementById(
-    "sign-up-form-2",
+    "sign-up-form-2"
   ) as HTMLFormElement | null;
   const signUpForm3 = document.getElementById(
-    "sign-up-form-3",
+    "sign-up-form-3"
   ) as HTMLFormElement | null;
   const signUpForm4 = document.getElementById(
-    "sign-up-form-4",
+    "sign-up-form-4"
   ) as HTMLFormElement | null;
   const signUpButton = document.getElementById("sign-up-button");
-  const zeroForm = document.getElementById("zero-form");
+  // const zeroForm = document.getElementById("zero-form");
   const firstForm = document.getElementById("first-form");
   const secondForm = document.getElementById("second-form");
   const thirdForm = document.getElementById("third-form");
@@ -242,7 +250,7 @@ const accountTypes = [
     activeForm: HTMLElement | null,
     nextForm: HTMLElement | null,
     showNavigation?: boolean,
-    showPolicy?: boolean,
+    showPolicy?: boolean
   ) => {
     activeForm?.classList.remove("flex");
     activeForm?.classList.add("hidden");
@@ -265,11 +273,11 @@ const accountTypes = [
   };
 
   goBackButton?.addEventListener("click", () => {
-    if (!firstForm?.classList.contains("hidden")) {
-      changeForm(firstForm, zeroForm, false, true);
-    }
+    // if (!firstForm?.classList.contains("hidden")) {
+    //   changeForm(firstForm, zeroForm, false, true);
+    // }
     if (!secondForm?.classList.contains("hidden")) {
-      changeForm(secondForm, firstForm, true);
+      changeForm(secondForm, firstForm, false, true);
     }
     if (!thirdForm?.classList.contains("hidden")) {
       changeForm(thirdForm, secondForm, true);
@@ -284,7 +292,7 @@ const accountTypes = [
     if (formValid) {
       const emailData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { email: "" },
+        { email: "" }
       );
       data.email = emailData.email;
       changeForm(firstForm, secondForm, true);
@@ -296,7 +304,7 @@ const accountTypes = [
     if (formValid) {
       const passwordData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { verify_code: "" },
+        { verify_code: "" }
       );
       data.verify_code = passwordData.verify_code;
       changeForm(secondForm, thirdForm, true);
@@ -307,7 +315,7 @@ const accountTypes = [
     if (formValid) {
       const passwordData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { password: "" },
+        { password: "" }
       );
       data.password = passwordData.password;
       changeForm(thirdForm, fourthForm, true);
@@ -318,21 +326,21 @@ const accountTypes = [
     if (formValid) {
       const passwordData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { tel: "" },
+        { tel: "" }
       );
       data.tel = passwordData.tel;
 
       if (data && formValid) {
         try {
           const { auth_token } = await fetch(
-            `${config.backendUrl}/api/v1/${accountType}/register`,
+            `${config.backendUrl}/api/v1/user/register`,
             {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(data),
-            },
+            }
           ).then((r) => r.json());
 
           console.log("auth_token", auth_token);
@@ -342,19 +350,19 @@ const accountTypes = [
       }
     }
   };
-  const selectAccountType = (type: string) => {
-    accountType = type;
-    changeForm(zeroForm, firstForm, true);
-  };
-
-  if (chooseAccountTypeForm) {
-    const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
-    buttons?.forEach((button) => {
-      button.addEventListener("click", () => {
-        selectAccountType(button.id);
-      });
-    });
-  }
+  // const selectAccountType = (type: string) => {
+  //   accountType = type;
+  //   changeForm(zeroForm, firstForm, true);
+  // };
+  //
+  // if (chooseAccountTypeForm) {
+  //   const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
+  //   buttons?.forEach((button) => {
+  //     button.addEventListener("click", () => {
+  //       selectAccountType(button.id);
+  //     });
+  //   });
+  // }
 
   if (signUpForm) {
     const inputs = signUpForm.querySelectorAll("input");
