@@ -2,7 +2,7 @@
 import Logo from "./Logo.astro";
 ---
 
-<article class="my-24 flex h-[64px] items-baseline">
+<article class="typing-logo my-24 flex h-[64px] items-baseline">
   <Logo />
   <p
     class="flex gap-0 text-[112px] leading-[20px] text-brand-300"
@@ -14,9 +14,11 @@ import Logo from "./Logo.astro";
 <script>
   const text = "lectronically";
   const logoWordingsOpacity = document.getElementById("logo-wording-opacity");
+  const typingLogo = document.querySelector(".typing-logo");
 
   let j = 0;
   let speed = 90;
+  let startAnimation = false;
 
   function typeWriterOpacity() {
     if (j < text.length) {
@@ -41,6 +43,21 @@ import Logo from "./Logo.astro";
     }
   }
 
-  setTimeout(typeWriterOpacity, 1150);
-  setTimeout(removeWrittenTextOpacity, 6100);
+  const observerTypingLogo = new IntersectionObserver(
+    (entries, _) => {
+      console.log(entries);
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!startAnimation) {
+            setTimeout(typeWriterOpacity, 1150);
+            setTimeout(removeWrittenTextOpacity, 6100);
+            startAnimation = true;
+          }
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  if (typingLogo) observerTypingLogo.observe(typingLogo);
 </script>
