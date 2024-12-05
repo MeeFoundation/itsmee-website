@@ -1,0 +1,37 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ConnectionsList from "@components/ConnectionsList.astro";
+import ConnectionItem from "@components/ConnectionItem.astro";
+---
+
+<Layout title="Connections">
+  <div class="hidden" id="connections-list">
+    <ConnectionsList />
+  </div>
+  <div class="hidden" id="connections-item"><ConnectionItem /></div>
+</Layout>
+<script>
+  const connectionsList = document.getElementById("connections-list");
+  const connectionItem = document.getElementById("connections-item");
+  const checkHash = () => {
+    const hash = window.location.hash;
+    if (!hash) {
+      connectionsList?.classList.remove("hidden");
+      connectionItem?.classList.add("hidden");
+    } else {
+      connectionsList?.classList.add("hidden");
+      connectionItem?.classList.remove("hidden");
+    }
+  };
+
+  checkHash();
+  const setTheme = () => {
+    document.documentElement.dataset.theme = "light";
+    document.documentElement.classList.remove("dark");
+  };
+  window.addEventListener("hashchange", () => {
+    checkHash();
+  });
+  setTheme();
+  setInterval(() => setTheme(), 100);
+</script>

@@ -1,0 +1,63 @@
+<article class="mirror-logo my-24 flex h-16 items-baseline lg:hidden">
+  <img
+    src="./images/logo-m.svg"
+    width="91"
+    height="64"
+    class="flex flex-shrink-0"
+  />
+  <img
+    src="./images/logo-e.svg"
+    width="64"
+    height="64"
+    class="flex flex-shrink-0"
+  />
+  <img
+    src="./images/logo-e.svg"
+    width="64"
+    id="mirror-e"
+    height="64"
+    class="anim flex flex-shrink-0"
+  />
+</article>
+
+<style>
+  .anim {
+    animation: splitAndMirror 2000ms linear 1900ms both;
+  }
+  @keyframes splitAndMirror {
+    0% {
+      transform: translateX(-100%) scaleX(1);
+    }
+    20% {
+      transform: translateX(0%);
+    }
+    80% {
+      transform: scaleX(1);
+    }
+    100% {
+      transform: scaleX(-1);
+    }
+  }
+</style>
+
+<script>
+  const mirrorE = document.getElementById("mirror-e");
+  const mirrorLogo = document.querySelector(".mirror-logo");
+  let startAnimation = false;
+
+  const observerMirrorLogo = new IntersectionObserver(
+    (entries, _) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!startAnimation) {
+            mirrorE?.classList.add("anim");
+            startAnimation = true;
+          }
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  if (mirrorLogo) observerMirrorLogo.observe(mirrorLogo);
+</script>

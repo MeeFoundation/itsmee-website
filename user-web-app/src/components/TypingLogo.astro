@@ -1,9 +1,24 @@
----
-import Logo from "./Logo.astro";
----
+<article class="typing-logo my-24 hidden h-16 items-baseline lg:flex">
+  <img
+    src="./images/logo-m.svg"
+    width="91"
+    height="64"
+    class="flex flex-shrink-0"
+  />
+  <img
+    src="./images/logo-e.svg"
+    width="64"
+    height="64"
+    class="flex flex-shrink-0"
+  />
+  <img
+    src="./images/logo-e.svg"
+    id="mirror-e"
+    width="64"
+    height="64"
+    class="img-filter flex flex-shrink-0 -scale-x-100"
+  />
 
-<article class="my-24 flex h-[64px] items-baseline">
-  <Logo />
   <p
     class="flex gap-0 text-[112px] leading-[20px] text-brand-300"
     id="logo-wording-opacity"
@@ -14,9 +29,12 @@ import Logo from "./Logo.astro";
 <script>
   const text = "lectronically";
   const logoWordingsOpacity = document.getElementById("logo-wording-opacity");
+  const mirrorE = document.getElementById("mirror-e");
+  const typingLogo = document.querySelector(".typing-logo");
 
   let j = 0;
   let speed = 90;
+  let startAnimation = false;
 
   function typeWriterOpacity() {
     if (j < text.length) {
@@ -24,7 +42,6 @@ import Logo from "./Logo.astro";
       wordSpan.classList.add("anim-fade-in");
       wordSpan.appendChild(document.createTextNode(text.charAt(j)));
       logoWordingsOpacity?.appendChild(wordSpan);
-
       j++;
       setTimeout(typeWriterOpacity, speed);
     }
@@ -35,12 +52,60 @@ import Logo from "./Logo.astro";
       if (logoWordingsOpacity && logoWordingsOpacity.lastChild) {
         logoWordingsOpacity.removeChild(logoWordingsOpacity.lastChild);
       }
-
       j--;
       setTimeout(removeWrittenTextOpacity, speed / 3);
     }
   }
 
-  setTimeout(typeWriterOpacity, 1150);
-  setTimeout(removeWrittenTextOpacity, 6100);
+  const observerTypingLogo = new IntersectionObserver(
+    (entries, _) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!startAnimation) {
+            mirrorE?.classList.add("anim-mirror");
+            setTimeout(typeWriterOpacity, 1150);
+            setTimeout(removeWrittenTextOpacity, 6100);
+            startAnimation = true;
+          }
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  if (typingLogo) observerTypingLogo.observe(typingLogo);
 </script>
+
+<style>
+  .img-filter {
+    filter: brightness(0) saturate(100%) invert(81%) sepia(20%) saturate(350%)
+      hue-rotate(137deg) brightness(91%) contrast(85%);
+  }
+
+  .anim-mirror {
+    animation: 6000ms linear 1s both mirror;
+  }
+
+  @keyframes mirror {
+    0% {
+      transform: scaleX(-1);
+      filter: brightness(0) saturate(100%) invert(47%) sepia(57%) saturate(304%)
+        hue-rotate(140deg) brightness(90%) contrast(81%);
+    }
+    3% {
+      transform: scaleX(1);
+      filter: brightness(0) saturate(100%) invert(81%) sepia(20%) saturate(350%)
+        hue-rotate(137deg) brightness(91%) contrast(85%);
+    }
+    96% {
+      transform: scaleX(1);
+      filter: brightness(0) saturate(100%) invert(81%) sepia(20%) saturate(350%)
+        hue-rotate(137deg) brightness(91%) contrast(85%);
+    }
+    100% {
+      transform: scaleX(-1);
+      filter: brightness(0) saturate(100%) invert(47%) sepia(57%) saturate(304%)
+        hue-rotate(140deg) brightness(90%) contrast(81%);
+    }
+  }
+</style>

@@ -3,6 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import { Header, Footer, ButtonLink } from "mee-components";
 import { header, footer } from "../../astro.config.mjs";
 import TypingLogo from "@components/TypingLogo.astro";
+import MirrorLogo from "@components/MirrorLogo.astro";
 ---
 
 <Layout title="Welcome to Mee">
@@ -40,27 +41,7 @@ import TypingLogo from "@components/TypingLogo.astro";
           src="/images/illustration-dark.svg"
         />
       </section>
-      <section><TypingLogo /></section>
-      <!-- <section
-        class="mb-10 flex h-full w-screen max-w-7xl flex-col items-center justify-center gap-10 md:mb-20 md:gap-20"
-      > -->
-      <!-- <div
-          class="flex flex-col items-center justify-center gap-4 px-6 transition-opacity duration-500"
-        >
-          <h1
-            class="marker text-center text-2xl font-semibold text-grey-900 md:text-3xl lg:text-5xl lg:tracking-0.02 dark:text-grey-50"
-          >
-            Get the latest build of our experimental app
-          </h1>
-          <h3
-            class="text text-pretty text-center text-lg leading-relaxed text-grey-900 md:text-xl lg:text-2xl dark:text-grey-50"
-          >
-            Available for iOS and Android. Support for desktop platforms is
-            planned.
-          </h3>
-        </div>
-        <AppButtons btnSize="normal" noDescription={true} class="z-100" /> -->
-      <!-- </section> -->
+      <section><TypingLogo /><MirrorLogo /></section>
       <Footer footer={footer} mode="dark" />
     </article>
   </main>
