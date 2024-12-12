@@ -29,13 +29,13 @@ export const validateInput = (
   input: HTMLInputElement,
   inputs: NodeListOf<HTMLInputElement>,
 ) => {
-  const id = input.id;
+  const type = input.dataset.type;
   const value = input.value.length ? input.value : undefined;
   if (!value && !input.required) {
     return true;
   }
   try {
-    switch (id) {
+    switch (type) {
       case "password": {
         assert(
           value,
@@ -78,22 +78,18 @@ export const validateInput = (
 };
 export const addErrorMessage = (input: HTMLInputElement, message: string) => {
   const inputContainer = input.closest(".input-container");
-  const validationMessage = inputContainer?.querySelector(
-    ".error-message",
-  );
+  const validationMessage = inputContainer?.querySelector(".error-message");
   if (validationMessage) {
     validationMessage.innerHTML = message;
-    inputContainer?.classList.add("error")
+    inputContainer?.classList.add("error");
   }
 };
 export const clearInputValidation = (input: HTMLInputElement) => {
   const inputContainer = input.closest(".input-container");
-  const validationMessage = inputContainer?.querySelector(
-    ".error-message",
-  );
+  const validationMessage = inputContainer?.querySelector(".error-message");
   if (validationMessage) {
     validationMessage.innerHTML = "";
-    inputContainer?.classList.remove("error")
+    inputContainer?.classList.remove("error");
   }
 };
 

@@ -1,0 +1,116 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+import "@styles/base.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="The Mee Foundation is a nonprofit whose mission is to develop a human-centered user experience for the internet."
+    />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+<style is:global>
+  :root {
+  }
+  html {
+    background-color: #fff;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    --scroll: 0;
+    transition: left 1s;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  strong {
+    font-weight: 800;
+  }
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+  .marker > mark {
+    position: relative;
+    background: none;
+    color: inherit;
+  }
+  .marker > mark::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 10%;
+    height: 0.15em;
+    border-radius: 2px;
+    background-color: #f9df89;
+    z-index: -1;
+    animation: drawUnderline 200ms both;
+    animation-delay: 800ms;
+  }
+
+  @keyframes drawUnderline {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      opacity: 1;
+      height: 50%;
+    }
+    20% {
+      opacity: 1;
+      height: 50%;
+    }
+    30% {
+      height: 100%;
+      align-self: flex-start;
+    }
+    40% {
+      opacity: 1;
+      align-self: flex-end;
+    }
+    80% {
+      opacity: 0;
+      height: 0%;
+      align-self: flex-end;
+    }
+    81% {
+      opacity: 0;
+      height: 50%;
+      align-self: flex-start;
+    }
+    100% {
+      opacity: 1;
+      height: 50%;
+    }
+  }
+</style>

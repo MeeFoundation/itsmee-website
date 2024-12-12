@@ -1,0 +1,389 @@
+---
+import {
+  AuthForm,
+  Button,
+  ButtonLink,
+  Input,
+  PasswordInput,
+  ThemeSelect,
+} from "mee-components";
+---
+
+<main
+  class="min-w-screen relative flex min-h-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
+>
+  <div class="absolute top-2 z-70"><ThemeSelect /></div>
+  <div
+    class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6 pt-10"
+  >
+    <div
+      class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130 dark:border dark:border-grey-800 dark:bg-grey-900"
+    >
+      <!-- <AuthForm
+          id="zero-form"
+          title="Choose your account type"
+          subtitle="Please choose a user role to continue with a tailored user experience."
+          formId="choose-account-type-form"
+        >
+          <div class="flex flex-col gap-2">
+            {
+              accountTypes.map((accountType) => (
+                <button
+                  id={accountType.id}
+                  type="button"
+                  class="account-type flex w-full flex-col items-center justify-center gap-4 rounded-xl border border-grey-300 bg-grey-50 p-4 hover:shadow-3-strong md:flex-row md:items-start md:justify-start md:p-6 dark:border-grey-600 dark:bg-grey-900 dark:text-grey-50 dark:hover:bg-dark-hover-gradient"
+                >
+                  <img src={accountType.image} class="h-12 w-12 dark:hidden" />
+                  <img
+                    src={accountType.imageDark}
+                    class="hidden h-12 w-12 dark:block"
+                  />
+                  <div class="flex w-full flex-col items-center md:items-start">
+                    <div class="text-xl font-bold">{accountType.title}</div>
+                    <div>{accountType.subtitle}</div>
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+        </AuthForm> -->
+      <AuthForm
+        id="first-form"
+        title="Create account"
+        subtitle="See and control who has access to your data. Get Mee to manage your personal info on compatible websites and apps."
+        formId="sign-up-form"
+      >
+        <Input
+          className="w-full"
+          type="email"
+          id="sign_up_email"
+          dataType="email"
+          label="Connect with email address"
+          size="lg"
+          labelPosition="inside"
+          autocomplete="off"
+          required
+        />
+
+        <Button id="sign-up-button" type="button" className="w-full"
+          >Sign up</Button
+        >
+      </AuthForm>
+      <AuthForm
+        id="second-form"
+        title="Verify your email"
+        subtitle="Please enter the code sent to your email."
+        formId="sign-up-form-2"
+        className="hidden"
+      >
+        <Input
+          className="w-full"
+          id="sign_up_verify_code"
+          dataType="verify_code"
+          type="text"
+          label="Enter code"
+          size="lg"
+          labelPosition="inside"
+          required
+        />
+        <Button id="check-code" type="button" className="w-full"
+          >Check Code</Button
+        >
+      </AuthForm>
+      <AuthForm
+        id="third-form"
+        title="Secure your account"
+        subtitle="Create a password to confirm your identity when you want to connect."
+        formId="sign-up-form-3"
+        className="hidden"
+      >
+        <PasswordInput
+          className="w-full"
+          id="sign_up_password"
+          dataType="password"
+          label="Password"
+          size="lg"
+          required
+        />
+        <PasswordInput
+          className="w-full"
+          id="sign_up_confirm_password"
+          dataType="confirm_password"
+          label="Confirm password"
+          size="lg"
+          autocomplete="off"
+          required
+        />
+        <Button id="connect" type="button" className="w-full">Connect</Button>
+      </AuthForm>
+      <AuthForm
+        id="fourth-form"
+        title="Fortify your account"
+        subtitle="Enter your phone number to strengthen your account and to add a way to recover it."
+        formId="sign-up-form-4"
+        className="hidden"
+      >
+        <Input
+          className="w-full"
+          id="sign_up_tel"
+          dataType="tel"
+          type="tel"
+          label="Enter phone number"
+          size="lg"
+          labelPosition="inside"
+          autocomplete="off"
+        />
+
+        <Button id="send" type="button" className="w-full">Connect</Button>
+      </AuthForm>
+      <div
+        class="w-full rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-6 text-center text-xs leading-4 tracking-0.02 text-grey-600 dark:border-t-grey-800 dark:bg-grey-900 dark:text-grey-400"
+        id="policy"
+      >
+        By continuing, you agree to itsmee.org{" "}<a
+          class="cursor-pointer text-brand-700 underline dark:text-brand-300"
+          href="https://mee.foundation/privacy-policy/"
+          target="_blank">Privacy Policy</a
+        >
+      </div>
+      <div
+        class="hidden w-full justify-between rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600 dark:border-t-grey-800 dark:bg-grey-900"
+        id="navigation"
+      >
+        <Button
+          id="go-back"
+          type="button"
+          leftIcon="chevron-left text-lg"
+          buttonType="tertiary"
+          style="transparent">Go back</Button
+        >
+        <ButtonLink
+          id="join"
+          buttonType="tertiary"
+          style="transparent"
+          href="/#sign-in">Log in</ButtonLink
+        >
+      </div>
+    </div>
+    <div
+      class="text-center text-xs leading-4 tracking-0.02 text-grey-700 dark:text-grey-300"
+      id="hosted-by"
+    >
+      Hosted by <a
+        href="https://mee.foundation/"
+        target="_blank"
+        class="text-brand-700 underline dark:text-brand-300"
+        >The Mee Foundation</a
+      >, a non-profit that works on behalf of all Mee users and never shares
+      your data with anyone.
+    </div>
+  </div>
+</main>
+
+<script>
+  import config from "@config";
+  import { HashRouter } from "mee-components";
+  import { addFormListeners, validateForm } from "@utils/validation";
+  import { getCookie, setCookie } from "@utils/cookie";
+  const initSignUp = () => {
+    const user = getCookie("user");
+    if (user) {
+      window.location.hash = "#connections";
+    }
+    const signUpForm = document.getElementById(
+      "sign-up-form"
+    ) as HTMLFormElement | null;
+    const signUpForm2 = document.getElementById(
+      "sign-up-form-2"
+    ) as HTMLFormElement | null;
+    const signUpForm3 = document.getElementById(
+      "sign-up-form-3"
+    ) as HTMLFormElement | null;
+    const signUpForm4 = document.getElementById(
+      "sign-up-form-4"
+    ) as HTMLFormElement | null;
+    const signUpButton = document.getElementById("sign-up-button");
+    // const zeroForm = document.getElementById("zero-form");
+    const firstForm = document.getElementById("first-form");
+    const secondForm = document.getElementById("second-form");
+    const thirdForm = document.getElementById("third-form");
+    const fourthForm = document.getElementById("fourth-form");
+    const goBackButton = document.getElementById("go-back");
+
+    const checkCodeButton = document.getElementById("check-code");
+    const connectButton = document.getElementById("connect");
+    const sendButton = document.getElementById("send");
+    const policyBlock = document.getElementById("policy");
+    const navigationBlock = document.getElementById("navigation");
+    const hostedByBlock = document.getElementById("hosted-by");
+    const data = { email: "", password: "", verify_code: "", tel: "" };
+
+    const changeForm = (
+      activeForm: HTMLElement | null,
+      nextForm: HTMLElement | null,
+      showNavigation?: boolean,
+      showPolicy?: boolean
+    ) => {
+      activeForm?.classList.remove("flex");
+      activeForm?.classList.add("hidden");
+      nextForm?.classList.add("flex");
+      nextForm?.classList.remove("hidden");
+      if (showPolicy) {
+        policyBlock?.classList.remove("hidden");
+        hostedByBlock?.classList.remove("hidden");
+      } else {
+        policyBlock?.classList.add("hidden");
+        hostedByBlock?.classList.add("hidden");
+      }
+      if (showNavigation) {
+        navigationBlock?.classList.remove("hidden");
+        navigationBlock?.classList.add("flex");
+      } else {
+        navigationBlock?.classList.remove("flex");
+        navigationBlock?.classList.add("hidden");
+      }
+    };
+
+    goBackButton?.addEventListener("click", () => {
+      // if (!firstForm?.classList.contains("hidden")) {
+      //   changeForm(firstForm, zeroForm, false, true);
+      // }
+      if (!secondForm?.classList.contains("hidden")) {
+        changeForm(secondForm, firstForm, false, true);
+      }
+      if (!thirdForm?.classList.contains("hidden")) {
+        changeForm(thirdForm, secondForm, true);
+      }
+      if (!fourthForm?.classList.contains("hidden")) {
+        changeForm(fourthForm, thirdForm, true);
+      }
+    });
+
+    const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
+      const formValid = validateForm(inputs);
+      if (formValid) {
+        const emailData = Array.from(inputs).reduce(
+          (acc, input) => ({ ...acc, [input.id]: input.value }),
+          { sign_up_email: "" }
+        );
+        data.email = emailData.sign_up_email;
+        changeForm(firstForm, secondForm, true);
+      }
+    };
+
+    const submitForm2 = (inputs: NodeListOf<HTMLInputElement>) => {
+      const formValid = validateForm(inputs);
+      if (formValid) {
+        const passwordData = Array.from(inputs).reduce(
+          (acc, input) => ({ ...acc, [input.id]: input.value }),
+          { sign_up_verify_code: "" }
+        );
+        data.verify_code = passwordData.sign_up_verify_code;
+        changeForm(secondForm, thirdForm, true);
+      }
+    };
+    const submitForm3 = (inputs: NodeListOf<HTMLInputElement>) => {
+      const formValid = validateForm(inputs);
+      if (formValid) {
+        const passwordData = Array.from(inputs).reduce(
+          (acc, input) => ({ ...acc, [input.id]: input.value }),
+          { sign_up_password: "" }
+        );
+        data.password = passwordData.sign_up_password;
+        changeForm(thirdForm, fourthForm, true);
+      }
+    };
+    const submitForm4 = async (inputs: NodeListOf<HTMLInputElement>) => {
+      const formValid = validateForm(inputs);
+      if (formValid) {
+        setCookie("user", data.email);
+        window.location.hash = "#connections";
+        const passwordData = Array.from(inputs).reduce(
+          (acc, input) => ({ ...acc, [input.id]: input.value }),
+          { sign_up_tel: "" }
+        );
+        data.tel = passwordData.sign_up_tel;
+
+        if (data && formValid) {
+          try {
+            const { auth_token } = await fetch(
+              `${config.backendUrl}/api/v1/user/register`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              }
+            ).then((r) => r.json());
+
+            console.log("auth_token", auth_token);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      }
+    };
+    // const selectAccountType = (type: string) => {
+    //   accountType = type;
+    //   changeForm(zeroForm, firstForm, true);
+    // };
+    //
+    // if (chooseAccountTypeForm) {
+    //   const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
+    //   buttons?.forEach((button) => {
+    //     button.addEventListener("click", () => {
+    //       selectAccountType(button.id);
+    //     });
+    //   });
+    // }
+
+    if (signUpForm) {
+      const inputs = signUpForm.querySelectorAll("input");
+      addFormListeners(inputs);
+      signUpButton?.addEventListener("click", () => {
+        submitForm1(inputs);
+      });
+      signUpForm.onsubmit = (e) => {
+        e.preventDefault();
+        submitForm1(inputs);
+      };
+    }
+
+    if (signUpForm2) {
+      const inputs = signUpForm2.querySelectorAll("input");
+      addFormListeners(inputs);
+      checkCodeButton?.addEventListener("click", () => {
+        submitForm2(inputs);
+      });
+      signUpForm2.onsubmit = (e) => {
+        e.preventDefault();
+        submitForm2(inputs);
+      };
+    }
+    if (signUpForm3) {
+      const inputs = signUpForm3.querySelectorAll("input");
+      addFormListeners(inputs);
+      connectButton?.addEventListener("click", () => {
+        submitForm3(inputs);
+      });
+      signUpForm3.onsubmit = (e) => {
+        e.preventDefault();
+        submitForm3(inputs);
+      };
+    }
+    if (signUpForm4) {
+      const inputs = signUpForm4.querySelectorAll("input");
+      addFormListeners(inputs);
+      sendButton?.addEventListener("click", () => {
+        submitForm4(inputs);
+      });
+      signUpForm4.onsubmit = (e) => {
+        e.preventDefault();
+        submitForm4(inputs);
+      };
+    }
+  };
+
+  HashRouter.initPageListeners("sign-up", initSignUp, "Sign Up");
+</script>

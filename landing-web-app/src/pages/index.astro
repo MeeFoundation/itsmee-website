@@ -1,0 +1,48 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Header, Footer, ButtonLink } from "mee-components";
+import { header, footer } from "../config";
+import TypingLogo from "@components/TypingLogo.astro";
+import MirrorLogo from "@components/MirrorLogo.astro";
+---
+
+<Layout title="Welcome to Mee">
+  <Header header={header} disableMobileMenu={true} />
+  <main class="w-screen overflow-hidden dark:bg-darky">
+    <article
+      class="relative mt-27 flex h-full w-screen flex-col items-center justify-between gap-10 overflow-hidden md:gap-20"
+    >
+      <section
+        class="mt-10 flex h-full w-screen flex-col items-center justify-center gap-10 md:mt-20 md:gap-20"
+      >
+        <div
+          class="flex max-w-7xl flex-col items-center justify-center gap-4 px-6 transition-opacity duration-500"
+        >
+          <h1
+            class="marker text-center text-3xl font-semibold text-grey-900 md:text-5xl lg:text-7xl dark:text-grey-50"
+          >
+            Hello! It's Mee.<br class="md:hidden" /> Your digital twin.
+          </h1>
+          <h3
+            class="text animation-delay-800 text-pretty text-center text-lg text-grey-900 md:text-xl lg:text-2xl dark:text-grey-50"
+          >
+            Mee represents you on the internet, putting you in control of your
+            personal information.
+          </h3>
+          <ButtonLink href="/sign-up" className="md:hidden">Sign up</ButtonLink>
+        </div>
+      </section>
+      <section
+        class="flex h-full w-screen max-w-7xl flex-col items-center justify-center"
+      >
+        <img class="w-full dark:hidden" src="/images/illustration.svg" />
+        <img
+          class="hidden w-full dark:block"
+          src="/images/illustration-dark.svg"
+        />
+      </section>
+      <section><TypingLogo /><MirrorLogo /></section>
+      <Footer footer={footer} mode="dark" />
+    </article>
+  </main>
+</Layout>

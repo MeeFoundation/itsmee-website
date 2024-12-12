@@ -108,6 +108,7 @@ import { Button, Loading, Input, Avatar } from "mee-components";
         </div>
         <div class="w-full border-b-gray-300 text-gray-800">
           <div
+            id="sign-out"
             class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-gray-100"
           >
             <div><i class="bi bi-box-arrow-left text-xl"></i></div>Sign out
@@ -118,7 +119,7 @@ import { Button, Loading, Input, Avatar } from "mee-components";
     <Loading />
     <section
       class="flex w-full flex-col items-start rounded-xl border border-solid border-gray-300 bg-white text-gray-800"
-      id="connections-containter"
+      id="connections-container"
     >
     </section>
   </article>
@@ -132,135 +133,150 @@ import { Button, Loading, Input, Avatar } from "mee-components";
 </div>
 
 <script>
+  import { getCookie, deleteCookie } from "@utils/cookie";
   import type { Connection } from "@utils/types";
-import { getConnections, getUser } from "api/api";
-  import { AvatarHelper } from "mee-components";
-  const addConnectionButton = document.getElementById("add-connection");
-  const filterButton = document.getElementById("filter");
-  const connectionsContainer = document.getElementById(
-    "connections-containter"
-  );
-  const arrowRight = document.getElementById("arrow-right");
-  const searchInput = document.getElementById(
-    "search"
-  ) as HTMLInputElement | null;
-  let isProfileModalOpened = false;
-  const profileModal = document.getElementById("profile-modal");
-  const profileName = document.getElementById("profile-name");
-  const openProfileModal = document.getElementById("open-profile-modal");
-  const toggleProfile = () => {
-    if (isProfileModalOpened) {
-      openProfileModal && delete openProfileModal.dataset.active;
+  import { getConnections, getUser } from "api/api";
+  import { AvatarHelper, HashRouter } from "mee-components";
 
-      profileModal?.classList.remove("flex");
-      profileModal?.classList.add("hidden");
-    } else {
-      openProfileModal && (openProfileModal.dataset.active = "true");
-      profileModal?.classList.remove("hidden");
-      profileModal?.classList.add("flex");
+  const initConnections = async () => {
+    const user = getCookie("user");
+    if (!user) {
+      window.location.hash = "#sign-in";
     }
+    const addConnectionButton = document.getElementById("add-connection");
+    const filterButton = document.getElementById("filter");
+    const connectionsContainer = document.getElementById(
+      "connections-container"
+    );
+    const arrowRight = document.getElementById("arrow-right");
+    const signOutButton = document.getElementById("sign-out");
+    const searchInput = document.getElementById(
+      "search"
+    ) as HTMLInputElement | null;
+    let isProfileModalOpened = false;
+    const profileModal = document.getElementById("profile-modal");
+    const profileName = document.getElementById("profile-name");
+    const openProfileModal = document.getElementById("open-profile-modal");
+    const toggleProfile = () => {
+      if (isProfileModalOpened) {
+        openProfileModal && delete openProfileModal.dataset.active;
 
-    isProfileModalOpened = !isProfileModalOpened;
-  };
-  openProfileModal?.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleProfile();
-  });
-  document.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest("#profile-modal") && isProfileModalOpened) {
+        profileModal?.classList.remove("flex");
+        profileModal?.classList.add("hidden");
+      } else {
+        openProfileModal && (openProfileModal.dataset.active = "true");
+        profileModal?.classList.remove("hidden");
+        profileModal?.classList.add("flex");
+      }
+
+      isProfileModalOpened = !isProfileModalOpened;
+    };
+    openProfileModal?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       toggleProfile();
-    }
-  });
+    });
+    signOutButton?.addEventListener("click", () => {
+      deleteCookie("user");
+      window.location.hash = "#sign-in";
+    });
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("#profile-modal") && isProfileModalOpened) {
+        toggleProfile();
+      }
+    });
 
-  const randomUser = await getUser();
-  if (randomUser) {
-    if (profileName) {
-      profileName.innerHTML = randomUser.email;
-    }
-    AvatarHelper.setAvatar(
-      "profile-image-preview",
-      `${randomUser.name.first} ${randomUser.name.last}`,
-      randomUser.picture.medium
-    );
-    AvatarHelper.setAvatar(
-      "profile-image",
-      `${randomUser.name.first} ${randomUser.name.last}`,
-      randomUser.picture.medium
-    );
-  }
-
-  addConnectionButton?.addEventListener("click", () => {
-    window.location.href = "/create-connection";
-  });
-
-  const appendConnections = (connections: Connection[]) => {
-    if (connectionsContainer && connections) {
-      connectionsContainer.innerHTML = "";
-      connections.forEach((connection, i: number) => {
-        const connectionHash = "#" + i;
-
-        const div = document.createElement("div");
-        div.className =
-          "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-grey-200 p-6 last:border-b-0 gap-6 cursor-pointer";
-
-        const divName = document.createElement("div");
-
-        divName.className = "flex items-center gap-6";
-        const divTitle = document.createElement("div");
-        divTitle.className =
-          "font-semibold text-base md:text-xl md:tracking-0.02";
-        const divTitleContent = document.createTextNode(connection.name);
-        divTitle.appendChild(divTitleContent);
-
-        const img = document.createElement("img");
-        img.className =
-          "isolate flex h-16 w-16 flex-col items-center justify-center rounded-none p-0";
-        img.src = connection.image_url || "/images/empty-logo.png";
-        divName.appendChild(img);
-        divName.appendChild(divTitle);
-
-        const divActions = document.createElement("div");
-        divActions.className = "flex items-end gap-4";
-
-        const arrowRightIcon = arrowRight && arrowRight.cloneNode(true);
-
-        const buttonRight = document.createElement("button");
-        buttonRight.onclick = () => {
-          window.location.hash = connectionHash;
-        };
-        arrowRightIcon && buttonRight.appendChild(arrowRightIcon);
-        divActions.appendChild(buttonRight);
-        div.appendChild(divName);
-        div.appendChild(divActions);
-        div.onclick = () => {
-          window.location.hash = connectionHash;
-        };
-        connectionsContainer.appendChild(div);
-      });
-    }
-  };
-
-  const loading = document.getElementById("loading");
-
-  const data = await getConnections()
-  loading?.classList.add("hidden");
-  appendConnections(data);
-
-  const filterConnections = () => {
-    const filterValue = searchInput?.value;
-
-    if (filterValue) {
-      const filterData = data.filter((item) =>
-        item.name.toLowerCase().includes(filterValue.toLowerCase())
+    const randomUser = await getUser();
+    if (randomUser) {
+      if (profileName) {
+        profileName.innerHTML = randomUser.email;
+      }
+      AvatarHelper.setAvatar(
+        "profile-image-preview",
+        `${randomUser.name.first} ${randomUser.name.last}`,
+        randomUser.picture.medium
       );
-      appendConnections(filterData);
-    } else {
-      appendConnections(data);
+      AvatarHelper.setAvatar(
+        "profile-image",
+        `${randomUser.name.first} ${randomUser.name.last}`,
+        randomUser.picture.medium
+      );
     }
+
+    addConnectionButton?.addEventListener("click", () => {
+      window.location.hash = "#create-connection";
+    });
+
+    const appendConnections = (connections: Connection[]) => {
+      if (connectionsContainer && connections) {
+        connectionsContainer.innerHTML = "";
+        connections.forEach((connection, i: number) => {
+          const connectionHash = "#connections/" + i;
+
+          const div = document.createElement("div");
+          div.className =
+            "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-grey-200 p-6 last:border-b-0 gap-6 cursor-pointer";
+
+          const divName = document.createElement("div");
+
+          divName.className = "flex items-center gap-6";
+          const divTitle = document.createElement("div");
+          divTitle.className =
+            "font-semibold text-base md:text-xl md:tracking-0.02";
+          const divTitleContent = document.createTextNode(connection.name);
+          divTitle.appendChild(divTitleContent);
+
+          const img = document.createElement("img");
+          img.className =
+            "isolate flex h-16 w-16 flex-col items-center justify-center rounded-none p-0";
+          img.src = connection.image_url || "/images/empty-logo.png";
+          divName.appendChild(img);
+          divName.appendChild(divTitle);
+
+          const divActions = document.createElement("div");
+          divActions.className = "flex items-end gap-4";
+
+          const arrowRightIcon = arrowRight && arrowRight.cloneNode(true);
+
+          const buttonRight = document.createElement("button");
+          buttonRight.onclick = () => {
+            window.location.hash = connectionHash;
+          };
+          arrowRightIcon && buttonRight.appendChild(arrowRightIcon);
+          divActions.appendChild(buttonRight);
+          div.appendChild(divName);
+          div.appendChild(divActions);
+          div.onclick = () => {
+            window.location.hash = connectionHash;
+          };
+          connectionsContainer.appendChild(div);
+        });
+      }
+    };
+
+    const loading = document.getElementById("loading");
+
+    const data = await getConnections();
+    loading?.classList.add("hidden");
+    appendConnections(data);
+
+    const filterConnections = () => {
+      const filterValue = searchInput?.value;
+
+      if (filterValue) {
+        const filterData = data.filter((item) =>
+          item.name.toLowerCase().includes(filterValue.toLowerCase())
+        );
+        appendConnections(filterData);
+      } else {
+        appendConnections(data);
+      }
+    };
+
+    filterButton?.addEventListener("click", filterConnections);
+    searchInput?.addEventListener("change", filterConnections);
   };
 
-  filterButton?.addEventListener("click", filterConnections);
-  searchInput?.addEventListener("change", filterConnections);
+  HashRouter.initPageListeners("connections", initConnections, "Connections");
 </script>

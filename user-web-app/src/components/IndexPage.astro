@@ -1,0 +1,15 @@
+<div></div>
+<script>
+  import { getCookie } from "@utils/cookie";
+  import { HashRouter } from "mee-components";
+
+  const initIndexPage = () => {
+    const user = getCookie("user");
+    if (user) {
+      window.location.hash = "#connections";
+    } else {
+      window.location.hash = "#sign-in";
+    }
+  };
+  HashRouter.initPageListeners("index", initIndexPage, "Welcome to Mee");
+</script>

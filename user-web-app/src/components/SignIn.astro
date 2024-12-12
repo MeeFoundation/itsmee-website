@@ -1,0 +1,210 @@
+---
+import {
+  Button,
+  Input,
+  ButtonLink,
+  AuthForm,
+  PasswordInput,
+  ThemeSelect,
+} from "mee-components";
+---
+
+<main
+  class="min-w-screen relative flex min-h-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
+>
+  <div class="absolute top-2 z-70"><ThemeSelect /></div>
+  <div
+    class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6 pt-10"
+  >
+    <div
+      class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130 dark:border dark:border-grey-800 dark:bg-grey-900"
+    >
+      <AuthForm
+        id="sign-in-email"
+        title="Welcome back"
+        subtitle="Get back to your account."
+        formId="sign-in-email-form"
+      >
+        <Input
+          className="w-full"
+          id="email"
+          type="email"
+          label="Connect with email address"
+          size="lg"
+          labelPosition="inside"
+          autocomplete="off"
+          required
+        />
+
+        <Button id="login-button" type="button" className="w-full"
+          >Log in</Button
+        >
+      </AuthForm>
+      <AuthForm
+        id="sign-in-password"
+        title="Confirm your identity"
+        subtitle="Enter your password to confirm your identity."
+        formId="sign-in-password-form"
+        className="hidden"
+      >
+        <PasswordInput
+          className="w-full"
+          id="password"
+          size="lg"
+          label="Password"
+          required
+          rightLink={{ link: "/#forgot-password", title: "Forgot password" }}
+        />
+        <Button id="sign-in" type="button" className="w-full">Connect</Button>
+      </AuthForm>
+      <div
+        class="flex w-full justify-center rounded-b-2xl border-t border-solid border-t-grey-200 bg-grey-50 px-12 py-4 text-center text-xs leading-4 tracking-0.02 text-grey-600 dark:border-t-grey-800 dark:bg-grey-900"
+      >
+        <ButtonLink
+          id="sign-up"
+          buttonType="primary"
+          href="/#sign-up"
+          style="transparent">Sign up</ButtonLink
+        >
+        <Button
+          id="go-back"
+          type="button"
+          leftIcon="chevron-left text-lg"
+          buttonType="primary"
+          style="transparent"
+          className="hidden">Go back</Button
+        >
+      </div>
+    </div>
+    <div
+      class="text-center text-xs leading-4 tracking-0.02 text-grey-700 dark:text-grey-300"
+      id="hosted-by"
+    >
+      Hosted by <a
+        href="https://mee.foundation/"
+        target="_blank"
+        class="text-brand-700 underline dark:text-brand-300"
+        >The Mee Foundation</a
+      >, a non-profit that works on behalf of all Mee users and never shares
+      your data with anyone.
+    </div>
+  </div>
+</main>
+
+<script>
+  import config from "@config";
+  import { getCookie, setCookie } from "@utils/cookie";
+  import { HashRouter } from "mee-components";
+
+  const initSignIn = () => {
+    const user = getCookie("user");
+    if (user) {
+      window.location.hash = "#connections";
+    }
+    const signInEmailForm = document.getElementById(
+      "sign-in-email-form"
+    ) as HTMLFormElement | null;
+    const signInPasswordForm = document.getElementById(
+      "sign-in-password-form"
+    ) as HTMLFormElement | null;
+    const loginButton = document.getElementById("login-button");
+    const signInEmail = document.getElementById("sign-in-email");
+    const signInPassword = document.getElementById("sign-in-password");
+    const signUpButton = document.getElementById("sign-up");
+    const goBackButton = document.getElementById("go-back");
+    const signInButton = document.getElementById("sign-in");
+    const policyBlock = document.getElementById("policy");
+    const hostedByBlock = document.getElementById("hosted-by");
+    const data = { email: "", password: "" };
+
+    const changeForm = (
+      activeForm: HTMLElement | null,
+      nextForm: HTMLElement | null,
+      showPolicy?: boolean
+    ) => {
+      activeForm?.classList.remove("flex");
+      activeForm?.classList.add("hidden");
+      nextForm?.classList.add("flex");
+      nextForm?.classList.remove("hidden");
+      if (showPolicy) {
+        policyBlock?.classList.remove("hidden");
+        hostedByBlock?.classList.remove("hidden");
+        signUpButton?.classList.remove("hidden");
+        goBackButton?.classList.add("hidden");
+      } else {
+        policyBlock?.classList.add("hidden");
+        hostedByBlock?.classList.add("hidden");
+        signUpButton?.classList.add("hidden");
+        goBackButton?.classList.remove("hidden");
+      }
+    };
+    const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
+      const emailData = Array.from(inputs).reduce(
+        (acc, input) => ({ ...acc, [input.id]: input.value }),
+        { email: "" }
+      );
+      data.email = emailData.email;
+      if (data.email) {
+        changeForm(signInEmail, signInPassword);
+      }
+    };
+    const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
+      setCookie("user", data.email);
+      window.location.hash = "#connections";
+      const passwordData = Array.from(inputs).reduce(
+        (acc, input) => ({ ...acc, [input.id]: input.value }),
+        { password: "" }
+      );
+      data.password = passwordData.password;
+
+      if (data.password && data.email) {
+        try {
+          const { auth_token } = await fetch(
+            config.backendUrl + "/api/v1/users/login",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: data.email,
+                password: data.password,
+              }),
+            }
+          ).then((r) => r.json());
+
+          console.log("auth_token", auth_token);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+
+    if (signInEmailForm) {
+      const inputs = signInEmailForm.querySelectorAll("input");
+      loginButton?.addEventListener("click", () => {
+        submitForm1(inputs);
+      });
+      signInEmailForm.onsubmit = (e) => {
+        e.preventDefault();
+        submitForm1(inputs);
+      };
+    }
+
+    if (signInPasswordForm) {
+      const inputs = signInPasswordForm.querySelectorAll("input");
+      goBackButton?.addEventListener("click", () => {
+        changeForm(signInPassword, signInEmail, true);
+      });
+      signInButton?.addEventListener("click", async () => {
+        submitForm2(inputs);
+      });
+      signInPasswordForm.onsubmit = (e) => {
+        e.preventDefault();
+        submitForm2(inputs);
+      };
+    }
+  };
+
+  HashRouter.initPageListeners("sign-in", initSignIn, "Sign In");
+</script>

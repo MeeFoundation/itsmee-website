@@ -22,7 +22,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
-          path: user-web-app
+          path: landing-web-app
           node-version: 20 
           package-manager: pnpm@latest 
 

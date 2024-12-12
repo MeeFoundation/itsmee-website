@@ -1,48 +1,39 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Header, Footer, ButtonLink } from "mee-components";
-import { header, footer } from "../../astro.config.mjs";
-import TypingLogo from "@components/TypingLogo.astro";
-import MirrorLogo from "@components/MirrorLogo.astro";
+import IndexPage from "@components/IndexPage.astro";
+import ConnectionsList from "@components/ConnectionsList.astro";
+import ConnectionItem from "@components/ConnectionItem.astro";
+import SignIn from "@components/SignIn.astro";
+import SignUp from "@components/SignUp.astro";
+import RestorePassword from "@components/RestorePassword.astro";
+import ForgotPassword from "@components/ForgotPassword.astro";
+import CreateConnection from "@components/CreateConnection.astro";
+import { Route } from "mee-components";
 ---
 
 <Layout title="Welcome to Mee">
-  <Header header={header} disableMobileMenu={true} />
-  <main class="w-screen overflow-hidden dark:bg-darky">
-    <article
-      class="relative mt-27 flex h-full w-screen flex-col items-center justify-between gap-10 overflow-hidden md:gap-20"
-    >
-      <section
-        class="mt-10 flex h-full w-screen flex-col items-center justify-center gap-10 md:mt-20 md:gap-20"
-      >
-        <div
-          class="flex max-w-7xl flex-col items-center justify-center gap-4 px-6 transition-opacity duration-500"
-        >
-          <h1
-            class="marker text-center text-3xl font-semibold text-grey-900 md:text-5xl lg:text-7xl dark:text-grey-50"
-          >
-            Hello! It's Mee.<br class="md:hidden" /> Your digital twin.
-          </h1>
-          <h3
-            class="text animation-delay-800 text-pretty text-center text-lg text-grey-900 md:text-xl lg:text-2xl dark:text-grey-50"
-          >
-            Mee represents you on the internet, putting you in control of your
-            personal information.
-          </h3>
-          <ButtonLink href="/sign-up" className="md:hidden">Sign up</ButtonLink>
-        </div>
-      </section>
-      <section
-        class="flex h-full w-screen max-w-7xl flex-col items-center justify-center"
-      >
-        <img class="w-full dark:hidden" src="/images/illustration.svg" />
-        <img
-          class="hidden w-full dark:block"
-          src="/images/illustration-dark.svg"
-        />
-      </section>
-      <section><TypingLogo /><MirrorLogo /></section>
-      <Footer footer={footer} mode="dark" />
-    </article>
-  </main>
+  <div id="route-content"></div>
+  <Route id="index" route=""><IndexPage /></Route>
+  <Route id="connections" route="connections"><ConnectionsList /></Route>
+  <Route
+    id="connections-item"
+    route="^connections\/(\\d*)\\/?$"
+    regexRoute={true}
+    paramsKey="connection-id"
+    paramsIndex={1}
+    withoutDarkTheme={true}><ConnectionItem /></Route
+  >
+  <Route id="sign-up" route="sign-up"><SignUp /></Route>
+  <Route id="sign-in" route="sign-in"><SignIn /></Route>
+  <Route id="restore-password" route="restore-password"
+    ><RestorePassword /></Route
+  >
+  <Route id="forgot-password" route="forgot-password"><ForgotPassword /></Route>
+  <Route id="create-connection" route="create-connection"
+    ><CreateConnection /></Route
+  >
 </Layout>
+<script>
+  import { HashRouter } from "mee-components";
+  HashRouter.initRouter();
+</script>

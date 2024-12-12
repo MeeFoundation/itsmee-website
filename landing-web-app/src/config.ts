@@ -1,3 +1,4 @@
+export const appLink = "https://app.itsmee.org/";
 export const meeFoundation = "https://mee.foundation/";
 export const github =
   "https://github.com/MeeFoundation/private-advertising-website";
@@ -29,14 +30,14 @@ export const header = {
   authLinks: [
     {
       name: "Log in",
-      link: "/#sign-in",
+      link: `${appLink}#sign-in`,
       style: "outlined",
       id: "sign-in",
       buttonType: "primary",
     },
     {
       name: "Sign up",
-      link: "/#sign-up",
+      link: `${appLink}#sign-up`,
       style: "filled",
       id: "sign-up",
       buttonType: "primary",
@@ -74,53 +75,4 @@ export const footer = {
       id: "privacy-policy",
     },
   ],
-};
-
-export type EnvType = "local" | "prod";
-
-export const getAppEnv = (): EnvType => {
-  if (typeof window !== "undefined") {
-    const currentHost = window.location.hostname;
-    if (/.*localhost.*/.test(currentHost)) {
-      return "local";
-    } else {
-      return "prod";
-    }
-  } else {
-    return "prod";
-  }
-};
-
-export interface AppConfig {
-  type: "local" | "prod";
-  backendUrl: string;
-  cookieDomain: string;
-}
-
-const localConfig: AppConfig = {
-  type: "local",
-  backendUrl: "http://localhost:8000",
-  cookieDomain: "localhost",
-};
-
-const prodConfig: AppConfig = {
-  type: "prod",
-  backendUrl: "http://localhost:8000",
-  cookieDomain: ".itsmee.org",
-};
-
-const getConfig = (): AppConfig => {
-  const env = getAppEnv();
-  switch (env) {
-    case "local":
-      return localConfig;
-    case "prod":
-      return prodConfig;
-    default:
-      throw new Error("Unknown env was used in app configuration");
-  }
-};
-
-export default {
-  ...getConfig(),
 };
