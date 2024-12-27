@@ -1,19 +1,21 @@
 ---
 import { Button, Loading, Input } from "mee-components";
-import Layout from "@layouts/Layout.astro";
+
 import Header from "@components/Header.astro";
-const { app } = Astro.params;
 ---
 
-<Layout title="Create App">
+<>
   <Header />
-  <main class="flex h-full min-h-screen pt-24" data-id={app} id="main">
+  <main
+    class="flex h-full min-h-screen w-full items-start justify-center pt-24"
+  >
     <article
-      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-start gap-6 p-6"
+      class="flex h-full max-w-480 flex-col items-start justify-start gap-6 p-6"
     >
       <div class="flex w-192 flex-col items-start justify-center gap-4">
-        <a class="text-base font-semibold leading-6 text-brand-700" href="/apps"
-          ><span class="mr-2">&larr;</span>Back to apps</a
+        <a
+          class="text-base font-semibold leading-6 text-brand-700"
+          href="/#apps"><span class="mr-2">&larr;</span>Back to apps</a
         >
         <Loading />
         <section
@@ -82,63 +84,70 @@ const { app } = Astro.params;
       </div>
     </article>
   </main>
-</Layout>
+</>
 
 <script>
+  import { HashRouter } from "mee-components";
   import type { ProviderApp } from "@utils/types";
-  const appName = document.getElementById("app-name") as HTMLDivElement | null;
-  const nameInput = document.getElementById("name") as HTMLInputElement | null;
-  const urlInput = document.getElementById("url") as HTMLInputElement | null;
-  const agentServiceUrlInput = document.getElementById(
-    "agent_service_url"
-  ) as HTMLInputElement | null;
-  const agentServiceIdInput = document.getElementById(
-    "agent_service_id"
-  ) as HTMLInputElement | null;
-  const switcher = document.getElementById(
-    "enabled-switch"
-  ) as HTMLInputElement | null;
+  const initAppItem = async () => {
+    const appName = document.getElementById(
+      "app-name"
+    ) as HTMLDivElement | null;
+    const nameInput = document.getElementById(
+      "name"
+    ) as HTMLInputElement | null;
+    const urlInput = document.getElementById("url") as HTMLInputElement | null;
+    const agentServiceUrlInput = document.getElementById(
+      "agent_service_url"
+    ) as HTMLInputElement | null;
+    const agentServiceIdInput = document.getElementById(
+      "agent_service_id"
+    ) as HTMLInputElement | null;
+    const switcher = document.getElementById(
+      "enabled-switch"
+    ) as HTMLInputElement | null;
 
-  const main = document.getElementById("main");
-  const appDataElement = document.getElementById("app-data");
-  const loading = document.getElementById("loading");
+    const appDataElement = document.getElementById("app-data");
+    const loading = document.getElementById("loading");
 
-  const saveAppButton = document.getElementById("save-app");
-  saveAppButton?.addEventListener("click", () => {
-    window.location.href = "/apps";
-  });
+    const saveAppButton = document.getElementById("save-app");
+    saveAppButton?.addEventListener("click", () => {
+      window.location.hash = "apps";
+    });
+    const id = document.documentElement.dataset.appsId;
+    if (id != "") {
+      const response = await fetch("/apps.json");
 
-  const id: number = Number(main?.dataset.id) ?? 0;
+      const data: ProviderApp[] = await response.json();
+      const appData = data[Number(id)];
 
-  const response = await fetch("/apps.json");
+      if (appData) {
+        appDataElement?.classList.remove("hidden");
+        appDataElement?.classList.add("flex");
 
-  const data: ProviderApp[] = await response.json();
-  const appData = data[id];
+        loading?.classList.add("hidden");
 
-  if (appData) {
-    appDataElement?.classList.remove("hidden");
-    appDataElement?.classList.add("flex");
+        if (appName) {
+          appName.innerHTML = appData.name;
+        }
 
-    loading?.classList.add("hidden");
-
-    if (appName) {
-      appName.innerHTML = appData.name;
+        if (nameInput) {
+          nameInput.value = appData.name;
+        }
+        if (urlInput) {
+          urlInput.value = appData.url;
+        }
+        if (agentServiceUrlInput) {
+          agentServiceUrlInput.value = appData.agent_service_url;
+        }
+        if (agentServiceIdInput) {
+          agentServiceIdInput.value = appData.agent_service_id;
+        }
+        if (switcher) {
+          switcher.checked = appData.enabled;
+        }
+      }
     }
-
-    if (nameInput) {
-      nameInput.value = appData.name;
-    }
-    if (urlInput) {
-      urlInput.value = appData.url;
-    }
-    if (agentServiceUrlInput) {
-      agentServiceUrlInput.value = appData.agent_service_url;
-    }
-    if (agentServiceIdInput) {
-      agentServiceIdInput.value = appData.agent_service_id;
-    }
-    if (switcher) {
-      switcher.checked = appData.enabled;
-    }
-  }
+  };
+  HashRouter.initPageListeners("apps-item", initAppItem, "Apps");
 </script>

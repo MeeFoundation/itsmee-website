@@ -1,0 +1,49 @@
+---
+import Header from "@components/Header.astro";
+import MeeGuyDeclined from "@components/MeeGuyDeclined.astro";
+import { Button } from "mee-components";
+---
+
+<Header />
+<main class="flex h-full min-h-screen items-center pt-28">
+  <article class="flex h-full w-full flex-1 items-center justify-center">
+    <section
+      class="flex max-w-screen-sm flex-col items-center justify-center gap-8 px-4"
+    >
+      <div><MeeGuyDeclined /></div>
+      <div class="flex flex-col gap-2">
+        <div
+          class="text-center text-4xl font-semibold tracking-0.02 text-gray-800"
+        >
+          You declined the Mee Data License
+        </div>
+        <div
+          class="text-center text-lg font-normal leading-7 tracking-0.02 text-gray-800"
+        >
+          To get access to the Mee benefits and to allow your apps users to
+          privately use it please reconsider the Mee Data License
+        </div>
+      </div>
+
+      <Button id="open-license" type="button" className="w-auto px-4"
+        >Open Mee Data License</Button
+      >
+    </section>
+  </article>
+</main>
+
+<script>
+  import { HashRouter } from "mee-components";
+  const initListener = () => {
+    const openLicenseButton = document.getElementById("open-license");
+    openLicenseButton?.addEventListener("click", () => {
+      window.location.href = "/";
+    });
+  };
+
+  HashRouter.initPageListeners(
+    "declined-license",
+    initListener,
+    "Welcome to Mee"
+  );
+</script>

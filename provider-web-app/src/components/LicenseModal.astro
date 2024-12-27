@@ -149,7 +149,7 @@ import Modal from "./Modal.astro";
   );
 
   declineButton?.addEventListener("click", () => {
-    window.location.href = "/declined-licence";
+    window.location.hash = "declined-license";
   });
   confirmButton?.addEventListener("click", () => {
     if (agreeCheckbox?.checked) {
@@ -162,7 +162,7 @@ import Modal from "./Modal.astro";
   const continueButton = document.getElementById("continue");
 
   continueButton?.addEventListener("click", () => {
-    window.location.href = "/new-app";
+    window.location.hash = "new-app";
   });
 
   licenseModal?.classList.remove("hidden");

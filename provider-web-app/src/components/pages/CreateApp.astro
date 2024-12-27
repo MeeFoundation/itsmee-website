@@ -12,8 +12,8 @@ import { Button, Input } from "mee-components";
     >
       <div class="flex w-192 flex-col items-start justify-center gap-4">
         <a
-          class="text-brand-700 text-base font-semibold leading-6"
-          href="/new-app"><span class="mr-2">&larr;</span>Back to apps</a
+          class="text-base font-semibold leading-6 text-brand-700"
+          href="/#new-app"><span class="mr-2">&larr;</span>Back to apps</a
         >
         <section
           class="flex w-full flex-col items-start gap-6 rounded-xl border border-solid border-gray-300 bg-white p-8 text-gray-800"
@@ -83,8 +83,23 @@ import { Button, Input } from "mee-components";
 </Layout>
 
 <script>
-  const saveAppButton = document.getElementById("save-app");
-  saveAppButton?.addEventListener("click", () => {
-    window.location.href = "/apps";
-  });
+  // import { getCookie } from "@utils/cookie";
+  import { HashRouter } from "mee-components";
+
+  const initCreateCollection = () => {
+    // const user = getCookie("user");
+    // if (!user) {
+    //   window.location.hash = "#sign-in";
+    // }
+    const saveAppButton = document.getElementById("save-app");
+    saveAppButton?.addEventListener("click", () => {
+      window.location.hash = "apps";
+    });
+  };
+
+  HashRouter.initPageListeners(
+    "create-app",
+    initCreateCollection,
+    "Create App"
+  );
 </script>

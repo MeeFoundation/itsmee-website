@@ -1,10 +1,47 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import LicenseModal from "@components/LicenseModal.astro";
+import IndexPage from "@components/pages/IndexPage.astro";
+import AppsList from "@components/pages/AppsList.astro";
+import AppsItem from "@components/pages/AppsItem.astro";
+import SignIn from "@components/pages/SignIn.astro";
+import SignUp from "@components/pages/SignUp.astro";
+import RestorePassword from "@components/pages/RestorePassword.astro";
+import ForgotPassword from "@components/pages/ForgotPassword.astro";
+import CreateApp from "@components/pages/CreateApp.astro";
+import DeclinedLicense from "@components/pages/DeclinedLicense.astro";
+import NewApp from "@components/pages/NewApp.astro";
+import NotFound from "@components/pages/NotFound.astro";
+import { Route } from "mee-components";
 ---
 
 <Layout title="Welcome to Mee">
-  <Header />
-  <LicenseModal />
+  <div id="route-content"></div>
+  <Route id="index" route="" withoutDarkTheme={true}><IndexPage /></Route>
+  <Route id="apps" route="apps" withoutDarkTheme={true}><AppsList /></Route>
+  <Route
+    id="apps-item"
+    route="^apps\/(\\d*)\\/?$"
+    regexRoute={true}
+    paramsKey="apps-id"
+    paramsIndex={1}
+    withoutDarkTheme={true}><AppsItem /></Route
+  >
+  <Route id="sign-up" route="sign-up" withoutDarkTheme={true}><SignUp /></Route>
+  <Route id="sign-up" route="sign-up" withoutDarkTheme={true}><SignUp /></Route>
+  <Route id="declined-license" route="declined-license" withoutDarkTheme={true}><DeclinedLicense /></Route>
+  <Route id="restore-password" route="restore-password" withoutDarkTheme={true}
+    ><RestorePassword /></Route
+  >
+  <Route id="forgot-password" route="forgot-password" withoutDarkTheme={true}
+    ><ForgotPassword /></Route
+  >
+  <Route id="new-app" route="new-app" withoutDarkTheme={true}><NewApp /></Route>
+  <Route id="create-app" route="create-app" withoutDarkTheme={true}
+    ><CreateApp /></Route
+  >
+  <Route id="not-found" route="404" withoutDarkTheme={true}><NotFound /></Route>
 </Layout>
+<script>
+  import { HashRouter } from "mee-components";
+  HashRouter.initRouter();
+</script>

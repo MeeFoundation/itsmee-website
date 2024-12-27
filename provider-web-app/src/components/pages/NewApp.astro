@@ -1,11 +1,10 @@
 ---
-import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import MeeGuy from "@components/MeeGuy.astro";
-import { Button } from "mee-components";
+import { ButtonLink } from "mee-components";
 ---
 
-<Layout title="Apps">
+<>
   <Header />
   <main class="flex h-full min-h-screen items-center pt-28">
     <article class="flex h-full w-full flex-1 items-center justify-center">
@@ -25,20 +24,13 @@ import { Button } from "mee-components";
             Please add your apps and allow users to privately use them with Mee
           </div>
         </div>
-        <Button
-          id="new-app"
+        <ButtonLink
+          href="/#create-app"
           type="button"
           className="w-auto px-4"
-          leftIcon="plus">New app</Button
+          leftIcon="plus">New app</ButtonLink
         >
       </section>
     </article>
   </main>
-</Layout>
-<script>
-  const newAppButton = document.getElementById("new-app");
-
-  newAppButton?.addEventListener("click", () => {
-    window.location.href = "/create-app";
-  });
-</script>
+</>

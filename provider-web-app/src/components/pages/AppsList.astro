@@ -1,0 +1,153 @@
+---
+import { Button, Input } from "mee-components";
+import Header from "@components/Header.astro";
+---
+
+<>
+  <Header />
+  <main class="flex h-full min-h-screen pt-24">
+    <article
+      class="flex h-full w-full max-w-480 flex-1 flex-col items-start justify-start gap-6 p-6"
+    >
+      <div
+        class="flex w-full flex-wrap justify-between gap-6 text-base font-semibold"
+      >
+        <div class="flex flex-wrap gap-4">
+          <Input
+            id="search"
+            label="Search apps"
+            size="md"
+            className="!w-80"
+            labelPosition="inside"
+            autocomplete="off"
+            leftIcon="search"
+            required
+          />
+          <div>
+            <Button
+              id="filter"
+              type="button"
+              buttonType="primary"
+              style="outlined"
+              size="l"
+              className="h-12 w-64">Filter</Button
+            >
+          </div>
+        </div>
+        <div>
+          <Button id="new-app" type="button" className="w-auto px-4"
+            ><span class="mr-4 text-4xl font-thin">+</span>New app</Button
+          >
+        </div>
+      </div>
+      <section
+        class="flex w-full flex-col items-start rounded-xl border border-solid border-gray-300 bg-white text-gray-800"
+        id="apps-container"
+      >
+      </section>
+    </article>
+  </main>
+  <div class="hidden">
+    <div id="edit-icon" class="cursor-pointer">
+      <i class="bi bi-pencil text-2xl text-brand-700"></i>
+    </div>
+    <div id="delete-icon" class="cursor-pointer">
+      <i class="bi bi-trash text-2xl text-red-700"></i>
+    </div>
+    <div id="link-icon" class="cursor-pointer">
+      <i class="bi bi-link-45deg text-lg text-gray-800"></i>
+    </div>
+  </div>
+</>
+
+<script>
+  import { HashRouter } from "mee-components";
+  import type { ProviderApp } from "@utils/types";
+  const initApps = async () => {
+    const newAppButton = document.getElementById("new-app");
+    const filterButton = document.getElementById("filter");
+    const appsContainer = document.getElementById("apps-container");
+    const editIcon = document.getElementById("edit-icon");
+    const deleteIcon = document.getElementById("delete-icon");
+    const linkIcon = document.getElementById("link-icon");
+    const searchInput = document.getElementById(
+      "search"
+    ) as HTMLInputElement | null;
+    newAppButton?.addEventListener("click", () => {
+      window.location.hash = "create-app";
+    });
+
+    const appendApps = (apps: ProviderApp[]) => {
+      if (appsContainer && apps) {
+        appsContainer.innerHTML = "";
+        apps.forEach((app, i: number) => {
+          const appUrl = "apps/" + i;
+          const div = document.createElement("div");
+          div.className =
+            "flex w-full flex-row items-center justify-between gap-6 border-b border-solid border-b-gray-200 p-6 last:border-b-0";
+
+          const divName = document.createElement("div");
+
+          divName.className = "flex items-center gap-2";
+          const divTitle = document.createElement("div");
+          const divTitleContent = document.createTextNode(app.name);
+          divTitle.appendChild(divTitleContent);
+          const iconLink = linkIcon && linkIcon.cloneNode(true);
+          const buttonLink = document.createElement("button");
+          buttonLink.onclick = () => {
+            navigator.clipboard.writeText(app.url);
+          };
+          iconLink && buttonLink.appendChild(iconLink);
+          divName.appendChild(divTitle);
+          divName.appendChild(buttonLink);
+
+          const divActions = document.createElement("div");
+          divActions.className = "flex items-center gap-6";
+          const iconEdit = editIcon && editIcon.cloneNode(true);
+          const buttonEdit = document.createElement("button");
+          buttonEdit.onclick = () => {
+            window.location.hash = appUrl;
+          };
+          iconEdit && buttonEdit.appendChild(iconEdit);
+          const iconDelete = deleteIcon && deleteIcon.cloneNode(true);
+          const buttonDelete = document.createElement("button");
+          buttonDelete.onclick = () => {
+            console.log("delete App");
+          };
+          iconDelete && buttonDelete.appendChild(iconDelete);
+          divActions.appendChild(buttonEdit);
+          divActions.appendChild(buttonDelete);
+          div.appendChild(divName);
+          div.appendChild(divActions);
+
+          appsContainer.appendChild(div);
+        });
+      }
+    };
+
+    const loading = document.getElementById("loading");
+
+    const response = await fetch("/apps.json");
+
+    const data: ProviderApp[] = await response.json();
+    loading?.classList.add("hidden");
+    appendApps(data);
+
+    const filterApps = () => {
+      const filterValue = searchInput?.value;
+
+      if (filterValue) {
+        const filterData = data.filter((item) =>
+          item.name.toLowerCase().includes(filterValue.toLowerCase())
+        );
+        appendApps(filterData);
+      } else {
+        appendApps(data);
+      }
+    };
+
+    filterButton?.addEventListener("click", filterApps);
+    searchInput?.addEventListener("change", filterApps);
+  };
+  HashRouter.initPageListeners("apps", initApps, "Apps");
+</script>
