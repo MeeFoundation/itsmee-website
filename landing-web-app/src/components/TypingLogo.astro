@@ -35,6 +35,8 @@
   let j = 0;
   let speed = 90;
   let startAnimation = false;
+  let typeWriterOpacityTimeout: NodeJS.Timeout;
+  let removeWrittenTextOpacityTimeout: NodeJS.Timeout;
 
   function typeWriterOpacity() {
     if (j < text.length) {
@@ -43,7 +45,7 @@
       wordSpan.appendChild(document.createTextNode(text.charAt(j)));
       logoWordingsOpacity?.appendChild(wordSpan);
       j++;
-      setTimeout(typeWriterOpacity, speed);
+      typeWriterOpacityTimeout = setTimeout(typeWriterOpacity, speed);
     }
   }
 
@@ -53,8 +55,23 @@
         logoWordingsOpacity.removeChild(logoWordingsOpacity.lastChild);
       }
       j--;
-      setTimeout(removeWrittenTextOpacity, speed / 3);
+      removeWrittenTextOpacityTimeout = setTimeout(
+        removeWrittenTextOpacity,
+        speed / 3
+      );
     }
+  }
+
+  function stopAnimation() {
+    mirrorE?.classList.remove("anim-mirror");
+    clearTimeout(typeWriterOpacityTimeout);
+    clearTimeout(removeWrittenTextOpacityTimeout);
+
+    if (logoWordingsOpacity) {
+      logoWordingsOpacity.innerHTML = "";
+    }
+    j = 0;
+    startAnimation = false;
   }
 
   const observerTypingLogo = new IntersectionObserver(
@@ -63,14 +80,19 @@
         if (entry.isIntersecting) {
           if (!startAnimation) {
             mirrorE?.classList.add("anim-mirror");
-            setTimeout(typeWriterOpacity, 1150);
-            setTimeout(removeWrittenTextOpacity, 6100);
+            typeWriterOpacityTimeout = setTimeout(typeWriterOpacity, 1050);
+            removeWrittenTextOpacityTimeout = setTimeout(
+              removeWrittenTextOpacity,
+              4100
+            );
             startAnimation = true;
           }
+        } else {
+          stopAnimation();
         }
       });
     },
-    { threshold: 0.6 }
+    { threshold: 1 }
   );
 
   if (typingLogo) observerTypingLogo.observe(typingLogo);
@@ -83,7 +105,7 @@
   }
 
   .anim-mirror {
-    animation: 6000ms linear 1s both mirror;
+    animation: 4000ms linear 0.8s both mirror;
   }
 
   @keyframes mirror {
