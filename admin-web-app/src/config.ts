@@ -12,16 +12,19 @@ export const getAppEnv = (): EnvType => {
 export interface AppConfig {
   type: "local" | "prod";
   backendUrl: string;
+  cookieDomain: string;
 }
 
 const localConfig: AppConfig = {
   type: "local",
   backendUrl: "http://localhost:8000",
+  cookieDomain: "localhost",
 };
 
 const prodConfig: AppConfig = {
   type: "prod",
   backendUrl: "http://localhost:8000",
+  cookieDomain: ".itsmee.org",
 };
 
 const getConfig = (): AppConfig => {

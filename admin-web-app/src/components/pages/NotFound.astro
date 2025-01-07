@@ -1,0 +1,73 @@
+---
+import { MeeLogo } from "mee-components";
+---
+
+<main class="not-found">
+  <div class="logo flex w-60 items-center justify-center">
+    <MeeLogo />
+  </div>
+
+  <h1>
+    <span class="statusCode">404: </span>
+    <span class="statusMessage">Not found</span>
+  </h1>
+
+  <pre>Path: /<span id="path" /></pre>
+</main>
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: hsl(258, 7%, 10%);
+    color: hsl(258, 7%, 80%);
+    font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+      "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+      "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .astro-icon {
+    height: 124px;
+    width: 124px;
+  }
+  h1 {
+    margin-bottom: 8px;
+    color: white;
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    display: block;
+    font-size: 2em;
+  }
+  .statusCode {
+    color: #e0ccfa;
+  }
+  pre,
+  code {
+    padding: 2px 8px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    margin-top: 0;
+    max-width: 60em;
+  }
+</style>
+<script>
+  import { HashRouter } from "mee-components";
+  const sideMenu = document.getElementById("side-menu");
+  const initNotFound = () => {
+    sideMenu?.classList.add("hidden");
+    const path = document.getElementById("path");
+    if (path) {
+      path.innerHTML = window.location.hash;
+    }
+  };
+
+  HashRouter.initPageListeners("not-found", initNotFound, "404 Not Found");
+</script>

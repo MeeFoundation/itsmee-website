@@ -1,4 +1,7 @@
 ---
+import "@styles/base.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 interface Props {
   title: string;
   activePage?: "users" | "providers";
@@ -8,15 +11,13 @@ interface Props {
 const { title, activePage, disabledMenu = false } = Astro.props;
 
 import SideMenu from "@components/SideMenu.astro";
-import "@styles/base.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-   <meta
+    <meta
       name="description"
       content="The Mee Foundation is a nonprofit whose mission is to develop a human-centered user experience for the internet."
     />
@@ -37,6 +38,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
     background-color: #fff;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    --scroll: 0;
     transition: left 1s;
   }
   html::-webkit-scrollbar {
@@ -115,35 +117,5 @@ import "bootstrap-icons/font/bootstrap-icons.css";
       opacity: 1;
       height: 50%;
     }
-  }
-
-  .logo > svg {
-    fill: white;
-    transition: all;
-    /* transition-delay: 2.9s; */
-    transition-duration: 200ms;
-    transition-timing-function: linear;
-  }
-  .logo--contrast > svg {
-    fill: #447f88;
-  }
-
-  input:where(:not([type])):focus-visible,
-  [type="text"]:focus-visible,
-  [type="email"]:focus-visible,
-  [type="url"]:focus-visible,
-  [type="password"]:focus-visible,
-  [type="number"]:focus-visible,
-  [type="date"]:focus-visible,
-  [type="datetime-local"]:focus-visible,
-  [type="month"]:focus-visible,
-  [type="search"]:focus-visible,
-  [type="tel"]:focus-visible,
-  [type="time"]:focus-visible,
-  [type="week"]:focus-visible,
-  [multiple]:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible {
-    outline: none;
   }
 </style>

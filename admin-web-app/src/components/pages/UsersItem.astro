@@ -1,0 +1,103 @@
+---
+import { Button, Input, Loading } from "mee-components";
+---
+
+<main class="flex h-full min-h-screen w-full p-4" id="main">
+  <article class="flex h-full w-full flex-1 flex-col">
+    <div class="flex w-full flex-col items-start justify-center gap-4">
+      <a class="text-base font-semibold leading-6 text-brand-700" href="/#users"
+        ><span class="mr-2">&larr;</span>Back to users</a
+      >
+      <Loading />
+      <section
+        class="hidden w-full flex-col items-start gap-6 rounded-xl bg-white p-8 text-slate-800"
+        id="user-data"
+      >
+        <div class="flex w-full flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <div class="text-3xl font-semibold leading-10">Edit User</div>
+          </div>
+
+          <form
+            class="mx-auto flex w-full flex-col items-center gap-6"
+            id="create-app"
+            autocomplete="off"
+          >
+            <Input
+              className="w-full"
+              id="email"
+              size="lg"
+              labelPosition="inside"
+              type="email"
+              label="Email"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <Input
+              className="w-full"
+              id="phone"
+              type="text"
+              label="Phone"
+              size="lg"
+              labelPosition="inside"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <Button id="save" type="button" className="w-auto self-end px-4"
+              >Save</Button
+            >
+          </form>
+        </div>
+      </section>
+    </div>
+  </article>
+</main>
+
+<script>
+  import { HashRouter, Cookie } from "mee-components";
+
+  const initUsersItem = async () => {
+    const sideMenu = document.getElementById("side-menu");
+    const user = Cookie.getCookie("admin");
+    if (user) {
+      sideMenu?.classList.remove("hidden");
+    } else {
+      window.location.hash = "#sign-in";
+    }
+    const emailInput = document.getElementById(
+      "email"
+    ) as HTMLInputElement | null;
+    const phoneInput = document.getElementById(
+      "phone"
+    ) as HTMLInputElement | null;
+
+    const id = document.documentElement.dataset.userId;
+
+    if (id != "") {
+      const userData = document.getElementById("user-data");
+      const response = await fetch(
+        "https://randomuser.me/api?seed=test22&results=10"
+      );
+      const loading = document.getElementById("loading");
+      const data = await response.json();
+      const randomUser = data.results[Number(id)];
+      if (randomUser) {
+        userData?.classList.remove("hidden");
+        userData?.classList.add("flex");
+        loading?.classList.add("hidden");
+
+        if (emailInput) {
+          emailInput.value = randomUser.email;
+        }
+        if (phoneInput) {
+          phoneInput.value = randomUser.phone;
+        }
+      }
+    }
+  };
+  HashRouter.initPageListeners("users-item", initUsersItem, "Users");
+</script>

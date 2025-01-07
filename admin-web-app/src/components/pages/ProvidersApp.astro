@@ -1,0 +1,164 @@
+---
+import { Button, Switch, Loading, Input } from "mee-components";
+---
+
+<main class="flex h-full min-h-screen w-full p-4" id="main">
+  <article
+    class="flex h-full w-full flex-1 flex-col items-center justify-start"
+  >
+    <div class="flex w-full flex-col items-start justify-center gap-4">
+      <a
+        id="back-to-provider"
+        class="text-base font-semibold leading-6 text-brand-700"
+        ><span class="mr-2">&larr;</span>Back to provider</a
+      >
+      <Loading />
+      <section
+        class="hidden w-full flex-col items-start gap-6 rounded-xl bg-white p-8 text-slate-800"
+        id="app-data"
+      >
+        <div class="flex w-full flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <div class="text-3xl font-semibold leading-10">Edit App</div>
+          </div>
+          <Switch
+            id="enabled-switch"
+            checked={true}
+            label="Enabled"
+            className="justify-start"
+          />
+          <form
+            class="mx-auto flex w-full flex-col items-center gap-6"
+            id="create-app"
+            autocomplete="off"
+          >
+            <Input
+              className="w-full"
+              id="name"
+              type="text"
+              label="Name"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <Input
+              className="w-full"
+              id="url"
+              type="text"
+              label="Url"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <Input
+              className="w-full"
+              id="agent_service_url"
+              type="text"
+              label="Agent Service Url"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <Input
+              className="w-full"
+              id="agent_service_id"
+              type="text"
+              label="Agent Service Id"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <div class="self-end">
+              <Button id="save" type="button" className="w-auto px-4"
+                >Save</Button
+              >
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </article>
+  <div class="hidden">
+    <div id="edit-icon" class="cursor-pointer">
+      <i class="bi bi-pencil text-2xl text-brand-700"></i>
+    </div>
+  </div>
+</main>
+
+<script>
+  import type { ProviderApp } from "@utils/types";
+  import { HashRouter, Cookie } from "mee-components";
+
+  const initProvidersApp = async () => {
+    const sideMenu = document.getElementById("side-menu");
+    const backToProvider = document.getElementById(
+      "back-to-provider"
+    ) as HTMLAnchorElement;
+    const user = Cookie.getCookie("admin");
+    if (user) {
+      sideMenu?.classList.remove("hidden");
+    } else {
+      window.location.hash = "#sign-in";
+    }
+    const nameInput = document.getElementById(
+      "name"
+    ) as HTMLInputElement | null;
+    const urlInput = document.getElementById("url") as HTMLInputElement | null;
+    const agentServiceUrlInput = document.getElementById(
+      "agent_service_url"
+    ) as HTMLInputElement | null;
+    const agentServiceIdInput = document.getElementById(
+      "agent_service_id"
+    ) as HTMLInputElement | null;
+    const switcher = document.getElementById(
+      "enabled-switch"
+    ) as HTMLInputElement | null;
+
+    const appDataElement = document.getElementById("app-data");
+    const loading = document.getElementById("loading");
+
+    const providerId = document.documentElement.dataset.providerId;
+
+    if (providerId != "") {
+      backToProvider.href = `#providers/${providerId}`;
+    }
+
+    const id = document.documentElement.dataset.appId;
+
+    if (id != "") {
+      const response = await fetch("/provider_apps.json");
+
+      const data: ProviderApp[] = await response.json();
+      const appData = data[Number(id)];
+
+      if (appData) {
+        appDataElement?.classList.remove("hidden");
+        appDataElement?.classList.add("flex");
+
+        loading?.classList.add("hidden");
+
+        if (nameInput) {
+          nameInput.value = appData.name;
+        }
+        if (urlInput) {
+          urlInput.value = appData.url;
+        }
+        if (agentServiceUrlInput) {
+          agentServiceUrlInput.value = appData.agent_service_url;
+        }
+        if (agentServiceIdInput) {
+          agentServiceIdInput.value = appData.agent_service_id;
+        }
+        if (switcher) {
+          switcher.checked = appData.enabled;
+        }
+      }
+    }
+  };
+
+  HashRouter.initPageListeners("providers-app", initProvidersApp, "Providers");
+</script>

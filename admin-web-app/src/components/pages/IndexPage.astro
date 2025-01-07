@@ -1,0 +1,15 @@
+<div></div>
+<script>
+  import { HashRouter, Cookie } from "mee-components";
+
+  const sideMenu = document.getElementById("side-menu");
+  const initIndexPage = () => {
+    const user = Cookie.getCookie("admin");
+    if (user) {
+      sideMenu?.classList.remove("hidden");
+    } else {
+      window.location.hash = "#sign-in";
+    }
+  };
+  HashRouter.initPageListeners("index", initIndexPage, "Welcome to Mee");
+</script>

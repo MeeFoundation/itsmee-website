@@ -6,15 +6,16 @@ export interface Props {
   activePage?: "users" | "providers";
 }
 
-const { logoColor = "blue", activePage } = Astro.props;
+const { logoColor = "blue" } = Astro.props;
 ---
 
 <nav
-  class="br-1 relative h-screen w-65 flex-none overflow-hidden border-r border-gray-300 bg-white"
+  id="side-menu"
+  class="br-1 relative hidden h-screen w-65 flex-none overflow-hidden border-r border-gray-300 bg-white"
 >
   <div class="bb-1 border-b border-gray-300 px-4 py-3.5">
     <a
-      href="/"
+      href="/#"
       id="mainLogo"
       class:list={[
         "logo block h-5 w-17.25 pt-1.5 md:h-7 md:w-24.25 md:pt-0",
@@ -28,24 +29,16 @@ const { logoColor = "blue", activePage } = Astro.props;
     <ul class="relative m-0 list-none">
       <li class="relative">
         <a
-          href="/users"
-          class="group flex h-12 cursor-pointer items-center truncate rounded-[5px] px-4 py-3 text-[0.875rem] text-primary outline-none transition duration-300 ease-linear hover:bg-gray-300/30 hover:text-inherit hover:outline-none focus:bg-gray-300/30 focus:text-inherit focus:outline-none active:bg-gray-300/30 active:text-inherit active:outline-none motion-reduce:transition-none"
-          class:list={[
-            activePage === "users" &&
-              "bg-gray-300/30 text-inherit outline-none",
-          ]}
+          href="/#users"
+          class="menu-item menu-item-users group flex h-12 cursor-pointer items-center truncate rounded-[5px] px-4 py-3 text-[0.875rem] text-primary outline-none transition duration-300 ease-linear hover:bg-gray-300/30 hover:text-inherit hover:outline-none focus:bg-gray-300/30 focus:text-inherit focus:outline-none active:bg-gray-300/30 active:text-inherit active:outline-none motion-reduce:transition-none"
         >
           Users
         </a>
       </li>
       <li class="relative">
         <a
-          href="/providers"
-          class="group flex h-12 cursor-pointer items-center truncate rounded-[5px] px-4 py-3 text-[0.875rem] text-primary outline-none transition duration-300 ease-linear hover:bg-gray-300/30 hover:text-inherit hover:outline-none focus:bg-gray-300/30 focus:text-inherit focus:outline-none active:bg-gray-300/30 active:text-inherit active:outline-none motion-reduce:transition-none"
-          class:list={[
-            activePage === "providers" &&
-              "bg-gray-300/30 text-inherit outline-none",
-          ]}
+          href="/#providers"
+          class="menu-item menu-item-providers group flex h-12 cursor-pointer items-center truncate rounded-[5px] px-4 py-3 text-[0.875rem] text-primary outline-none transition duration-300 ease-linear hover:bg-gray-300/30 hover:text-inherit hover:outline-none focus:bg-gray-300/30 focus:text-inherit focus:outline-none active:bg-gray-300/30 active:text-inherit active:outline-none motion-reduce:transition-none"
         >
           <span>Providers</span>
         </a>
@@ -53,3 +46,33 @@ const { logoColor = "blue", activePage } = Astro.props;
     </ul>
   </div>
 </nav>
+<style>
+  .menu-active {
+    @apply bg-gray-300/30 text-inherit outline-none;
+  }
+</style>
+<script>
+  const checkHash = () => {
+    const hash = window.location.hash.replace("#", "");
+    const menuItems = document.querySelectorAll(".menu-item");
+    menuItems.forEach((menuItem) => {
+      if (
+        menuItem.classList.contains("menu-item-users") &&
+        hash.includes("users")
+      ) {
+        menuItem.classList.add("menu-active");
+      } else if (
+        menuItem.classList.contains("menu-item-providers") &&
+        hash.includes("providers")
+      ) {
+        menuItem.classList.add("menu-active");
+      } else {
+        menuItem.classList.remove("menu-active");
+      }
+    });
+  };
+  window.addEventListener("hashchange", () => {
+    checkHash();
+  });
+  checkHash();
+</script>

@@ -1,0 +1,351 @@
+---
+import { Button, Switch, Loading, Input } from "mee-components";
+---
+
+<main class="flex h-full min-h-screen w-full p-4" id="main">
+  <article
+    class="flex h-full w-full flex-1 flex-col items-center justify-start"
+  >
+    <div class="flex w-full flex-col items-start justify-center gap-4">
+      <a
+        class="text-base font-semibold leading-6 text-brand-700"
+        href="/#providers"><span class="mr-2">&larr;</span>Back to providers</a
+      >
+      <Loading />
+      <section
+        class="hidden w-full flex-col items-start gap-6 rounded-xl bg-white p-8 text-slate-800"
+        id="provider-data"
+      >
+        <div class="flex w-full flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <div class="text-3xl font-semibold leading-10">Edit Provider</div>
+          </div>
+          <Switch
+            id="enabled"
+            checked={true}
+            label="Enabled"
+            className="justify-start"
+          />
+          <form
+            class="mx-auto flex w-full flex-col items-center gap-6"
+            id="create-app"
+            autocomplete="off"
+          >
+            <Input
+              className="w-full"
+              id="name"
+              type="text"
+              label="Name"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <Input
+              className="w-full"
+              id="email"
+              type="email"
+              label="Email"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <Input
+              className="w-full"
+              id="phone"
+              type="text"
+              label="Phone"
+              size="lg"
+              labelPosition="inside"
+              autocomplete="off"
+              required
+            />
+            <div class="self-end">
+              <Button id="save" type="button" className="w-auto px-4"
+                >Save</Button
+              >
+            </div>
+          </form>
+          <ul
+            class="mb-5 flex list-none flex-row flex-wrap border-b"
+            role="tablist"
+            id="tabs-ul"
+          >
+            <li role="presentation" class="flex-auto text-center">
+              <span
+                class="mt-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[active]:border-primary data-[active]:text-primary"
+                data-active
+                role="tab"
+                data-controls="tabs-apps">Apps</span
+              >
+            </li>
+            <li role="presentation" class="flex-auto text-center">
+              <span
+                class="mt-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[active]:border-primary data-[active]:text-primary"
+                role="tab"
+                data-controls="tabs-agent-services">Agent Services</span
+              >
+            </li>
+          </ul>
+          <div class="mb-6">
+            <div
+              class="tabpanel hidden opacity-100 transition-opacity duration-150 ease-linear data-[active]:block"
+              id="tabs-apps"
+              role="tabpanel"
+              data-active
+            >
+              <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                  <div class="overflow-hidden">
+                    <table
+                      class="text-surface min-w-full text-left text-sm font-light"
+                    >
+                      <thead class="border-b border-neutral-200 font-medium">
+                        <tr>
+                          <th scope="col" class="px-6 py-4"> Name </th>
+                          <th scope="col" class="px-6 py-4"> Url </th>
+                          <th scope="col" class="px-6 py-4">
+                            Agent Service Url
+                          </th>
+                          <th scope="col" class="px-6 py-4">
+                            Agent Service Id
+                          </th>
+                          <th scope="col" class="px-6 py-4 text-center">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="table-apps-body"> </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tabpanel hidden opacity-0 transition-opacity duration-150 ease-linear data-[active]:block"
+              id="tabs-agent-services"
+              role="tabpanel"
+            >
+              <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                  <div class="overflow-hidden">
+                    <table
+                      class="text-surface min-w-full text-left text-sm font-light"
+                    >
+                      <thead class="border-b border-neutral-200 font-medium">
+                        <tr>
+                          <th scope="col" class="px-6 py-4">
+                            Agent Service Url
+                          </th>
+                          <th scope="col" class="px-6 py-4">
+                            Agent Service Id
+                          </th>
+                          <th scope="col" class="px-6 py-4 text-center">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="table-agent-servises-body"> </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>
+  <div class="hidden">
+    <div id="edit-icon" class="cursor-pointer">
+      <i class="bi bi-pencil text-2xl text-brand-700"></i>
+    </div>
+  </div>
+</main>
+
+<script>
+  import type { ProviderApp, AgentService } from "@utils/types";
+  import { HashRouter, Cookie } from "mee-components";
+
+  const initProvidersItem = async () => {
+    const sideMenu = document.getElementById("side-menu");
+    const user = Cookie.getCookie("admin");
+    if (user) {
+      sideMenu?.classList.remove("hidden");
+    } else {
+      window.location.hash = "#sign-in";
+    }
+    const nameInput = document.getElementById(
+      "name"
+    ) as HTMLInputElement | null;
+    const emailInput = document.getElementById(
+      "email"
+    ) as HTMLInputElement | null;
+    const phoneInput = document.getElementById(
+      "phone"
+    ) as HTMLInputElement | null;
+
+    const providerData = document.getElementById("provider-data");
+    const loading = document.getElementById("loading");
+    const tabsUl = document.getElementById("tabs-ul");
+    const tabsLi = tabsUl?.querySelectorAll("li");
+    const tabsSpans = tabsUl?.querySelectorAll("span");
+    const editIcon = document.getElementById("edit-icon");
+    const tabpanel = document?.querySelectorAll(
+      ".tabpanel"
+    ) as NodeListOf<HTMLDivElement> | null;
+    tabsLi?.forEach((element) => {
+      element?.addEventListener("click", () => {
+        tabsSpans?.forEach((span) => {
+          delete span.dataset.active;
+        });
+        tabpanel?.forEach((div) => {
+          div.classList.remove("opacity-100");
+          div.classList.add("opacity-0");
+          delete div.dataset.active;
+        });
+
+        const activeSpan = element.querySelector("span");
+        const activePanelId = activeSpan?.dataset.controls;
+        const activePanel =
+          activePanelId && document.getElementById(activePanelId);
+
+        if (activeSpan) {
+          activeSpan.dataset.active = "true";
+        }
+        if (activePanel) {
+          activePanel.dataset.active = "true";
+          activePanel.classList.remove("opacity-0");
+          activePanel.classList.add("opacity-100");
+        }
+      });
+    });
+
+    const id = document.documentElement.dataset.providerId;
+
+    if (id != "") {
+      const response = await fetch(
+        "https://randomuser.me/api?seed=test22&results=10"
+      );
+      const data = await response.json();
+      const randomUser = data.results[Number(id)];
+      const appsResponse = await fetch("/provider_apps.json");
+      const appsData: ProviderApp[] = await appsResponse.json();
+      const appsTableBody = document.getElementById("table-apps-body");
+
+      const agentServicesResponse = await fetch("/agent_services.json");
+      const agentServicesData: AgentService[] =
+        await agentServicesResponse.json();
+      const agentServicesTableBody = document.getElementById(
+        "table-agent-servises-body"
+      );
+
+      if (randomUser) {
+        providerData?.classList.remove("hidden");
+        providerData?.classList.add("flex");
+
+        loading?.classList.add("hidden");
+
+        if (nameInput) {
+          nameInput.value = `${randomUser.name.first} ${randomUser.name.last}`;
+        }
+        if (emailInput) {
+          emailInput.value = randomUser.email;
+        }
+        if (phoneInput) {
+          phoneInput.value = randomUser.phone;
+        }
+      }
+
+      if (appsData && editIcon && appsTableBody) {
+        appsData.forEach((appData, i: number) => {
+          const tr = document.createElement("tr");
+          tr.className = "border-b border-neutral-200";
+
+          const tdName = document.createElement("td");
+          tdName.className = "whitespace-nowrap px-6 py-4";
+          const tdNameContent = document.createTextNode(appData.name);
+          tdName.appendChild(tdNameContent);
+          const tdUrl = document.createElement("td");
+          tdUrl.className = "whitespace-nowrap px-6 py-4";
+          const tdUrlContent = document.createTextNode(appData.url);
+          tdUrl.appendChild(tdUrlContent);
+
+          const tdAgentServiceUrl = document.createElement("td");
+          tdAgentServiceUrl.className = "whitespace-nowrap px-6 py-4";
+          const tdAgentServiceUrlContent = document.createTextNode(
+            appData.agent_service_url
+          );
+          tdAgentServiceUrl.appendChild(tdAgentServiceUrlContent);
+
+          const tdAgentServiceId = document.createElement("td");
+          tdAgentServiceId.className = "whitespace-nowrap px-6 py-4";
+          const tdAgentServiceIdContent = document.createTextNode(
+            appData.agent_service_id
+          );
+          tdAgentServiceId.appendChild(tdAgentServiceIdContent);
+
+          const tdActions = document.createElement("td");
+          tdActions.className =
+            "flex items-center justify-center whitespace-nowrap px-6 py-4";
+          const icon = editIcon.cloneNode(true);
+          const button = document.createElement("button");
+
+          button.onclick = () => {
+            window.location.hash = `providers/${id}/app/${i}`;
+          };
+          button.appendChild(icon);
+          tdActions.appendChild(button);
+          tr.appendChild(tdName);
+          tr.appendChild(tdUrl);
+          tr.appendChild(tdAgentServiceUrl);
+          tr.appendChild(tdAgentServiceId);
+          tr.appendChild(tdActions);
+          appsTableBody.appendChild(tr);
+        });
+      }
+      if (agentServicesData && editIcon && agentServicesTableBody) {
+        agentServicesData.forEach((agentServiceData) => {
+          const tr = document.createElement("tr");
+          tr.className = "border-b border-neutral-200";
+
+          const tdAgentServiceUrl = document.createElement("td");
+          tdAgentServiceUrl.className = "whitespace-nowrap px-6 py-4";
+          const tdAgentServiceUrlContent = document.createTextNode(
+            agentServiceData.agent_service_url
+          );
+          tdAgentServiceUrl.appendChild(tdAgentServiceUrlContent);
+
+          const tdAgentServiceId = document.createElement("td");
+          tdAgentServiceId.className = "whitespace-nowrap px-6 py-4";
+          const tdAgentServiceIdContent = document.createTextNode(
+            agentServiceData.agent_service_id
+          );
+          tdAgentServiceId.appendChild(tdAgentServiceIdContent);
+
+          const tdActions = document.createElement("td");
+          tdActions.className =
+            "flex items-center justify-center whitespace-nowrap px-6 py-4";
+          const icon = editIcon.cloneNode(true);
+          const button = document.createElement("button");
+
+          button.onclick = () => {
+            window.location.hash = `providers/${id}/agent-service/${agentServiceData.agent_service_id}`;
+          };
+          button.appendChild(icon);
+          tdActions.appendChild(button);
+          tr.appendChild(tdAgentServiceUrl);
+          tr.appendChild(tdAgentServiceId);
+          tr.appendChild(tdActions);
+          agentServicesTableBody.appendChild(tr);
+        });
+      }
+    }
+  };
+  HashRouter.initPageListeners(
+    "providers-item",
+    initProvidersItem,
+    "Providers"
+  );
+</script>

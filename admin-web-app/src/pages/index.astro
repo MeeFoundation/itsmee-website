@@ -1,7 +1,68 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import IndexPage from "@components/pages/IndexPage.astro";
+import SignIn from "@components/pages/SignIn.astro";
+import SignUp from "@components/pages/SignUp.astro";
+import RestorePassword from "@components/pages/RestorePassword.astro";
+import ForgotPassword from "@components/pages/ForgotPassword.astro";
+import Providers from "@components/pages/Providers.astro";
+import ProvidersItem from "@components/pages/ProvidersItem.astro";
+import ProvidersApp from "@components/pages/ProvidersApp.astro";
+import ProvidersAgentService from "@components/pages/ProvidersAgentService.astro";
+
+import UsersItem from "@components/pages/UsersItem.astro";
+import Users from "@components/pages/Users.astro";
+import NotFound from "@components/pages/NotFound.astro";
+import { Route } from "mee-components";
 ---
 
 <Layout title="Welcome to Mee">
+  <div id="route-content" class="w-full"></div>
+  <Route id="index" route="" withoutDarkTheme={true}><IndexPage /></Route>
+  <Route id="providers" route="providers" withoutDarkTheme={true}
+    ><Providers /></Route
+  >
+  <Route
+    id="providers-item"
+    route="^providers\/(\\d*)\\/?$"
+    regexRoute={true}
+    params={["provider-id"]}
+    withoutDarkTheme={true}><ProvidersItem /></Route
+  >
+  <Route
+    id="providers-app"
+    route="^providers\/(\\d*)\\/app\\/(\\d*)\/?$"
+    regexRoute={true}
+    params={["provider-id", "app-id"]}
+    withoutDarkTheme={true}><ProvidersApp /></Route
+  >
+  <Route
+    id="providers-agent-service"
+    route="^providers\/(\\d*)\\/agent-service\\/(\\d*)\/?$"
+    regexRoute={true}
+    params={["provider-id", "agent-service-id"]}
+    withoutDarkTheme={true}><ProvidersAgentService /></Route
+  >
+  <Route id="users" route="users" withoutDarkTheme={true}><Users /></Route>
+  <Route
+    id="users-item"
+    route="^users\/(\\d*)\\/?$"
+    regexRoute={true}
+    params={["user-id"]}
+    withoutDarkTheme={true}><UsersItem /></Route
+  >
+  <Route id="sign-up" route="sign-up" withoutDarkTheme={true}><SignUp /></Route>
 
+  <Route id="sign-in" route="sign-in" withoutDarkTheme={true}><SignIn /></Route>
+  <Route id="restore-password" route="restore-password" withoutDarkTheme={true}
+    ><RestorePassword /></Route
+  >
+  <Route id="forgot-password" route="forgot-password" withoutDarkTheme={true}
+    ><ForgotPassword /></Route
+  >
+  <Route id="not-found" route="404" withoutDarkTheme={true}><NotFound /></Route>
 </Layout>
+<script>
+  import { HashRouter } from "mee-components";
+  HashRouter.initRouter();
+</script>
