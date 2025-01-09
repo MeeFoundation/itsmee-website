@@ -35,14 +35,15 @@ const data = [
     link: "",
     linkTitle: "",
     button: false,
+    class: "last-element",
   },
 ];
 ---
 
 <section class="data-container flex w-full max-w-7xl flex-col">
-  <div class="data-container-start mt-8 w-full md:mt-64"></div>
+  <div class="data-container-start mt-8 w-full md:mt-20"></div>
   <div
-    class="flex h-full w-full flex-col items-center justify-center gap-20 px-6 md:gap-64"
+    class="flex h-full w-full flex-col items-center justify-center gap-20 px-5 md:gap-64"
   >
     {
       data.map((item) => (
@@ -50,40 +51,38 @@ const data = [
           class="data-item flex w-full flex-col gap-4 md:flex-row md:gap-0"
           class:list={item.class}
         >
-          <div class="relative md:w-1/2">
-            <div class="relative w-full">
-              <div class="data-item-block relative flex items-center justify-center transition-opacity duration-100 md:fixed md:top-0 md:-z-1 md:h-screen md:w-5/12 md:opacity-0">
-                <div class="flex flex-col items-center justify-center gap-4 md:items-start">
-                  <div>
-                    <div class="text-center test-xl md:text-2xl text-grey-500 md:text-left dark:text-grey-400">
-                      {item.subtitle}
-                    </div>
-                    <div class="title text-center text-3xl md:text-5xl font-bold md:text-left">
-                      {item.title}
-                    </div>
+          <div class="data-item-block-container relative flex items-center md:w-1/2">
+            <div class="data-item-block relative flex items-center justify-start transition-opacity duration-100 md:fixed md:top-0 md:-z-1 md:h-screen md:opacity-0">
+              <div class="flex flex-col items-center justify-center gap-4 md:items-start">
+                <div>
+                  <div class="test-xl text-center text-grey-500 md:text-left md:text-2xl dark:text-grey-400">
+                    {item.subtitle}
                   </div>
-                  <div class="text-center md:text-left dark:text-grey-50">
-                    {item.description}
+                  <div class="title text-center text-3xl font-bold md:text-left md:text-5xl">
+                    {item.title}
                   </div>
-                  {item.link && item.button && (
-                    <ButtonLink href={item.link} className="w-27">
-                      {item.linkTitle}
-                    </ButtonLink>
-                  )}
-                  {item.link && !item.button && (
-                    <a
-                      class="block w-full text-center md:text-left text-lg leading-relaxed text-brand-600 underline md:text-2xl dark:text-brand-300"
-                      href={item.link}
-                    >
-                      {item.linkTitle} <i class="bi bi-arrow-right" />
-                    </a>
-                  )}
                 </div>
+                <div class="text-center md:text-left dark:text-grey-50">
+                  {item.description}
+                </div>
+                {item.link && item.button && (
+                  <ButtonLink href={item.link} size="xxl">
+                    {item.linkTitle}
+                  </ButtonLink>
+                )}
+                {item.link && !item.button && (
+                  <a
+                    class="block w-full text-center text-lg leading-relaxed text-brand-600 underline md:text-left md:text-2xl dark:text-brand-300"
+                    href={item.link}
+                  >
+                    {item.linkTitle} <i class="bi bi-arrow-right" />
+                  </a>
+                )}
               </div>
             </div>
           </div>
-          <div class="md:w-1/2">
-            <div class="image-block flex w-full">
+          <div class="flex items-center md:w-1/2">
+            <div class="image-block flex w-full items-center">
               <img class="w-full dark:hidden" src={item.image} />
               <img class="hidden w-full dark:block" src={item.imageDark} />
             </div>
@@ -108,7 +107,7 @@ const data = [
     const windowCenter = windowHeight / 2;
     const imageTopCenter = rect.top + rect.height / 5;
     const imageBottom = rect.bottom;
-    const imageBottomCenter = rect.bottom - rect.height / 5
+    const imageBottomCenter = rect.bottom - rect.height / 5;
     const opacityOffset = rect.height / 5;
 
     if (
@@ -117,10 +116,7 @@ const data = [
       imageBottomCenter > windowCenter
     ) {
       return 1;
-    } else if (
-      rect.top <= windowCenter &&
-      imageBottomCenter > windowCenter
-    ) {
+    } else if (rect.top <= windowCenter && imageBottomCenter > windowCenter) {
       return (windowCenter - imageTopCenter + opacityOffset) / opacityOffset;
     } else if (
       imageTopCenter <= windowCenter &&
@@ -155,25 +151,55 @@ const data = [
     }
   };
 
+  const isLastBlockAfterCenter = (
+    element: HTMLElement,
+    currentBlock: Element
+  ) => {
+    if (currentBlock.classList.contains("last-element")) {
+      const center =
+        element.offsetTop -
+        (window.innerHeight / 2 - element.clientHeight / 2) +
+        110;
+      if (window.scrollY >= center) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const checkCurrentBlock = () => {
     if (window.innerWidth >= 768) {
       dataItems.forEach((currentBlock) => {
         const itemBlock = currentBlock?.querySelector(".data-item-block") as
           | HTMLElement
           | undefined;
+        const itemBlockContainer = currentBlock?.querySelector(
+          ".data-item-block-container"
+        ) as HTMLElement | undefined;
         const imageBlock = currentBlock?.querySelector(".image-block") as
           | HTMLElement
           | undefined;
-        if (imageBlock) {
+        if (imageBlock && itemBlockContainer) {
+          const width = itemBlockContainer.getBoundingClientRect().width;
           const opacity = getOpacity(imageBlock);
-          if (currentBlock.classList.contains("last-element")) {
-            console.log(11111);
-          }
-
+          const lastAfterCenter = isLastBlockAfterCenter(
+            imageBlock,
+            currentBlock
+          );
           if (itemBlock) {
-            itemBlock.style.opacity = opacity.toString();
+            if (lastAfterCenter) {
+              itemBlock.style.opacity = "1";
+              itemBlock.classList.remove("md:fixed", "md:h-screen");
+            } else {
+              itemBlock.style.opacity = opacity.toString();
+              itemBlock.classList.add("md:fixed", "md:h-screen");
+            }
 
-            if (opacity > 0) {
+            itemBlock.style.width = width + "px";
+
+            if (lastAfterCenter) {
+              itemBlock.style.zIndex = "0";
+            } else if (opacity > 0) {
               itemBlock.style.zIndex = "2";
             } else {
               itemBlock.style.zIndex = "-1";
@@ -195,6 +221,9 @@ const data = [
           | undefined;
         if (itemBlock) {
           itemBlock.style.opacity = "";
+          itemBlock.style.width = "";
+          itemBlock.style.zIndex = "";
+          itemBlock.classList.add("md:fixed", "md:h-screen");
         }
       });
       dataContainer?.classList.remove("data-container-before");
