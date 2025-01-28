@@ -19,23 +19,20 @@ import DataSection from "@components/DataSection.astro";
         <div
           class="flex max-w-7xl flex-col items-center justify-center gap-4 px-5 transition-opacity duration-500"
         >
-          <h1
-            class="marker text-center text-3xl font-semibold text-grey-900 md:text-5xl lg:text-7xl dark:text-grey-50"
-          >
-            Hello! It's Mee.
-          </h1>
+          <div><TypingLogo /><MirrorLogo /></div>
           <div
-            class="flex max-w-5xl flex-col gap-0.5 text-pretty text-center text-lg text-grey-900 md:text-xl lg:text-2xl dark:text-grey-50"
+            class="flex max-w-7xl flex-col gap-0.5 text-pretty text-center text-lg text-grey-900 md:text-xl lg:text-2xl dark:text-grey-50"
           >
             <h3>
-              You are in control of your personal information wherever it lives
-              on the internet.
+              Mee is about putting you in control of your data relationships
+              with other people and companies.
             </h3>
             <h3 class="gradient-title font-bold">
               More control. More Privacy. More Convenience.
             </h3>
             <h3 class="text-lg font-thin lg:text-xl">
-              Developed by The Mee Foundation
+              Developed by The Mee Foundation nonprofit. By the people. For the
+              people.
             </h3>
           </div>
         </div>
@@ -50,7 +47,6 @@ import DataSection from "@components/DataSection.astro";
           src="/images/illustration-dark.svg"
         />
       </section>
-      <section><TypingLogo /><MirrorLogo /></section>
       <DataSection />
       <section
         class="section-bg relative -mb-60 flex w-screen flex-col items-center gap-14 px-10 pb-80 text-white md:gap-20 lg:gap-24"
