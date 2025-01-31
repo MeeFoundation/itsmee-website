@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Header, Footer, ButtonLink } from "mee-components";
+import { Header, Footer, ButtonLink, AppButtons } from "mee-components";
 import { header, footer, appLink } from "../config";
 import TypingLogo from "@components/TypingLogo.astro";
 import MirrorLogo from "@components/MirrorLogo.astro";
@@ -48,35 +48,113 @@ import DataSection from "@components/DataSection.astro";
         />
       </section>
       <DataSection />
-      <section
-        class="section-bg relative -mb-60 flex w-screen flex-col items-center gap-14 px-10 pb-80 text-white md:gap-20 lg:gap-24"
-      >
-        <div class="section-bg-image absolute h-full w-full max-w-7xl"></div>
-        <div class="z-70 flex flex-col items-center gap-16">
-          <div class="flex flex-col items-center gap-4 pt-40">
-            <h2
-              class="text-center text-3xl font-bold leading-thick md:text-4xl md:leading-normal lg:text-5xl"
-            >
-              Unlock your privacy
-            </h2>
-            <h3
-              class="text max-w-3xl text-pretty px-5 text-center text-xl md:text-2xl"
-            >
-              Sign up to enjoy privacy, control and convenience.
-            </h3>
+
+      <section class="-mb-40">
+        <div
+          class="section-bg relative flex w-screen flex-col items-center gap-14 px-10 pb-40 text-white md:gap-20 md:pb-80 lg:gap-24"
+        >
+          <div class="section-bg-image absolute h-full w-full max-w-7xl"></div>
+          <div
+            class="flex w-full max-w-7xl flex-col-reverse items-center justify-between gap-4 pt-80 md:flex-row md:gap-0"
+          >
+            <div class="z-70 flex flex-1 flex-col items-start gap-8 md:gap-16">
+              <div class="flex flex-col items-start gap-4">
+                <div class="flex flex-col items-start">
+                  <div
+                    class="text-left text-lg leading-thick text-grey-300 md:text-xl md:leading-normal lg:text-2xl"
+                  >
+                    Mee for web
+                  </div>
+                  <h2
+                    class="text-left text-3xl font-bold leading-thick md:text-4xl md:leading-normal lg:text-5xl"
+                  >
+                    Unlock your privacy
+                  </h2>
+                </div>
+                <h3
+                  class="text max-w-3xl text-pretty text-start text-xl md:text-2xl"
+                >
+                  Create your web account to forever enjoy<br
+                    class="hidden md:block"
+                  /> privacy, control and convenience.
+                </h3>
+              </div>
+              <div>
+                <ButtonLink
+                  href=`${appLink}#sign-up`
+                  style="filled"
+                  buttonType="tertiary"
+                  size="xxl"
+                >
+                  Sign up</ButtonLink
+                >
+              </div>
+            </div>
+            <div class="z-70 flex-1">
+              <img
+                class="w-full rounded-lg md:rounded-2xl"
+                src="/images/browser.png"
+              />
+            </div>
           </div>
-          <div class="mt-8">
-            <ButtonLink
-              href=`${appLink}#sign-up`
-              style="filled"
-              buttonType="tertiary"
-              size="xxl"
-            >
-              Sign up</ButtonLink
-            >
+        </div>
+        <div
+          class="section-2-bg relative flex w-screen flex-col items-center px-10 pb-80 text-grey-800"
+        >
+          <div
+            class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 md:flex-row md:gap-40"
+          >
+            <div class="w-full max-w-80 flex-1">
+              <img class="w-full" src="/images/connections.png" />
+            </div>
+            <div class="z-70 flex flex-1 flex-col items-start gap-4">
+              <div class="flex flex-col items-start gap-4">
+                <div class="flex flex-col items-start">
+                  <div
+                    class="text-left text-lg leading-thick text-grey-500 md:text-xl md:leading-normal lg:text-2xl"
+                  >
+                    Mee for smartphone
+                  </div>
+                  <h2
+                    class="section-title text-left text-3xl font-bold leading-thick md:text-4xl md:leading-normal lg:text-5xl"
+                  >
+                    Bring the convenience of data sharing to your phone
+                  </h2>
+                </div>
+                <h3
+                  class="text max-w-3xl text-pretty text-start text-xl md:text-2xl"
+                >
+                  It integrates with Apple’s Contacts, and automatically updates
+                  them if the other person is also a Mee user. It stores a copy
+                  of all of your information on your phone. Nothing is ever
+                  shared without your explicit consent. The Mee Foundation never
+                  sees any of your data, and never stores any of it on our
+                  servers.
+                </h3>
+                <a
+                  class="my-4 w-full text-xl leading-relaxed text-brand-600 underline md:text-2xl"
+                  href="https://smartwallet.mee.foundation/"
+                >
+                  Learn more about Mee Smartwallet <i
+                    class="bi bi-arrow-right ml-2"></i>
+                </a>
+                <h3
+                  class="text max-w-3xl text-pretty text-start text-xl md:text-2xl"
+                >
+                  Download Mee for iOS to enjoy the added benefit of on-device
+                  personal data storage.
+                </h3>
+                <AppButtons
+                  noDescription
+                  class="!w-full !items-start !justify-start !px-0 pt-4"
+                  buttonsClass="!flex-row-reverse"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
       <Footer footer={footer} mode="dark" />
     </article>
   </main>
@@ -84,7 +162,25 @@ import DataSection from "@components/DataSection.astro";
 
 <style is:global>
   .section-bg {
-    background: linear-gradient(180deg, #0f172a 0%, #334155 81.32%);
+    background: linear-gradient(
+      180deg,
+      #0f172a 12.34%,
+      #334155 34.28%,
+      #475569 45.64%,
+      #64748b 56.85%,
+      #f8fafc 100%
+    );
+  }
+  .section-2-bg {
+    background: linear-gradient(187.32deg, #f8fafc 5.27%, #f3f8f8 93.89%);
+  }
+
+  .section-title {
+    background: linear-gradient(90deg, #0f172a 0%, #4f868e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
   }
   .section-bg-image::after {
     content: "";
