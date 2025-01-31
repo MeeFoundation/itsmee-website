@@ -165,6 +165,21 @@ const data = [
     }
     return false;
   };
+  const isFirstBlockBeforeCenter = (
+    element: HTMLElement,
+    currentBlock: Element
+  ) => {
+    if (currentBlock.classList.contains("first-element")) {
+      const center =
+        element.offsetTop -
+        (window.innerHeight / 2 - element.clientHeight / 2) +
+        107;
+      if (window.scrollY <= center) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   const checkCurrentBlock = () => {
     if (window.innerWidth >= 768) {
@@ -185,8 +200,12 @@ const data = [
             imageBlock,
             currentBlock
           );
+          const firstBeforeCenter = isFirstBlockBeforeCenter(
+            imageBlock,
+            currentBlock
+          );
           if (itemBlock) {
-            if (lastAfterCenter) {
+            if (lastAfterCenter || firstBeforeCenter) {
               itemBlock.style.opacity = "1";
               itemBlock.classList.remove("md:fixed", "md:h-screen");
             } else {
@@ -196,7 +215,7 @@ const data = [
 
             itemBlock.style.width = width + "px";
 
-            if (lastAfterCenter) {
+            if (lastAfterCenter || firstBeforeCenter) {
               itemBlock.style.zIndex = "0";
             } else if (opacity > 0) {
               itemBlock.style.zIndex = "2";
