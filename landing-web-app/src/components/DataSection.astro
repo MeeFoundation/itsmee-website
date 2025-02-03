@@ -40,19 +40,19 @@ const data = [
 ---
 
 <section class="data-container flex w-full max-w-7xl flex-col">
-  <div class="data-container-start mt-8 w-full md:mt-20"></div>
+  <div class="data-container-start mt-8 w-full lg:mt-20"></div>
   <div
-    class="flex h-full w-full flex-col items-center justify-center gap-20 px-5 md:gap-64"
+    class="flex h-full w-full flex-col items-center justify-center gap-20 px-5 lg:gap-64"
   >
     {
       data.map((item) => (
         <div
-          class="data-item flex w-full flex-col gap-4 md:flex-row md:gap-0"
+          class="data-item flex w-full flex-col gap-4 lg:flex-row lg:gap-0"
           class:list={item.class}
         >
-          <div class="data-item-block-container relative flex items-center md:w-1/2">
-            <div class="data-item-block relative flex items-center justify-start transition-opacity duration-100 md:fixed md:top-0 md:-z-1 md:h-screen md:opacity-0">
-              <div class="flex flex-col items-center justify-center gap-4 md:items-start">
+          <div class="data-item-block-container relative flex items-center lg:w-1/2">
+            <div class="data-item-block relative flex items-center justify-start transition-opacity duration-100 lg:fixed lg:top-0 lg:-z-1 lg:h-screen lg:opacity-0">
+              <div class="flex flex-col items-center justify-center gap-4 lg:items-start">
                 <div>
                   <div class="test-xl text-center text-grey-500 md:text-left md:text-2xl dark:text-grey-400">
                     {item.subtitle}
@@ -80,7 +80,7 @@ const data = [
               </div>
             </div>
           </div>
-          <div class="flex items-center md:w-1/2">
+          <div class="flex items-center lg:w-1/2">
             <div class="image-block flex w-full items-center">
               <img class="w-full dark:hidden" src={item.image} />
               <img class="hidden w-full dark:block" src={item.imageDark} />
@@ -182,7 +182,7 @@ const data = [
   };
 
   const checkCurrentBlock = () => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       dataItems.forEach((currentBlock) => {
         const itemBlock = currentBlock?.querySelector(".data-item-block") as
           | HTMLElement
@@ -207,10 +207,10 @@ const data = [
           if (itemBlock) {
             if (lastAfterCenter || firstBeforeCenter) {
               itemBlock.style.opacity = "1";
-              itemBlock.classList.remove("md:fixed", "md:h-screen");
+              itemBlock.classList.remove("lg:fixed", "lg:h-screen");
             } else {
               itemBlock.style.opacity = opacity.toString();
-              itemBlock.classList.add("md:fixed", "md:h-screen");
+              itemBlock.classList.add("lg:fixed", "lg:h-screen");
             }
 
             itemBlock.style.width = width + "px";
@@ -232,7 +232,7 @@ const data = [
   };
 
   const setDefaultOpacityOnResize = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       dataItems.forEach((currentBlock) => {
         const itemBlock = currentBlock?.querySelector(".data-item-block") as
           | HTMLElement
@@ -241,7 +241,7 @@ const data = [
           itemBlock.style.opacity = "";
           itemBlock.style.width = "";
           itemBlock.style.zIndex = "";
-          itemBlock.classList.add("md:fixed", "md:h-screen");
+          itemBlock.classList.add("lg:fixed", "lg:h-screen");
         }
       });
       dataContainer?.classList.remove("data-container-before");
