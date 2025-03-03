@@ -18,16 +18,19 @@
     height="64"
     class="img-filter flex flex-shrink-0 -scale-x-100"
   />
-
-  <p
-    class="flex gap-0 text-[112px] leading-[20px] text-brand-300"
-    id="logo-wording-opacity"
-  >
-  </p>
+  <div class="flex h-full items-center">
+    <p></p>
+    <p
+      class="-mt-5 flex h-full gap-0 text-[112px] leading-[0px] text-brand-300"
+      id="logo-wording-opacity"
+    >
+    </p>
+  </div>
 </article>
 
 <script>
-  const text = "lectronically";
+  const electronicallyText = "lectronically";
+  const exclusivelyText = "xclusively";
   const logoWordingsOpacity = document.getElementById("logo-wording-opacity");
   const mirrorE = document.getElementById("mirror-e");
   const typingLogo = document.querySelector(".typing-logo");
@@ -37,28 +40,34 @@
   let startAnimation = false;
   let typeWriterOpacityTimeout: NodeJS.Timeout;
   let removeWrittenTextOpacityTimeout: NodeJS.Timeout;
+  let removeWrittenTextOpacityTimeout2: NodeJS.Timeout;
 
-  function typeWriterOpacity() {
+  function typeWriterOpacity(text: string) {
     if (j < text.length) {
       const wordSpan = document.createElement("span");
       wordSpan.classList.add("anim-fade-in");
       wordSpan.appendChild(document.createTextNode(text.charAt(j)));
       logoWordingsOpacity?.appendChild(wordSpan);
       j++;
-      typeWriterOpacityTimeout = setTimeout(typeWriterOpacity, speed);
+      typeWriterOpacityTimeout = setTimeout(
+        () => typeWriterOpacity(text),
+        speed
+      );
     }
   }
 
-  function removeWrittenTextOpacity() {
+  function removeWrittenTextOpacity(callback?: () => void) {
     if (j > 0) {
       if (logoWordingsOpacity && logoWordingsOpacity.lastChild) {
         logoWordingsOpacity.removeChild(logoWordingsOpacity.lastChild);
       }
       j--;
-      removeWrittenTextOpacityTimeout = setTimeout(
-        removeWrittenTextOpacity,
-        speed / 3
-      );
+      removeWrittenTextOpacityTimeout = setTimeout(() => {
+        removeWrittenTextOpacity(callback);
+      }, speed / 3);
+    } else if (callback) {
+      j = 0;
+      callback();
     }
   }
 
@@ -66,6 +75,7 @@
     mirrorE?.classList.remove("anim-mirror");
     clearTimeout(typeWriterOpacityTimeout);
     clearTimeout(removeWrittenTextOpacityTimeout);
+    clearTimeout(removeWrittenTextOpacityTimeout2);
 
     if (logoWordingsOpacity) {
       logoWordingsOpacity.innerHTML = "";
@@ -80,10 +90,19 @@
         if (entry.isIntersecting) {
           if (!startAnimation) {
             mirrorE?.classList.add("anim-mirror");
-            typeWriterOpacityTimeout = setTimeout(typeWriterOpacity, 1050);
-            removeWrittenTextOpacityTimeout = setTimeout(
+            typeWriterOpacityTimeout = setTimeout(
+              () => typeWriterOpacity(electronicallyText),
+              1050
+            );
+            removeWrittenTextOpacityTimeout = setTimeout(() => {
+              removeWrittenTextOpacity(() => {
+                typeWriterOpacity(exclusivelyText);
+              });
+            }, 3500);
+
+            removeWrittenTextOpacityTimeout2 = setTimeout(
               removeWrittenTextOpacity,
-              4100
+              7100
             );
             startAnimation = true;
           }
@@ -105,7 +124,7 @@
   }
 
   .anim-mirror {
-    animation: 4000ms linear 0.8s both mirror;
+    animation: 7000ms linear 0.8s both mirror;
   }
 
   @keyframes mirror {

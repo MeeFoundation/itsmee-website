@@ -2,10 +2,10 @@
 import { ButtonLink } from "mee-components";
 const data = [
   {
-    title: "Putting you in control of your data relationships",
+    title: "Private profile sharing.",
     subtitle: "Mee is about",
     description:
-      "Mee represents your relationships with other people and companies as a set of data sharing connections. When you create a connection, you can chose what (if any) information is accessible to the other party, and for how long.",
+      "Mee lets you control what others know about you. When you create a connection, you can chose what (if any) information is accessible to another person or company, and for how long.",
     image: "/images/personal-data-controller.svg",
     imageDark: "/images/personal-data-controller-dark.svg",
     link: "",
@@ -14,10 +14,10 @@ const data = [
     class: "first-element",
   },
   {
-    title: "Contact sharing with friends and family",
+    title: "Contact sharing between two people",
     subtitle: "Mee is about",
     description:
-      "If you wish a family member to always have your correct home address (and you to have theirs). Use the Mee app to send them a connection request link. After they tap the link, Mee will open and they can accept your connection request. After they do you’ll both always have each other’s home address.",
+      "If you wish a family member to always have your correct home address (and you to have theirs). Use the Mee app to send them a <em>connection request</em> link. After they tap the link, Mee will open and they can accept your connection request. After they do you’ll both always have each other’s home address. Effortlessly.",
     image: "/images/personal-data-storage.svg",
     imageDark: "/images/personal-data-storage-dark.svg",
     link: "",
@@ -61,9 +61,11 @@ const data = [
                     {item.title}
                   </div>
                 </div>
-                <div class="text-center md:text-left dark:text-grey-50">
-                  {item.description}
-                </div>
+                <div
+                  class="text-center md:text-left dark:text-grey-50"
+                  set:html={item.description}
+                />
+
                 {item.link && item.button && (
                   <ButtonLink href={item.link} size="xxl">
                     {item.linkTitle}
