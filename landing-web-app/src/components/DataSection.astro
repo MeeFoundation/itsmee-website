@@ -5,7 +5,7 @@ const data = [
     title: "Private profile sharing.",
     subtitle: "Mee is about",
     description:
-      "Mee lets you control what others know about you. When you create a connection, you can chose what (if any) information is accessible to another person or company, and for how long.",
+      "Mee lets you control what others know about you. When you create a connection, you can chose what (if anything) to share with another person or company, and for how long.",
     image: "/images/personal-data-controller.svg",
     imageDark: "/images/personal-data-controller-dark.svg",
     link: "",
@@ -17,7 +17,7 @@ const data = [
     title: "Contact sharing between two people",
     subtitle: "Mee is about",
     description:
-      "If you wish a family member to always have your correct home address (and you to have theirs). Use the Mee app to send them a <em>connection request</em> link. After they tap the link, Mee will open and they can accept your connection request. After they do you’ll both always have each other’s home address. Effortlessly.",
+      "If you’d like a friend, family member or colleague to always have your latest home address (and you to have theirs), use the Mee app to send them a <em>connection request</em> link. After they tap the link, Mee will open and they can accept your connection request. After they do you’ll both always have each other’s home address. Effortlessly.",
     image: "/images/personal-data-storage.svg",
     imageDark: "/images/personal-data-storage-dark.svg",
     link: "",
@@ -25,10 +25,10 @@ const data = [
     button: false,
   },
   {
-    title: "Auto-update your account profiles on websites and apps",
+    title: "Auto-update account profiles on websites and apps",
     subtitle: "Mee is about",
     description:
-      "If you create a connection with a Mee-compatible company, for as long as you with they can use the latest information from your Mee. When you update it, they automatically update their database.",
+      "If you create a connection with a Mee-compatible company, for as long as you wish they can pull and use the latest information from your Mee. When you update it in Mee, every company you’re connected to automatically receives the updated information.",
     image: "/images/limits-app.svg",
     imageDark: "/images/limits-app-dark.svg",
     link: "",
@@ -54,15 +54,15 @@ const data = [
             <div class="data-item-block relative flex items-center justify-start transition-opacity duration-100 lg:fixed lg:top-0 lg:-z-1 lg:h-screen lg:opacity-0">
               <div class="flex flex-col items-center justify-center gap-4 lg:items-start">
                 <div>
-                  <div class="test-xl text-center text-grey-500 md:text-left md:text-2xl dark:text-grey-400">
+                  <div class="test-xl text-center text-grey-500 lg:text-left md:text-2xl dark:text-grey-400">
                     {item.subtitle}
                   </div>
-                  <div class="title text-center text-3xl font-bold md:text-left md:text-5xl">
+                  <div class="title text-center text-3xl font-bold lg:text-left md:text-5xl">
                     {item.title}
                   </div>
                 </div>
                 <div
-                  class="text-center md:text-left dark:text-grey-50"
+                  class="text-center lg:text-left dark:text-grey-50"
                   set:html={item.description}
                 />
 
