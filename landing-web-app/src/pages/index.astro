@@ -41,10 +41,15 @@ import DataSection from "@components/DataSection.astro";
       <section
         class="flex h-full w-screen max-w-7xl flex-col items-center justify-center"
       >
-        <img class="w-full dark:hidden" src="/images/illustration.svg" />
+        <img
+          class="w-full dark:hidden"
+          src="/images/illustration.png"
+          srcset="/images/illustration.png 1x, /images/illustration@2x.png 2x"
+        />
         <img
           class="hidden w-full dark:block"
-          src="/images/illustration-dark.svg"
+          src="/images/illustration-dark.png"
+          srcset="/images/illustration-dark.png 1x, /images/illustration-dark@2x.png 2x"
         />
       </section>
       <DataSection />
