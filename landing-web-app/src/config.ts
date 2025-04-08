@@ -11,6 +11,7 @@ export const header = {
       name: "Join us",
       link: discord,
       icon: "discord",
+      ariaLabel: "Discord",
       target: "_blank",
       id: "discord",
     },
@@ -51,16 +52,19 @@ export const footer = {
       link: "https://x.com/mee_foundation",
       icon: "twitter-x",
       target: "_blank",
+      ariaLabel: "X",
     },
     {
       link: github,
       icon: "github",
       target: "_blank",
+      ariaLabel: "Github",
     },
     {
       link: discord,
       icon: "discord",
       target: "_blank",
+      ariaLabel: "discord",
     },
   ],
   rightLinks: [
