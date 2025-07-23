@@ -41,9 +41,9 @@
   let j = 0;
   let speed = 90;
   let startAnimation = false;
-  let typeWriterOpacityTimeout: NodeJS.Timeout;
-  let removeWrittenTextOpacityTimeout: NodeJS.Timeout;
-  let removeWrittenTextOpacityTimeout2: NodeJS.Timeout;
+  let typeWriterOpacityTimeout: ReturnType<typeof setTimeout>;
+  let removeWrittenTextOpacityTimeout: ReturnType<typeof setTimeout>;
+  let removeWrittenTextOpacityTimeout2: ReturnType<typeof setTimeout>;
 
   function typeWriterOpacity(text: string) {
     if (j < text.length) {
@@ -54,7 +54,7 @@
       j++;
       typeWriterOpacityTimeout = setTimeout(
         () => typeWriterOpacity(text),
-        speed
+        speed,
       );
     }
   }
@@ -74,17 +74,24 @@
     }
   }
 
-  function stopAnimation() {
-    mirrorE?.classList.remove("anim-mirror");
-    clearTimeout(typeWriterOpacityTimeout);
-    clearTimeout(removeWrittenTextOpacityTimeout);
-    clearTimeout(removeWrittenTextOpacityTimeout2);
-
+  function resetWordings(callback?: () => void) {
     if (logoWordingsOpacity) {
       logoWordingsOpacity.innerHTML = "";
     }
     j = 0;
+    if (callback) {
+      callback();
+    }
+  }
+
+  function stopAnimation() {
+    clearTimeout(typeWriterOpacityTimeout);
+    clearTimeout(removeWrittenTextOpacityTimeout);
+    clearTimeout(removeWrittenTextOpacityTimeout2);
+
+    resetWordings();
     startAnimation = false;
+    mirrorE?.classList.remove("anim-mirror");
   }
 
   const observerTypingLogo = new IntersectionObserver(
@@ -95,18 +102,25 @@
             mirrorE?.classList.add("anim-mirror");
             typeWriterOpacityTimeout = setTimeout(
               () => typeWriterOpacity(electronicallyText),
-              1050
+              1050,
             );
             removeWrittenTextOpacityTimeout = setTimeout(() => {
               removeWrittenTextOpacity(() => {
-                typeWriterOpacity(exclusivelyText);
+                {
+                  resetWordings(() => clearTimeout(typeWriterOpacityTimeout));
+                  typeWriterOpacity(exclusivelyText);
+                }
               });
             }, 3500);
 
-            removeWrittenTextOpacityTimeout2 = setTimeout(
-              removeWrittenTextOpacity,
-              7100
-            );
+            removeWrittenTextOpacityTimeout2 = setTimeout(() => {
+              removeWrittenTextOpacity(() => {
+                resetWordings();
+                clearTimeout(typeWriterOpacityTimeout);
+                clearTimeout(removeWrittenTextOpacityTimeout);
+                clearTimeout(removeWrittenTextOpacityTimeout2);
+              });
+            }, 7100);
             startAnimation = true;
           }
         } else {
@@ -114,7 +128,7 @@
         }
       });
     },
-    { threshold: 1 }
+    { threshold: 1 },
   );
 
   if (typingLogo) observerTypingLogo.observe(typingLogo);
