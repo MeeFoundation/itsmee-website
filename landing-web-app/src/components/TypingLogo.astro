@@ -1,15 +1,29 @@
-<article class="typing-logo my-4 hidden h-16 items-baseline lg:flex">
+---
+
+type Props = {
+  size?: "small" | "large";
+}
+
+const { size = "large" } = Astro.props;
+const height = size === "large" ? 64 : 20;
+const mSignWidth = size === "large" ? 91 : 28;
+const eSignWidth = size === "large" ? 64 : 20;
+const wrapperHeight = size === "large" ? 64 : 20;
+
+---
+
+<article style={`height: ${wrapperHeight}px`} class="typing-logo my-4 hidden items-baseline lg:flex">
   <img
     src="./images/logo-m.svg"
-    width="91"
-    height="64"
+    width={mSignWidth}
+    height={height}
     class="flex flex-shrink-0"
     alt="m"
   />
   <img
     src="./images/logo-e.svg"
-    width="64"
-    height="64"
+    width={eSignWidth}
+    height={height}
     class="flex flex-shrink-0"
     alt="e"
   />
@@ -17,14 +31,18 @@
     src="./images/logo-e.svg"
     id="mirror-e"
     alt="e"
-    width="64"
-    height="64"
+    width={eSignWidth}
+    height={height}
     class="img-filter flex flex-shrink-0 -scale-x-100"
   />
   <div class="flex h-full items-center">
     <p></p>
     <p
-      class="-mt-5 flex h-full gap-0 text-[112px] leading-[0px] text-brand-300"
+      class:list={[
+        "flex h-full gap-0  leading-[0px] text-brand-300",
+        size === "large" && "text-[112px] -mt-5",
+        size === "small" && "text-[36px] -mt-1.5",
+      ]}
       id="logo-wording-opacity"
     >
     </p>

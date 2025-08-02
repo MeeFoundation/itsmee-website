@@ -8,7 +8,9 @@ import DataSection from "@components/DataSection.astro";
 ---
 
 <Layout title="Welcome to Mee">
-  <Header header={header} disableMobileMenu={true} />
+  <Header header={header} disableMobileMenu={true}>
+    <div slot="logo"><TypingLogo size="small" /><MirrorLogo size="small" /></div>
+  </Header>
   <main class="w-screen overflow-hidden dark:bg-darky">
     <article
       class="relative mt-27 flex h-full w-screen flex-col items-center justify-between gap-10 overflow-hidden md:gap-20"
