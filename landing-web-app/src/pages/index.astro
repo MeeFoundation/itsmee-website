@@ -9,13 +9,15 @@ import DataSection from "@components/DataSection.astro";
 
 <Layout title="Welcome to Mee">
   <Header header={header} disableMobileMenu={true}>
-    <div slot="logo"><TypingLogo size="small" /><MirrorLogo size="small" /></div>
+    <div slot="logo">
+      <TypingLogo size="small" /><MirrorLogo size="small" />
+    </div>
   </Header>
   <main class="w-screen overflow-hidden dark:bg-darky">
     <article
       class="relative mt-27 flex h-full w-screen flex-col items-center justify-between gap-10 overflow-hidden md:gap-20"
     >
-      <section
+      <!-- <section
         class="mt-10 flex h-full w-screen flex-col items-center justify-center gap-10 md:mt-20 md:gap-20"
       >
         <div
@@ -50,7 +52,40 @@ import DataSection from "@components/DataSection.astro";
           srcset="/images/illustration-dark.png 1x, /images/illustration-dark@2x.png 2x"
           alt="illustration"
         />
+      </section> -->
+
+      <section
+        class="my-10 flex w-full max-w-7xl flex-col px-4 xl:mb-20 xl:mt-40 xl:flex-row xl:gap-20 xl:px-0"
+      >
+        <div class="flex flex-col gap-6 xl:gap-16">
+          <div class="flex flex-col gap-4">
+            <h2
+              class="text-center font-sans text-xl font-bold leading-7 text-grey-500 xl:text-start xl:text-2xl xl:leading-8 dark:text-grey-400"
+            >
+              Private data sharing
+            </h2>
+            <h1
+              class="bg-gradient-to-r from-grey-900 to-brand-500 bg-clip-text text-center text-4xl text-transparent xl:text-left xl:text-6xl dark:from-grey-50 dark:to-brand-500"
+            >
+              Securely share personal data directly with others and synchronize
+              it automatically.
+            </h1>
+            <p class="text-xl xl:text-2xl dark:text-gray-200">
+              No data is ever stored on our servers. Instead, data moves
+              directly from your device (e.g. on your phone) to the recipient.
+            </p>
+          </div>
+          <div class="flex w-full justify-center xl:justify-start">
+            <AppButtons class="!px-0 xl:!items-start" noDescription />
+          </div>
+        </div>
+
+        <div
+          class="mx-auto h-[339px] w-[358px] shrink-0 bg-green-200 xl:h-[479px] xl:w-[452px]"
+        >
+        </div>
       </section>
+
       <DataSection />
 
       <section class="-mb-40">
@@ -113,7 +148,7 @@ import DataSection from "@components/DataSection.astro";
             class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 md:flex-row md:gap-40"
           >
             <div class="w-full max-w-80 flex-1">
-              <img class="w-full" src="/images/connections.png" alt="phone"/>
+              <img class="w-full" src="/images/connections.png" alt="phone" />
             </div>
             <div class="z-70 flex flex-1 flex-col items-start gap-4">
               <div class="flex flex-col items-start gap-4">
