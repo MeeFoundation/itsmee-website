@@ -13,6 +13,7 @@ const images = [
 ---
 
 <div
+
   class:list={[
     "relative mx-auto h-[339px] w-[358px] shrink-0 bg-white xl:h-[479px] xl:w-[452px] dark:bg-darky",
     // left here just for compiling css classes used inside svg icons
@@ -44,6 +45,9 @@ const images = [
 
   const ZOOM_IN_DURATION = 500; // milliseconds
   const MOVE_DURATION = 2000; // milliseconds
+  const SCALE_STEP = 0.07;
+  const BASE_SCALE = 1;
+
   const toSeconds = (ms: number) => ms / 1000;
   const root = document.querySelector(":root") as HTMLElement;
 
@@ -89,6 +93,58 @@ const images = [
     }
   };
 
+  const setupIntersectionObservers = () => {
+    let intersectedCount = 0;
+    const intersectedItems = new Set();
+    let animationId: number;
+
+    const checkIntersection = () => {
+      const centerRect = center.getBoundingClientRect();
+      const centerX = centerRect.left + centerRect.width / 2;
+      const centerY = centerRect.top + centerRect.height / 2;
+      const centerRadius = Math.min(centerRect.width, centerRect.height) / 2;
+
+      items.forEach((item, index) => {
+        if (intersectedItems.has(index)) return;
+
+        const itemRect = item.getBoundingClientRect();
+        const itemX = itemRect.left + itemRect.width / 2;
+        const itemY = itemRect.top + itemRect.height / 2;
+
+        const distance = Math.sqrt(
+          Math.pow(itemX - centerX, 2) + Math.pow(itemY - centerY, 2),
+        );
+
+        const intersectionThreshold = centerRadius * 1.1;
+
+        if (distance <= intersectionThreshold) {
+          intersectedItems.add(index);
+          intersectedCount++;
+
+          const newScale = BASE_SCALE + intersectedCount * SCALE_STEP;
+          center.style.transform = `scale(${newScale})`;
+          center.style.transition = "transform 0.2s ease-out";
+
+          console.log(
+            `Element ${index + 1} intersected! Distance: ${distance.toFixed(2)}, Threshold: ${intersectionThreshold.toFixed(2)}, New scale: ${newScale}`,
+          );
+        }
+      });
+
+      if (intersectedCount < items.length) {
+        animationId = requestAnimationFrame(checkIntersection);
+      }
+    };
+
+    animationId = requestAnimationFrame(checkIntersection);
+
+    setTimeout(() => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    }, MOVE_DURATION + 500);
+  };
+
   class AnimationController {
     aborted = false;
     callbacks: Array<() => Promise<void>>;
@@ -123,17 +179,21 @@ const images = [
       async () => {
         addClassItems("item-visible");
         addClassItems("zoom-in");
+        center.classList.add("zoom-in-bounce");
       },
       () => sleep(ZOOM_IN_DURATION),
       async () => {
         removeClassItems("zoom-in");
         addClassItems("animate-move");
+        setupIntersectionObservers();
       },
       () => sleep(MOVE_DURATION),
     ],
     () => {
       removeClassItems("item-visible");
       removeClassItems("animate-move");
+      center.style.transform = "";
+      center.style.transition = "";
     },
   );
 
@@ -166,10 +226,10 @@ const images = [
     position: absolute;
     width: 106px;
     height: 106px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: calc(50% - 53px);
+    top: calc(50% - 53px);
     z-index: 1;
+    transition: transform 0.3s ease-in-out;
   }
 
   .what-is-mee-animation--item-1 {
