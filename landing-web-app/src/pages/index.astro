@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Header, Footer, ButtonLink, AppButtons } from "mee-components";
-import { header, footer, appLink } from "../config";
+import { Header, Footer, AppButtons } from "mee-components";
+import { header, footer } from "../config";
 import TypingLogo from "@components/TypingLogo.astro";
 import MirrorLogo from "@components/MirrorLogo.astro";
 import DataSection from "@components/DataSection.astro";
@@ -50,8 +50,39 @@ import WhatIsMeeAnimation from "@components/WhatIsMeeAnimation.astro";
       <DataSection />
 
       <section class="-mb-40">
+        <div class="section-dark-gradient flex w-screen flex-col items-center">
+          <div
+            class="flex w-full max-w-7xl flex-col items-center justify-start gap-4 px-5 py-40 md:flex-row md:gap-40"
+          >
+            <div class="flex max-w-screen-lg flex-col">
+              <h4
+                class="text-center text-lg text-grey-300 md:text-2xl lg:text-left"
+              >
+                Applications
+              </h4>
+              <h2
+                class="mb-2 text-center text-3xl text-white lg:mb-4 lg:text-left lg:text-5xl"
+              >
+                Create secure data sharing connections between you and another
+                person or business.
+              </h2>
+              <p
+                class="mb-4 text-center text-lg text-white md:text-2xl lg:mb-6 lg:text-left"
+              >
+                In a Mee sharing connection, you decide what to share and for
+                how long the other party can see it and get your updates to it.
+              </p>
+              <h4
+                class="text-center text-xl font-bold text-white md:text-2xl lg:text-left"
+              >
+                Securely share your:
+              </h4>
+            </div>
+          </div>
+        </div>
+
         <div
-          class="section-bg relative flex w-screen flex-col items-center gap-14 px-10 pb-40 text-white md:gap-20 md:pb-80 lg:gap-24"
+          class="gradient-to-white relative flex w-screen flex-col items-center gap-14 px-10 pb-40 md:gap-20 md:pb-80 lg:gap-24"
         >
           <div class="section-bg-image absolute h-full w-full max-w-7xl"></div>
           <div
@@ -61,12 +92,12 @@ import WhatIsMeeAnimation from "@components/WhatIsMeeAnimation.astro";
               <div class="flex flex-col items-start gap-4">
                 <div class="flex flex-col items-start">
                   <div
-                    class="text-left text-lg leading-thick text-grey-300 md:text-xl md:leading-normal lg:text-2xl"
+                    class="text-left text-lg leading-thick text-grey-500 md:text-xl md:leading-normal lg:text-2xl"
                   >
                     Mee for web
                   </div>
                   <h2
-                    class="text-left text-3xl font-bold leading-thick md:text-4xl md:leading-normal lg:text-5xl"
+                    class="section-title text-left text-3xl font-bold leading-thick md:text-4xl md:leading-normal lg:text-5xl"
                   >
                     Privacy first
                   </h2>
@@ -82,16 +113,6 @@ import WhatIsMeeAnimation from "@components/WhatIsMeeAnimation.astro";
                   unless you share it with someone else.
                 </h3>
               </div>
-              <div>
-                <ButtonLink
-                  href=`${appLink}#sign-up`
-                  style="filled"
-                  buttonType="primary"
-                  size="xxl"
-                >
-                  Sign up</ButtonLink
-                >
-              </div>
             </div>
             <div class="z-70 flex-1">
               <img
@@ -102,8 +123,9 @@ import WhatIsMeeAnimation from "@components/WhatIsMeeAnimation.astro";
             </div>
           </div>
         </div>
+
         <div
-          class="section-2-bg relative flex w-screen flex-col items-center px-10 pb-80 text-grey-800"
+          class="gradient-from-white relative flex w-screen flex-col items-center px-10 pb-80 text-grey-800"
         >
           <div
             class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 md:flex-row md:gap-40"
@@ -117,30 +139,30 @@ import WhatIsMeeAnimation from "@components/WhatIsMeeAnimation.astro";
                   <div
                     class="text-left text-lg leading-thick text-grey-500 md:text-xl md:leading-normal lg:text-2xl"
                   >
-                    Mee for smartphone
+                    For developers
                   </div>
                   <h2
                     class="section-title text-left text-3xl font-bold leading-thick md:text-4xl md:leading-normal lg:text-5xl"
                   >
-                    Experimental versions
+                    Experimental builds
                   </h2>
                 </div>
                 <h3
                   class="text max-w-3xl text-pretty text-start text-xl md:text-2xl"
                 >
-                  Its still early days, but we’re making progress towards our
+                  It’s still early days, but we’re making progress towards our
                   vision of what smartwallet can be. Experimental versions of
                   the Mee Smartwallet are available for iOS and Android. We plan
                   support for desktop platforms after we’ve made more progress
                   on the mobile front.
                 </h3>
-                <a
+                <!-- <a
                   class="my-4 w-full text-xl leading-relaxed text-brand-600 underline md:text-2xl"
                   href="https://smartwallet.mee.foundation/"
                 >
                   Learn more about Mee Smartwallet <i
                     class="bi bi-arrow-right ml-2"></i>
-                </a>
+                </a> -->
 
                 <AppButtons
                   noDescription
@@ -192,8 +214,29 @@ import WhatIsMeeAnimation from "@components/WhatIsMeeAnimation.astro";
       #f8fafc 100%
     );
   }
+
+  .gradient-to-white {
+    background: linear-gradient(
+      180deg,
+      var(--auxiliary-gray-200, #e2e8f0) 12.34%,
+      var(--surface-default-main, #fff) 100%
+    );
+  }
+
+  .gradient-from-white {
+    background: linear-gradient(
+      187deg,
+      var(--surface-default-main, #fff) 5.27%,
+      var(--surface-default-main, #fff) 93.89%
+    );
+  }
+
   .section-2-bg {
     background: linear-gradient(187.32deg, #f8fafc 5.27%, #f3f8f8 93.89%);
+  }
+
+  .section-dark-gradient {
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   }
 
   .section-title {
