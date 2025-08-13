@@ -1,0 +1,9 @@
+---
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
+---
+
+<div class:list={[className]}>it should be a mobile slider</div>
