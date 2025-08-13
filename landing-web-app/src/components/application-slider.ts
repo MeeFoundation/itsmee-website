@@ -98,3 +98,19 @@ export const applicationSliderBubbles = [
     transformOrigin: "top right",
   },
 ];
+
+export type MobileApplicationSliderData = {
+  title: string;
+  body: string;
+  imageUrl: string;
+};
+
+export const mobileApplicationData = applicationSliderData.map((x) => {
+  const bubble = applicationSliderBubbles.find((b) => b.id === x.bubbleId);
+
+  return {
+    title: x.title,
+    body: x.body,
+    imageUrl: bubble ? bubble.url : "",
+  };
+});

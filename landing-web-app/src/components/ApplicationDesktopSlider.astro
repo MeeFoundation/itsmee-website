@@ -472,6 +472,7 @@ const { className } = Astro.props;
       ];
 
       const bubbleId = nextNode.getAttribute("bubble-id")!;
+
       setActiveBubble(bubbleId);
 
       const isClone = nextNode.classList.contains("application-slide-clone");
@@ -595,8 +596,8 @@ const { className } = Astro.props;
     let sliderAlreadyLoaded = false;
 
     const init = () => {
-      initVerticalSlider();
       initBubbles();
+      initVerticalSlider();
       sliderAlreadyLoaded = true;
     };
     if (window.innerWidth >= 1280) init();
