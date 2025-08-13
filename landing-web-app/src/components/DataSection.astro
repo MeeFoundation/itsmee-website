@@ -26,6 +26,7 @@ const data = [
     link: "",
     linkTitle: "",
     button: false,
+    imageClass: "-ml-6 lg:ml-0",
   },
   {
     subtitle: "Why Mee?",
@@ -47,11 +48,12 @@ const data = [
     description:
       "Mee is a free and secure service that’s powered by our community, not surveillance capitalism. We’re a nonprofit with a mission to give everyone more control of their personal information. Everything we do is published in open source for security.",
     image: "/images/feature-4.png",
-    imageDark: "/images/feature-3-dark.png",
+    imageDark: "/images/feature-4-dark.png",
     link: "",
     linkTitle: "",
     button: false,
     class: "last-element",
+    imageClass: "lg:ml-0 -ml-5",
   },
 ];
 ---
@@ -101,9 +103,13 @@ const data = [
           </div>
           <div class="flex items-center lg:w-1/2">
             <div class="image-block flex w-full items-center">
-              <img class="w-full dark:hidden" src={item.image} alt={item.alt} />
               <img
-                class="hidden w-full dark:block"
+                class:list={["w-full dark:hidden", item.imageClass]}
+                src={item.image}
+                alt={item.alt}
+              />
+              <img
+                class:list={["hidden w-full dark:block", item.imageClass]}
                 src={item.imageDark}
                 alt={item.alt}
               />
@@ -113,7 +119,7 @@ const data = [
       ))
     }
   </div>
-  <div class="data-container-end h-40"></div>
+  <div class="data-container-end hidden h-40 lg:block"></div>
 </section>
 <script>
   const dataItems = document.querySelectorAll(".data-item");
