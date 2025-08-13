@@ -6,4 +6,10 @@ type Props = {
 const { className } = Astro.props;
 ---
 
-<div class:list={[className]}>it should be a mobile slider</div>
+<div class:list={[className]}></div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {});
+</script>
+
+<style is:global></style>

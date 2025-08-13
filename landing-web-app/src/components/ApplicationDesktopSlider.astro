@@ -1,9 +1,4 @@
 ---
-import {
-  applicationSliderBubbles,
-  applicationSliderData,
-} from "./application-slider";
-
 type Props = {
   className?: string;
 };
@@ -406,8 +401,6 @@ const { className } = Astro.props;
       }
     };
 
-    initBubbles();
-
     // SLIDER
     const slider = document.querySelector(".application-slider")!;
     const track = document.querySelector(
@@ -552,7 +545,7 @@ const { className } = Astro.props;
       track.classList.remove("application-slider-track-initialization");
     };
 
-    const initialize = () => {
+    const initVerticalSlider = () => {
       const allDataCount = applicationSliderData.length;
       const data = applicationSliderData;
 
@@ -598,6 +591,19 @@ const { className } = Astro.props;
       calcSlideDimensions();
       setActiveSlide(cloneCount);
     };
-    initialize();
+
+    let sliderAlreadyLoaded = false;
+
+    const init = () => {
+      initVerticalSlider();
+      initBubbles();
+      sliderAlreadyLoaded = true;
+    };
+    if (window.innerWidth >= 1280) init();
+
+    window.addEventListener("resize", () => {
+      console.log(window.innerWidth >= 1280, sliderAlreadyLoaded);
+      if (!sliderAlreadyLoaded && window.innerWidth >= 1280) init();
+    });
   });
 </script>
