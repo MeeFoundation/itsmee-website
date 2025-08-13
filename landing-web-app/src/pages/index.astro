@@ -54,35 +54,39 @@ import ApplicationMobileSlider from "@components/ApplicationMobileSlider.astro";
       <section class="-mb-40">
         <div class="section-dark-gradient flex w-screen flex-col items-center">
           <div
-            class="flex w-full max-w-7xl flex-col items-center justify-start gap-4 px-5 py-40 md:flex-row md:gap-40"
+            class="flex w-full max-w-7xl flex-col items-center justify-start gap-4 px-5 py-40"
           >
-            <div class="flex max-w-screen-lg flex-col">
-              <h4
-                class="text-center text-lg text-grey-300 md:text-2xl lg:text-left"
-              >
-                Applications
-              </h4>
-              <h2
-                class="mb-2 text-center text-3xl text-white lg:mb-4 lg:text-left lg:text-5xl"
-              >
-                Create secure data sharing connections between you and another
-                person or business.
-              </h2>
-              <p
-                class="mb-4 text-center text-lg text-white md:text-2xl lg:mb-6 lg:text-left"
-              >
-                In a Mee sharing connection, you decide what to share and for
-                how long the other party can see it and get your updates to it.
-              </p>
-              <h4
-                class="text-center text-xl font-bold text-white md:text-2xl lg:text-left"
-              >
-                Securely share your:
-              </h4>
-
-              <ApplicationDesktopSlider />
-              <ApplicationMobileSlider />
+            <div class="flex w-full justify-start">
+              <div class="flex max-w-screen-lg flex-col">
+                <h4
+                  class="text-center text-lg text-grey-300 md:text-2xl lg:text-left"
+                >
+                  Applications
+                </h4>
+                <h2
+                  class="mb-2 text-center text-3xl text-white lg:mb-4 lg:text-left lg:text-5xl"
+                >
+                  Create secure data sharing connections between you and another
+                  person or business.
+                </h2>
+                <p
+                  class="mb-4 text-center text-lg text-white md:text-2xl lg:mb-6 lg:text-left"
+                >
+                  In a Mee sharing connection, you decide what to share and for
+                  how long the other party can see it and get your updates to
+                  it.
+                </p>
+                <h4
+                  class="text-center text-xl font-bold text-white md:text-2xl lg:text-left"
+                >
+                  Securely share your:
+                </h4>
+              </div>
             </div>
+            <ApplicationDesktopSlider
+              className="hidden w-full justify-between xl:!flex"
+            />
+            <ApplicationMobileSlider className="w-full xl:!hidden" />
           </div>
         </div>
 
