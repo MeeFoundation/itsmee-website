@@ -6,7 +6,7 @@ type Props = {
 const { className } = Astro.props;
 ---
 
-<div class:list={["flex w-full max-w-120 justify-center", className]}>
+<div class:list={["-mx-4 flex w-full max-w-120 justify-center", className]}>
   <div class="flex w-full flex-col gap-2.5">
     <div
       id="mobile-application-active-sceene"
@@ -21,7 +21,7 @@ const { className } = Astro.props;
     </div>
     <div
       id="mobile-application-track-view"
-      class="-mt-[26px] h-[82px] w-full overflow-hidden"
+      class="-ml-4 -mt-[26px] h-[82px] w-[calc(100%+2rem)] overflow-hidden"
     >
       <div
         id="mobile-application-track"
@@ -81,10 +81,12 @@ const { className } = Astro.props;
 
     track.addEventListener("touchend", (e) => {
       const touchEndX = e.changedTouches[0].clientX;
+      const delta = Math.abs(touchEndX - touchStartX);
+
       if (touchEndX < touchStartX) {
-        nextSlide();
+        if (delta > 10) nextSlide();
       } else {
-        prevSlide();
+        if (delta > 10) prevSlide();
       }
     });
 
@@ -109,7 +111,6 @@ const { className } = Astro.props;
       if (withInterval) {
         createInterval();
       }
-
       if (activeIndex !== null) {
         const previousSlide = slideNodes[activeIndex];
         previousSlide.classList.remove(
