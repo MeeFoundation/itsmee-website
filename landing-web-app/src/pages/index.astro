@@ -8,6 +8,7 @@ import DataSection from "@components/DataSection.astro";
 import WhatIsMeeAnimation from "@components/WhatIsMeeAnimation.astro";
 import ApplicationDesktopSlider from "@components/ApplicationDesktopSlider.astro";
 import ApplicationMobileSlider from "@components/ApplicationMobileSlider.astro";
+import WhatKindDataAnimation from "@components/WhatKindDataAnimation.astro";
 ---
 
 <Layout title="Welcome to Mee">
@@ -95,7 +96,7 @@ import ApplicationMobileSlider from "@components/ApplicationMobileSlider.astro";
             class="flex w-full max-w-7xl flex-col items-center justify-start gap-4 px-5 py-10 xl:gap-8 xl:py-40"
           >
             <div
-              class="flex w-full max-w-7xl justify-between gap-5 px-5 xl:py-40"
+              class="flex w-full max-w-7xl flex-col items-center justify-between gap-5 px-5 xl:flex-row xl:py-40"
             >
               <div class="flex max-w-[640px] flex-col">
                 <h4
@@ -117,6 +118,8 @@ import ApplicationMobileSlider from "@components/ApplicationMobileSlider.astro";
                   them with you) to get important things done.
                 </p>
               </div>
+
+              <WhatKindDataAnimation />
             </div>
           </div>
         </div>
