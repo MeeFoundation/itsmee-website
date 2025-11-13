@@ -48,7 +48,7 @@ const { className } = Astro.props;
     const sceene = document.getElementById("mobile-application-active-sceene")!;
     const titleNode = sceene.querySelector("h3")!;
     const bodyNode = sceene.querySelector("p")!;
-    let autoPlayIntervalId: number | null = null;
+    let autoPlayIntervalId: NodeJS.Timeout | null = null;
     const autoPlayDelay = 5000;
 
     const createInterval = () => {
