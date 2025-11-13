@@ -1,0 +1,610 @@
+---
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
+---
+
+<div class:list={[className]}>
+  <div class="application-slider">
+    <div
+      class="application-slider-track application-slider-track-initialization"
+    >
+    </div>
+  </div>
+  <div class="application-bubbles">
+    <div class="application-bubble-arena">
+      <div class="application-center-rect"></div>
+      <div class="application-center-rect-plus-outer">
+        <div class="application-circle-relative"></div>
+      </div>
+      <div class="application-bubble application-bubble-center">
+        <img src="./images/application-slider/center.png" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .application-slider {
+    width: 640px;
+    height: 372px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .application-slider-track {
+    display: flex;
+    flex-direction: column;
+    padding-left: 12px;
+    position: relative;
+    gap: 1rem;
+  }
+
+  .application-slider-track.application-slider-track-initialization .slide {
+    height: auto !important;
+    opacity: 0 !important;
+  }
+
+  .application-slide {
+    position: relative;
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px;
+    flex-shrink: 0;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.35;
+  }
+
+  .application-slide-active {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(
+      90deg,
+      var(--alpha-white-10, rgba(255, 255, 255, 0.1)) 0%,
+      var(--alpha-white-0, rgba(255, 255, 255, 0)) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 25px;
+    opacity: 1;
+  }
+
+  .application-slide-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .application-slide-title.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .application-slide-body {
+    font-size: 16px;
+    color: #a0aec0;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .application-slide-active .application-slide-body {
+    opacity: 1;
+  }
+
+  /* bubbles */
+  .application-bubbles {
+    display: flex;
+    justify-content: center;
+    width: 490px;
+    height: 438px;
+  }
+
+  .application-bubble-center {
+    width: 75px;
+    height: 75px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .application-bubble-arena {
+    width: 450px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .application-bubble {
+    position: absolute;
+    border-radius: 9999px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .application-bubble img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
+  .application-bubble-outer {
+    width: 87px;
+    height: 87px;
+    transition-property: opacity, transform;
+    transition-duration: 0.3s;
+    opacity: 0.25;
+  }
+
+  .application-bubble-arrow {
+    position: absolute;
+    opacity: 0.25;
+    transition: opacity 0.3s ease;
+  }
+
+  /* todo remove */
+  .application-bubble-center::after {
+    /* content: ""; */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: greenyellow 1px solid;
+  }
+
+  .application-bubble-arena {
+    /* border: greenyellow 1px solid; */
+  }
+
+  .application-center-rect {
+    /* border: greenyellow 1px solid; */
+    width: 191px;
+    height: 191px;
+    position: relative;
+    border-radius: 9999px;
+  }
+
+  .application-center-rect-plus-outer {
+    width: 210px;
+    height: 210px;
+    position: absolute;
+    border-radius: 9999px;
+    /* border: greenyellow 1px solid; */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .application-circle-relative {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+</style>
+
+<script>
+  import { applicationSliderData } from "./application-slider";
+  import {
+    applicationSliderBubbles,
+    type ApplicationSliderData,
+  } from "./application-slider";
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const bubbleScaleMap = {
+      active: 1.44,
+      neighbors1: 1.27,
+      neighbors2: 1.17,
+      neighbors3: 1.08,
+      neighbors4: 1.04,
+    };
+    const bubbleOpacityMap = {
+      active: 1,
+      neighbors1: 0.6,
+      neighbors2: 0.5,
+      neighbors3: 0.35,
+      neighbors4: 0.25,
+    };
+
+    const bubbleNeighborsMap: Record<string, string> = {
+      left: "top-left bottom-left, top bottom, top-right bottom-right, right",
+      "top-left": "left top, top-right bottom-left,right bottom, bottom-right",
+      top: "top-left top-right, left right, bottom-left bottom-right, bottom",
+      "top-right": "top right, top-left bottom-right, left bottom, bottom-left",
+      right: "top-right bottom-right, top bottom, top-left bottom-left, left",
+      "bottom-right": "right bottom, top-right bottom-left, top left, top-left",
+      bottom: "bottom-left bottom-right, left right, top-left top-right, top",
+      "bottom-left": "left bottom, top-left bottom-right, top right, top-right",
+    };
+    const bubbleElementNodesMap: Record<string, HTMLDivElement> = {};
+    const bubbleArrowNodeMap: Record<string, HTMLDivElement> = {};
+
+    const initBubbles = () => {
+      const line = `<svg xmlns="http://www.w3.org/2000/svg" width="46" height="12" viewBox="0 0 46 12" fill="none"><path opacity="0.8" d="M44.931 7.00006C45.4833 7.00006 45.931 6.55235 45.931 6.00006C45.931 5.44778 45.4833 5.00006 44.931 5.00006V7.00006ZM0.90799 6.00006L10.908 11.7736V0.226558L0.90799 6.00006ZM44.931 6.00006V5.00006L9.90799 5.00006V6.00006V7.00006L44.931 7.00006V6.00006Z" fill="white"/></svg>`;
+      const arrowsContainer = document.querySelector(
+        ".application-center-rect",
+      )!;
+      const arrowsFragment = document.createDocumentFragment();
+
+      const arrowPositions = [
+        { x: 0, y: 90, rotation: 0, id: "left" },
+        {
+          x: 21,
+          y: 36,
+          rotation: 45,
+          id: "top-left",
+        },
+        { x: 73, y: 16, rotation: 90, id: "top" },
+        {
+          x: 121,
+          y: 36,
+          rotation: 135,
+          id: "top-right",
+        },
+        { x: 144, y: 90, rotation: 180, id: "right" },
+        {
+          x: 123,
+          y: 140,
+          rotation: 225,
+          id: "bottom-right",
+        },
+        { x: 73, y: 161, rotation: 270, id: "bottom" },
+        {
+          x: 18,
+          y: 141,
+          rotation: 315,
+          id: "bottom-left",
+        },
+      ];
+
+      for (const position of arrowPositions) {
+        const element = document.createElement("div");
+        element.classList.add("application-bubble-arrow");
+        bubbleArrowNodeMap[position.id] = element;
+
+        element.style.cssText = `
+          position: absolute;
+          left: ${position.x}px;
+          top: ${position.y}px;
+          transform: rotate(${position.rotation}deg);
+          cursor: pointer;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        `;
+
+        element.innerHTML = line;
+        element.setAttribute("data-id", position.id);
+        arrowsFragment.appendChild(element);
+      }
+      arrowsContainer.appendChild(arrowsFragment);
+
+      const bubbles = applicationSliderBubbles;
+      const bubblesFragment = document.createDocumentFragment();
+      const outerContainer = document.querySelector(
+        ".application-center-rect-plus-outer .application-circle-relative",
+      )!;
+      const bubbleDiagonal = 87;
+      const bubbleRadius = bubbleDiagonal / 2;
+      // left
+      bubbles[0].x = `-${bubbleDiagonal}px`;
+      bubbles[0].y = `calc(50% - ${bubbleRadius}px)`;
+      // top-left
+      bubbles[1].x = `-44px`;
+      bubbles[1].y = `-44px`;
+      // top
+      bubbles[2].x = `calc(50% - ${bubbleRadius}px)`;
+      bubbles[2].y = `-${bubbleDiagonal}px`;
+      // top-right
+      bubbles[3].x = `162px`;
+      bubbles[3].y = `-47px`;
+      // right
+      bubbles[4].x = `100%`;
+      bubbles[4].y = `calc(50% - ${bubbleRadius}px)`;
+      // bottom-right
+      bubbles[5].x = `168px`;
+      bubbles[5].y = `162px`;
+      // bottom
+      bubbles[6].x = `calc(50% - ${bubbleRadius}px)`;
+      bubbles[6].y = `100%`;
+      // bottom-left
+      bubbles[7].x = `-44px`;
+      bubbles[7].y = `165px`;
+
+      for (const bubble of bubbles) {
+        const element = document.createElement("div");
+        element.classList.add("application-bubble");
+        element.classList.add("application-bubble-outer");
+        element.setAttribute("data-id", bubble.id);
+        element.innerHTML = `<img src="${bubble.url}" alt="${bubble.id}" />`;
+        element.style.cssText = `
+          position: absolute;
+          left: ${bubble.x};
+          top: ${bubble.y};
+          transform-origin: ${bubble.transformOrigin};
+        `;
+        bubblesFragment.appendChild(element);
+        bubbleElementNodesMap[bubble.id] = element;
+      }
+      outerContainer.appendChild(bubblesFragment);
+    };
+
+    const setActiveBubble = (bubbleId: string) => {
+      const bubbleElement = bubbleElementNodesMap[bubbleId];
+      const arrowElement = bubbleArrowNodeMap[bubbleId];
+      if (!bubbleElement) return;
+      bubbleElement.style.transform = `scale(${bubbleScaleMap.active})`;
+      bubbleElement.style.opacity = `${bubbleOpacityMap.active}`;
+      arrowElement.style.opacity = `${bubbleOpacityMap.active}`;
+
+      const neighborsString = bubbleNeighborsMap[bubbleId];
+      const [neighbors1, neighbors2, neighbors3, neighbors4] = neighborsString
+        .split(", ")
+        .map((x) => x.split(" "));
+
+      for (const neighbor of neighbors1) {
+        const scale = bubbleScaleMap.neighbors1;
+        const node = bubbleElementNodesMap[neighbor];
+        const opacity = bubbleOpacityMap.neighbors1;
+        const arrowNode = bubbleArrowNodeMap[neighbor];
+
+        if (node) {
+          node.style.transform = `scale(${scale})`;
+          node.style.opacity = `${opacity}`;
+          arrowNode.style.opacity = `${opacity}`;
+        }
+      }
+
+      for (const neighbor of neighbors2) {
+        const scale = bubbleScaleMap.neighbors2;
+        const node = bubbleElementNodesMap[neighbor];
+        const opacity = bubbleOpacityMap.neighbors2;
+        const arrowNode = bubbleArrowNodeMap[neighbor];
+
+        if (node) {
+          node.style.transform = `scale(${scale})`;
+          node.style.opacity = `${opacity}`;
+          arrowNode.style.opacity = `${opacity}`;
+        }
+      }
+
+      for (const neighbor of neighbors3) {
+        const scale = bubbleScaleMap.neighbors3;
+        const node = bubbleElementNodesMap[neighbor];
+        const opacity = bubbleOpacityMap.neighbors3;
+        const arrowNode = bubbleArrowNodeMap[neighbor];
+
+        if (node) {
+          node.style.transform = `scale(${scale})`;
+          node.style.opacity = `${opacity}`;
+          arrowNode.style.opacity = `${opacity}`;
+        }
+      }
+
+      const scale = bubbleScaleMap.neighbors4;
+      const node = bubbleElementNodesMap[neighbors4 as unknown as string];
+      const opacity = bubbleOpacityMap.neighbors4;
+      const arrowNode = bubbleArrowNodeMap[neighbors4 as unknown as string];
+
+      if (node) {
+        node.style.transform = `scale(${scale})`;
+        node.style.opacity = `${opacity}`;
+        arrowNode.style.opacity = `${opacity}`;
+      }
+    };
+
+    // SLIDER
+    const slider = document.querySelector(".application-slider")!;
+    const track = document.querySelector(
+      ".application-slider-track",
+    )! as HTMLDivElement;
+    let currentActiveSlide: null | number = null;
+    let slideNodes: HTMLDivElement[] = [];
+    let slideAnimationStart = false;
+
+    const getNodeDimensions = (node: HTMLElement, addHeight = 0) => {
+      return [node.clientHeight + addHeight, node.clientWidth];
+    };
+
+    const updateTrackPosition = (withAnimation = true) => {
+      if (currentActiveSlide === null) return;
+
+      const slide = slideNodes[currentActiveSlide];
+      const sliderRect = slider.getBoundingClientRect();
+
+      const slideRelativeTop = slide.offsetTop;
+      const slideHeight = parseInt(slide.getAttribute("data-height")!);
+
+      // center slide in view slide
+      const sliderCenter = sliderRect.height / 2;
+      const slideCenter = slideHeight / 2;
+      const targetPosition = sliderCenter - slideCenter - slideRelativeTop;
+      track.style.transition = "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+
+      if (!withAnimation) {
+        track.style.transition = "";
+      }
+
+      track.style.transform = `translate3d(0px, ${targetPosition}px, 0px)`;
+    };
+
+    const collapseElement = (node: HTMLElement, noTransition = false) => {
+      node.style.transition = "height 0.3s ease";
+
+      if (noTransition) {
+        node.style.transition = "";
+      }
+
+      node.classList.remove("application-slide-active");
+      node.querySelector(".application-slide-title")!.classList.add("truncate");
+      const h = node.getAttribute("data-collapsed-height");
+      node.style.height = `${h}px`;
+    };
+
+    const expandElement = (node: HTMLElement, noTransition = false) => {
+      node.style.transition = "height 0.3s ease";
+
+      if (noTransition) {
+        node.style.transition = "";
+      }
+
+      node
+        .querySelector(".application-slide-title")!
+        .classList.remove("truncate");
+      const h = node.getAttribute("data-height");
+      node.style.height = `${h}px`;
+      node.classList.add("application-slide-active");
+    };
+
+    const setActiveSlide = (idx: number) => {
+      if (slideAnimationStart) return;
+      const [currentNode, nextNode] = [
+        currentActiveSlide !== null ? slideNodes[currentActiveSlide] : null,
+        slideNodes[idx],
+      ];
+
+      const bubbleId = nextNode.getAttribute("bubble-id")!;
+
+      setActiveBubble(bubbleId);
+
+      const isClone = nextNode.classList.contains("application-slide-clone");
+
+      if (currentNode) {
+        collapseElement(currentNode);
+      }
+
+      expandElement(nextNode);
+      currentActiveSlide = idx;
+      setTimeout(updateTrackPosition, 300);
+
+      if (isClone) {
+        const realNodeIdx = parseInt(
+          nextNode.getAttribute("slide-original-index")!,
+        );
+        const realNode = slideNodes[realNodeIdx];
+
+        setTimeout(() => {
+          currentActiveSlide = realNodeIdx;
+          collapseElement(nextNode, true);
+          expandElement(realNode, true);
+          updateTrackPosition(false);
+        }, 600);
+      }
+    };
+
+    const createSlideNode = (
+      data: ApplicationSliderData,
+      index: number,
+      originalIndex?: number,
+    ) => {
+      const { title, body, bubbleId } = data;
+      const slide = document.createElement("div");
+
+      if (originalIndex !== undefined) {
+        slide.classList.add("application-slide-clone");
+        slide.setAttribute("slide-original-index", originalIndex.toString());
+      }
+
+      slide.setAttribute("slide-index", index.toString());
+      slide.setAttribute("bubble-id", bubbleId);
+      slide.classList.add("application-slide");
+      slide.innerHTML = `
+        <h2 class="application-slide-title">${title}</h2>
+        <p class="application-slide-body">${body}</p>
+      `;
+      slide.addEventListener("click", () => setActiveSlide(index));
+      return slide;
+    };
+
+    const calcSlideDimensions = () => {
+      track.classList.add("application-slider-track-initialization");
+      for (const node of slideNodes) {
+        const [expandedHeight, expandedWidth] = getNodeDimensions(node, 20);
+        node.setAttribute("data-height", expandedHeight.toString());
+        node.setAttribute("data-width", expandedWidth.toString());
+        node
+          .querySelector(".application-slide-title")!
+          .classList.add("truncate");
+        node.querySelector(".application-slide-body")!.classList.add("hidden");
+
+        const [collapsedHeight, collapsedWidth] = getNodeDimensions(node);
+        node.setAttribute("data-collapsed-height", collapsedHeight.toString());
+        node.setAttribute("data-collapsed-width", collapsedWidth.toString());
+        node.style.height = `${collapsedHeight}px`;
+        node
+          .querySelector(".application-slide-body")!
+          .classList.remove("hidden");
+      }
+      track.classList.remove("application-slider-track-initialization");
+    };
+
+    const initVerticalSlider = () => {
+      const allDataCount = applicationSliderData.length;
+      const data = applicationSliderData;
+
+      const cloneCount = 4;
+      const nodesWithClones = [];
+
+      for (let i = 0; i < cloneCount; i++) {
+        const originalDataIndex = allDataCount - cloneCount + i;
+        const realSlideIndex = originalDataIndex + cloneCount;
+        nodesWithClones.push({
+          ...data[originalDataIndex],
+          originalIndex: realSlideIndex,
+        });
+      }
+
+      for (let i = 0; i < allDataCount; i++) {
+        nodesWithClones.push({
+          ...data[i],
+          originalIndex: undefined,
+        });
+      }
+
+      for (let i = 0; i < cloneCount; i++) {
+        const realSlideIndex = i + cloneCount;
+        nodesWithClones.push({
+          ...data[i],
+          originalIndex: realSlideIndex,
+        });
+      }
+
+      const nodes = nodesWithClones.map((x, idx) =>
+        createSlideNode(x, idx, x.originalIndex),
+      );
+
+      const fragment = document.createDocumentFragment();
+
+      for (const node of nodes) {
+        fragment.appendChild(node);
+      }
+
+      track.appendChild(fragment);
+      slideNodes = Array.from(track.children) as HTMLDivElement[];
+      calcSlideDimensions();
+      setActiveSlide(cloneCount);
+    };
+
+    let sliderAlreadyLoaded = false;
+
+    const init = () => {
+      initBubbles();
+      initVerticalSlider();
+      sliderAlreadyLoaded = true;
+    };
+    if (window.innerWidth >= 1280) init();
+
+    window.addEventListener("resize", () => {
+      console.log(window.innerWidth >= 1280, sliderAlreadyLoaded);
+      if (!sliderAlreadyLoaded && window.innerWidth >= 1280) init();
+    });
+  });
+</script>

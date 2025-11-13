@@ -1,0 +1,217 @@
+---
+
+---
+
+<div class="relative h-[370px] w-[514px] shrink-0">
+  <div class="absolute flex flex-col gap-6">
+    <img src="./images/lines-up.png" />
+    <img src="./images/lines-bottom.png" />
+  </div>
+  <div
+    id="what-kind-data-scene"
+    class="relative flex h-full w-full items-center justify-center"
+  >
+  </div>
+</div>
+
+<style is:global>
+  .spring-move {
+    transition: transform 1s cubic-bezier(0.22, 1.61, 0.36, 1);
+  }
+  .reveal {
+    transition: all 0.6s ease;
+    max-height: 0;
+    overflow: hidden;
+  }
+  .active .reveal {
+    max-height: 200px;
+  }
+
+  .active h2 {
+    font-size: 20px;
+    color: white;
+  }
+
+  .active p {
+    opacity: 1;
+  }
+
+  .card img {
+    display: none;
+  }
+
+  .active img {
+    display: block;
+  }
+
+  .reveal-bg {
+    transition: opacity 0.6s ease;
+    opacity: 0;
+  }
+  .active .reveal-bg {
+    opacity: 1;
+    background: var(--alpha-white-7, rgba(255, 255, 255, 0.07));
+    backdrop-filter: blur(10px);
+    z-index: -1;
+  }
+</style>
+
+<script>
+  import { observeSlider } from "helper";
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const data = [
+      {
+        kind: "text-only",
+        title: "Ids",
+      },
+      {
+        kind: "with-data",
+        imgSrc: "./images/section-data/media.svg",
+        title: "Text messages",
+        description: "medical images, private video",
+      },
+      {
+        kind: "text-only",
+        title: "Contact Info",
+      },
+      {
+        kind: "text-only",
+        title: "Medical records",
+      },
+      {
+        kind: "text-only",
+        title: "Travel",
+      },
+      {
+        kind: "with-data",
+        imgSrc: "./images/section-data/security.svg",
+        title: "Verifiable credentials",
+        description: "Driver’s license, age, etc.",
+      },
+      {
+        kind: "text-only",
+        title: "Financial info",
+      },
+      {
+        kind: "text-only",
+        title: "Insurance",
+      },
+      {
+        kind: "text-only",
+        title: "Affiliations",
+      },
+      {
+        kind: "with-data",
+        imgSrc: "./images/section-data/voice.svg",
+        title: "Images & videos",
+        description: "medical images, private video",
+      },
+    ];
+
+    const scene = document.getElementById("what-kind-data-scene")!;
+    let activeIndex = 0;
+    const elements: HTMLDivElement[] = [];
+    const radii: number[] = [];
+    let minRadius = 0;
+    let maxRadius = 0;
+
+    const activeCandidates = data
+      .map((item, i) => (item.kind === "with-data" ? i : null))
+      .filter((i) => i !== null);
+
+    for (const x of data) {
+      const el = document.createElement("div");
+      el.className =
+        "absolute flex flex-col items-center text-center spring-move";
+
+      if (x.kind === "with-data") {
+        el.innerHTML = `
+          <div class="card flex text-gray-400 flex-col items-center justify-center">
+            <img src="${x.imgSrc}" class="w-20 h-20 mx-auto" />
+            <div class="reveal -mt-4 rounded-xl relative p-5">
+              <h2 class="font-bold text-sm">${x.title}</h2>
+              <p class="text-sm text-gray-300 opacity-0">${x.description}</p>
+              <div class="reveal-bg absolute w-full h-full left-0 top-0"></div>
+            </div>
+          </div>
+        `;
+      } else {
+        el.innerHTML = `<h2 class="text-gray-400 text-sm">${x.title}</h2>`;
+      }
+
+      scene.appendChild(el);
+      elements.push(el);
+      radii.push(0);
+    }
+
+    function recalcRadii() {
+      const rect = scene.getBoundingClientRect();
+      const base = Math.min(rect.width, rect.height) / 2;
+      minRadius = base * 0.95;
+      maxRadius = base * 1;
+
+      data.forEach((_, i) => {
+        radii[i] =
+          Math.floor(Math.random() * (maxRadius - minRadius)) + minRadius;
+      });
+    }
+
+    function updatePositions() {
+      elements.forEach((el, i) => {
+        el.classList.remove("active");
+
+        if (i === activeIndex) {
+          el.style.transform = `translate(0px, 0px) scale(1.2)`;
+          el.style.zIndex = "10";
+
+          if (data[i].kind === "with-data") {
+            el.classList.add("active");
+          }
+        } else {
+          const angle =
+            (((i - activeIndex + data.length) % data.length) /
+              (data.length - 1)) *
+            (2 * Math.PI);
+          const r = radii[i];
+          const x = r * Math.cos(angle - Math.PI / 2);
+          const y = r * Math.sin(angle - Math.PI / 2);
+          el.style.transform = `translate(${x}px, ${y}px) scale(1)`;
+          el.style.zIndex = "1";
+        }
+      });
+    }
+
+    function cycle() {
+      const currentPos = activeCandidates.indexOf(activeIndex);
+      const nextPos = (currentPos + 1) % activeCandidates.length;
+      activeIndex = activeCandidates[nextPos];
+      updatePositions();
+    }
+    // set first initial active item
+    cycle();
+
+    recalcRadii();
+    updatePositions();
+
+    let intervalId: NodeJS.Timeout | null = null;
+
+    observeSlider({
+      target: scene,
+      onIntersect: () => {
+        intervalId = setInterval(cycle, 3500);
+      },
+      onLeave: () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      },
+    });
+
+    window.addEventListener("resize", () => {
+      recalcRadii();
+      updatePositions();
+    });
+  });
+</script>

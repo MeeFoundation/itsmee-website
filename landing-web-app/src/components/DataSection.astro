@@ -1,14 +1,15 @@
 ---
 import { ButtonLink } from "mee-components";
+
 const data = [
   {
-    title: "Private data sharing",
-    subtitle: "Mee is about",
-    alt: "profile_sharing",
+    subtitle: "Why Mee?",
+    title: "Peer-to-peer data transfer",
+    alt: "Peer-to-peer data transfer",
     description:
-      "With Mee you can securely share your sensitive personal information with a trusted group of close friends, family or trusted providers. When you create a data sharing connection, you choose what (if anything) to share with them, and for how long.",
-    image: "/images/personal-data-controller.svg",
-    imageDark: "/images/personal-data-controller-dark.svg",
+      "Securely and privately share sensitive personal data directly with people and businesses you trust. Data moves directly to-and-from you and your recipient, not our servers. No honey pots for hackers.",
+    image: "/images/feature-1.png",
+    imageDark: "/images/feature-1-dark.png",
     link: "",
     linkTitle: "",
     button: false,
@@ -19,25 +20,40 @@ const data = [
     subtitle: "Mee is about",
     alt: "Contact",
     description:
-      "If you’d like a friend, family member or colleague to always have your latest contact info (and you to have theirs), use the Mee app to send them a <em>connection request</em> link. After they tap the link, Mee will open and they can accept your connection request. After they do, you’ll both always have each other’s latest info. Effortlessly.",
-    image: "/images/personal-data-storage.svg",
-    imageDark: "/images/personal-data-storage-dark.svg",
+      "Once you create a Mee connection with a recipient, whatever you chose to share with them is continuously synchronized between you. Whenever you update information on your side, the same changes are immediately applied to their copy on their side.",
+    image: "/images/feature-2.png",
+    imageDark: "/images/feature-2-dark.png",
     link: "",
     linkTitle: "",
     button: false,
+    imageClass: "-ml-6 lg:ml-0",
   },
   {
     title: "Auto-update websites and apps",
     subtitle: "Mee is about",
     alt: "Auto-update",
     description:
-      "If you create a connection with a Mee-compatible company, for as long as you wish, they can pull and use the latest information about you from your Mee. When you update it in Mee, every company you’re connected to automatically receives the updated information.",
-    image: "/images/limits-app.svg",
-    imageDark: "/images/limits-app-dark.svg",
+      "Data is encrypted and decrypted on your phone or computer and your recipients’. This means that nobody but the intended recipients, not even Mee, can see your data.",
+    image: "/images/feature-3.png",
+    imageDark: "/images/feature-3-dark.png",
     link: "",
     linkTitle: "",
     button: false,
     class: "last-element",
+  },
+  {
+    subtitle: "Why Mee?",
+    title: "Ad-free, nonprofit, and open source",
+    alt: "Ad-free",
+    description:
+      "Mee is a free and secure service that’s powered by our community, not surveillance capitalism. We’re a nonprofit with a mission to give everyone more control of their personal information. Everything we do is published in open source for security.",
+    image: "/images/feature-4.png",
+    imageDark: "/images/feature-4-dark.png",
+    link: "",
+    linkTitle: "",
+    button: false,
+    class: "last-element",
+    imageClass: "lg:ml-0 -ml-5",
   },
 ];
 ---
@@ -87,9 +103,13 @@ const data = [
           </div>
           <div class="flex items-center lg:w-1/2">
             <div class="image-block flex w-full items-center">
-              <img class="w-full dark:hidden" src={item.image} alt={item.alt} />
               <img
-                class="hidden w-full dark:block"
+                class:list={["w-full dark:hidden", item.imageClass]}
+                src={item.image}
+                alt={item.alt}
+              />
+              <img
+                class:list={["hidden w-full dark:block", item.imageClass]}
                 src={item.imageDark}
                 alt={item.alt}
               />
@@ -99,7 +119,7 @@ const data = [
       ))
     }
   </div>
-  <div class="data-container-end h-40"></div>
+  <div class="data-container-end hidden h-40 lg:block"></div>
 </section>
 <script>
   const dataItems = document.querySelectorAll(".data-item");
@@ -161,7 +181,7 @@ const data = [
 
   const isLastBlockAfterCenter = (
     element: HTMLElement,
-    currentBlock: Element
+    currentBlock: Element,
   ) => {
     if (currentBlock.classList.contains("last-element")) {
       const center =
@@ -176,7 +196,7 @@ const data = [
   };
   const isFirstBlockBeforeCenter = (
     element: HTMLElement,
-    currentBlock: Element
+    currentBlock: Element,
   ) => {
     if (currentBlock.classList.contains("first-element")) {
       const center =
@@ -197,7 +217,7 @@ const data = [
           | HTMLElement
           | undefined;
         const itemBlockContainer = currentBlock?.querySelector(
-          ".data-item-block-container"
+          ".data-item-block-container",
         ) as HTMLElement | undefined;
         const imageBlock = currentBlock?.querySelector(".image-block") as
           | HTMLElement
@@ -207,11 +227,11 @@ const data = [
           const opacity = getOpacity(imageBlock);
           const lastAfterCenter = isLastBlockAfterCenter(
             imageBlock,
-            currentBlock
+            currentBlock,
           );
           const firstBeforeCenter = isFirstBlockBeforeCenter(
             imageBlock,
-            currentBlock
+            currentBlock,
           );
           if (itemBlock) {
             if (lastAfterCenter || firstBeforeCenter) {

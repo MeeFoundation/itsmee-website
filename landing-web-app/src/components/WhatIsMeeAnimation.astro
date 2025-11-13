@@ -1,0 +1,325 @@
+---
+const images = [
+  "./images/first-block/rupor.svg",
+  "./images/first-block/media-web-page.svg",
+  "./images/first-block/secure-web-page.svg",
+  "./images/first-block/plane.svg",
+  "./images/first-block/dollar-sign.svg",
+  "./images/first-block/judge.svg",
+  "./images/first-block/watch.svg",
+  "./images/first-block/key.svg",
+  "./images/first-block/guard.svg",
+];
+---
+
+<div
+
+  class:list={[
+    "relative mx-auto h-[339px] w-[358px] shrink-0 bg-white xl:h-[479px] xl:w-[452px] dark:bg-darky",
+    // left here just for compiling css classes used inside svg icons
+    "fill-brand-200 fill-brand-400 fill-brand-50 fill-brand-500 stroke-brand-50 dark:fill-brand-500 dark:fill-brand-600 dark:fill-brand-800 dark:fill-brand-950 dark:stroke-brand-950",
+  ]}
+>
+  <div class="what-is-mee-animation--m-sign">
+    <img class="svg-inline" src="./images/first-block/m-sign.svg" />
+  </div>
+
+  {
+    images.map((url, idx) => (
+      <div
+        class={`what-is-mee-animation--item what-is-mee-animation--item-${idx + 1}`}
+      >
+        <img class="svg-inline" src={url} />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  const center = document.querySelector(
+    ".what-is-mee-animation--m-sign",
+  ) as HTMLElement;
+  const items = document.querySelectorAll(
+    ".what-is-mee-animation--item",
+  ) as NodeListOf<HTMLElement>;
+
+  const ZOOM_IN_DURATION = 500; // milliseconds
+  const MOVE_DURATION = 2000; // milliseconds
+  const SCALE_STEP = 0.07;
+  const BASE_SCALE = 1;
+
+  const toSeconds = (ms: number) => ms / 1000;
+  const root = document.querySelector(":root") as HTMLElement;
+
+  // set css properties durations
+  root?.style.setProperty(
+    "--zoom-in-duration",
+    `${toSeconds(ZOOM_IN_DURATION)}s`,
+  );
+  root?.style.setProperty("--move-duration", `${toSeconds(MOVE_DURATION)}s`);
+
+  // set css properties durations
+  center.style.setProperty("--zoom-in-duration", `${ZOOM_IN_DURATION}s`);
+  center.style.setProperty("--move-duration", `${MOVE_DURATION}s`);
+
+  const centerRect = center.getBoundingClientRect();
+  const targetCenterX = centerRect.left + centerRect.width / 2;
+  const targetCenterY = centerRect.top + centerRect.height / 2;
+
+  for (const item of items) {
+    const itemRect = item.getBoundingClientRect();
+    const itemCenterX = itemRect.left + itemRect.width / 2;
+    const itemCenterY = itemRect.top + itemRect.height / 2;
+
+    const moveX = targetCenterX - itemCenterX;
+    const moveY = targetCenterY - itemCenterY;
+
+    item.style.setProperty("--move-x", `${moveX}px`);
+    item.style.setProperty("--move-y", `${moveY}px`);
+  }
+
+  const sleep: (ms: number) => Promise<void> = (ms) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const addClassItems = (className: string) => {
+    for (const item of items) {
+      item.classList.add(className);
+    }
+  };
+
+  const removeClassItems = (className: string) => {
+    for (const item of items) {
+      item.classList.remove(className);
+    }
+  };
+
+  const setupIntersectionObservers = () => {
+    let intersectedCount = 0;
+    const intersectedItems = new Set();
+    let animationId: number;
+
+    const checkIntersection = () => {
+      const centerRect = center.getBoundingClientRect();
+      const centerX = centerRect.left + centerRect.width / 2;
+      const centerY = centerRect.top + centerRect.height / 2;
+      const centerRadius = Math.min(centerRect.width, centerRect.height) / 2;
+
+      items.forEach((item, index) => {
+        if (intersectedItems.has(index)) return;
+
+        const itemRect = item.getBoundingClientRect();
+        const itemX = itemRect.left + itemRect.width / 2;
+        const itemY = itemRect.top + itemRect.height / 2;
+
+        const distance = Math.sqrt(
+          Math.pow(itemX - centerX, 2) + Math.pow(itemY - centerY, 2),
+        );
+
+        const intersectionThreshold = centerRadius * 1.1;
+
+        if (distance <= intersectionThreshold) {
+          intersectedItems.add(index);
+          intersectedCount++;
+
+          const newScale = BASE_SCALE + intersectedCount * SCALE_STEP;
+          center.style.transform = `scale(${newScale})`;
+          center.style.transition = "transform 0.2s ease-out";
+
+          console.log(
+            `Element ${index + 1} intersected! Distance: ${distance.toFixed(2)}, Threshold: ${intersectionThreshold.toFixed(2)}, New scale: ${newScale}`,
+          );
+        }
+      });
+
+      if (intersectedCount < items.length) {
+        animationId = requestAnimationFrame(checkIntersection);
+      }
+    };
+
+    animationId = requestAnimationFrame(checkIntersection);
+
+    setTimeout(() => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    }, MOVE_DURATION + 500);
+  };
+
+  class AnimationController {
+    aborted = false;
+    callbacks: Array<() => Promise<void>>;
+    onAbort: () => void;
+
+    constructor(
+      callbacks: Array<() => Promise<void>> = [],
+      onAbort: () => void,
+    ) {
+      this.callbacks = callbacks;
+      this.onAbort = onAbort;
+    }
+
+    async start() {
+      this.aborted = false;
+
+      for (const cb of this.callbacks) {
+        if (!this.aborted) await cb();
+      }
+    }
+
+    abort() {
+      this.aborted = true;
+      this.onAbort();
+      return this;
+    }
+  }
+
+  const animation = new AnimationController(
+    [
+      () => sleep(1000),
+      async () => {
+        addClassItems("item-visible");
+        addClassItems("zoom-in");
+        center.classList.add("zoom-in-bounce");
+      },
+      () => sleep(ZOOM_IN_DURATION),
+      async () => {
+        removeClassItems("zoom-in");
+        addClassItems("animate-move");
+        setupIntersectionObservers();
+      },
+      () => sleep(MOVE_DURATION),
+    ],
+    () => {
+      removeClassItems("item-visible");
+      removeClassItems("animate-move");
+      center.style.transform = "";
+      center.style.transition = "";
+    },
+  );
+
+  animation.start();
+
+  const options = {
+    root: null, // viewport
+    rootMargin: "0px",
+    threshold: 0.3,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) animation.start();
+      else animation.abort();
+    }
+  }, options);
+
+  observer.observe(center);
+</script>
+
+<style>
+  /* items position and styles */
+  .what-is-mee-animation--item {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .what-is-mee-animation--m-sign {
+    position: absolute;
+    width: 106px;
+    height: 106px;
+    left: calc(50% - 53px);
+    top: calc(50% - 53px);
+    z-index: 1;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .what-is-mee-animation--item-1 {
+    width: 12.39%;
+    height: 11.27%;
+    left: 0%;
+    top: 12.53%;
+  }
+
+  .what-is-mee-animation--item-2 {
+    width: 13.5%;
+    height: 11.27%;
+    left: 42.04%;
+    top: 17.33%;
+  }
+
+  .what-is-mee-animation--item-3 {
+    width: 12.39%;
+    height: 12.11%;
+    left: 82.08%;
+    top: 11.06%;
+  }
+
+  .what-is-mee-animation--item-4 {
+    width: 14.38%;
+    height: 9.81%;
+    left: 9.51%;
+    top: 39.87%;
+  }
+
+  .what-is-mee-animation--item-5 {
+    left: 78.1%;
+    top: 44.47%;
+    width: 9.51%;
+    height: 9.19%;
+  }
+
+  .what-is-mee-animation--item-6 {
+    left: 11.06%;
+    top: 75.16%;
+    width: 14.38%;
+    height: 13.57%;
+  }
+
+  .what-is-mee-animation--item-7 {
+    left: 42.04%;
+    top: 64.72%;
+    width: 5.31%;
+    height: 8.98%;
+  }
+
+  .what-is-mee-animation--item-8 {
+    left: 63.72%;
+    top: 70.15%;
+    width: 10.18%;
+    height: 9.6%;
+  }
+
+  .what-is-mee-animation--item-9 {
+    width: 12.83%;
+    height: 11.48%;
+    left: 87.17%;
+    top: 76.41%;
+  }
+
+  @keyframes animation-zoom-in {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .zoom-in {
+    animation: animation-zoom-in var(--zoom-in-duration) ease-in-out;
+  }
+
+  .item-visible {
+    opacity: 1;
+  }
+
+  @keyframes move-to-center {
+    to {
+      transform: translate(var(--move-x), var(--move-y)) scale(0.8);
+    }
+  }
+
+  .animate-move {
+    animation: move-to-center var(--move-duration)
+      cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+  }
+</style>

@@ -1,23 +1,37 @@
-<article class="mirror-logo my-4 flex h-16 items-baseline lg:hidden">
+---
+
+type Props = {
+  size?: "small" | "large";
+}
+
+const { size = "large" } = Astro.props;
+const height = size === "large" ? 64 : 20;
+const mSignWidth = size === "large" ? 91 : 28;
+const eSignWidth = size === "large" ? 64 : 20;
+const wrapperHeight = size === "large" ? 64 : 20;
+
+---
+
+<article style={`height: ${wrapperHeight}px`} class="mirror-logo my-4 flex items-baseline lg:hidden">
   <img
     src="./images/logo-m.svg"
-    width="91"
-    height="64"
+    width={mSignWidth}
+    height={height}
     class="flex flex-shrink-0"
     alt="m"
   />
   <img
     src="./images/logo-e.svg"
-    width="64"
-    height="64"
+    width={eSignWidth}
+    height={height}
     class="flex flex-shrink-0"
     alt="e"
   />
   <img
     src="./images/logo-e.svg"
-    width="64"
+    width={eSignWidth}
+    height={height}
     id="mirror-logo-e"
-    height="64"
     class="flex flex-shrink-0"
     alt="e"
   />

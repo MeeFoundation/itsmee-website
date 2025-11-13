@@ -1,0 +1,282 @@
+---
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
+---
+
+<div class:list={["-mx-4 flex w-full max-w-120 justify-center", className]}>
+  <div class="flex w-full flex-col gap-2.5">
+    <div
+      id="mobile-application-active-sceene"
+      class="active-sceene flex flex-col items-center justify-center rounded-xl p-4"
+    >
+      <h3 class="text-center font-bold text-white">
+        home address with close friends
+      </h3>
+      <p class="text-center text-sm text-white opacity-75">
+        no more returned undeliverable letters and packages
+      </p>
+    </div>
+    <div
+      id="mobile-application-track-view"
+      class="-ml-4 -mt-[26px] h-[82px] w-[calc(100%+2rem)] overflow-hidden"
+    >
+      <div
+        id="mobile-application-track"
+        class="flex h-full w-max items-end gap-2"
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import {
+    mobileApplicationData,
+    type MobileApplicationSliderData,
+  } from "./application-slider";
+
+  window.addEventListener("DOMContentLoaded", () => {
+    let alreadyLoaded = false;
+    let slideNodes: HTMLDivElement[] = [];
+    let activeIndex: number | null = null;
+    const trackFragment = document.createDocumentFragment();
+    const track = document.getElementById("mobile-application-track")!;
+    const view = document.getElementById("mobile-application-track-view")!;
+    const sceene = document.getElementById("mobile-application-active-sceene")!;
+    const titleNode = sceene.querySelector("h3")!;
+    const bodyNode = sceene.querySelector("p")!;
+    let autoPlayIntervalId: number | null = null;
+    const autoPlayDelay = 5000;
+
+    const createInterval = () => {
+      if (autoPlayIntervalId) clearInterval(autoPlayIntervalId);
+      autoPlayIntervalId = setInterval(() => {
+        nextSlide();
+      }, autoPlayDelay);
+    };
+
+    const nextSlide = () => {
+      const nextIndex = activeIndex !== null ? activeIndex + 1 : 0;
+      if (nextIndex < slideNodes.length) {
+        setActiveSlide(nextIndex);
+      }
+    };
+
+    const prevSlide = () => {
+      const prevIndex =
+        activeIndex !== null ? activeIndex - 1 : slideNodes.length - 1;
+      if (prevIndex >= 0) {
+        setActiveSlide(prevIndex);
+      }
+    };
+
+    let touchStartX = 0;
+
+    track.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+    });
+
+    track.addEventListener("touchend", (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const delta = Math.abs(touchEndX - touchStartX);
+
+      if (touchEndX < touchStartX) {
+        if (delta > 10) nextSlide();
+      } else {
+        if (delta > 10) prevSlide();
+      }
+    });
+
+    const updateTrackPosition = (withAnimation = true) => {
+      if (activeIndex === null) return;
+      const slide = slideNodes[activeIndex];
+      const viewRect = view.getBoundingClientRect();
+      const viewCenterX = viewRect.width / 2;
+      const slideCenterX = slide.offsetLeft + slide.offsetWidth / 2;
+      const translateX = slideCenterX - viewCenterX;
+
+      if (withAnimation) {
+        track.style.transition = "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+      } else {
+        track.style.transition = "";
+      }
+
+      track.style.transform = `translate3d(-${translateX}px, 0px, 0px)`;
+    };
+
+    const setActiveSlide = (index: number, withInterval = true) => {
+      if (withInterval) {
+        createInterval();
+      }
+      if (activeIndex !== null) {
+        const previousSlide = slideNodes[activeIndex];
+        previousSlide.classList.remove(
+          "active",
+          "application-mob-bubble-transition",
+        );
+      }
+      activeIndex = index;
+      const nextSlide = slideNodes[index];
+      nextSlide.classList.add("active", "application-mob-bubble-transition");
+
+      const title = nextSlide.getAttribute("data-title");
+      const body = nextSlide.getAttribute("data-body");
+
+      titleNode.textContent = title;
+      bodyNode.textContent = body;
+
+      updateTrackPosition();
+
+      const isCloned = nextSlide.classList.contains("cloned");
+
+      if (isCloned) {
+        setTimeout(() => {
+          nextSlide.classList.remove(
+            "application-mob-bubble-transition",
+            "active",
+          );
+          const originalIndex = parseInt(
+            nextSlide.getAttribute("data-original-index") || "0",
+          );
+          const realNode = slideNodes[originalIndex];
+          activeIndex = originalIndex;
+          realNode.classList.add("active");
+          updateTrackPosition(false);
+        }, 300);
+      }
+    };
+
+    const createBubble = (
+      data: MobileApplicationSliderData,
+      index: number,
+      originalDataIndex?: number,
+    ) => {
+      const bubble = document.createElement("div");
+      bubble.classList.add("application-mob-bubble");
+      bubble.setAttribute("data-index", index.toString());
+      bubble.setAttribute("data-title", data.title);
+      bubble.setAttribute("data-body", data.body);
+
+      if (originalDataIndex !== undefined) {
+        bubble.classList.add("cloned");
+        bubble.setAttribute(
+          "data-original-index",
+          originalDataIndex.toString(),
+        );
+      }
+      bubble.innerHTML = `<img src="${data.imageUrl}" alt="${data.title}" />`;
+      bubble.addEventListener("click", () => setActiveSlide(index));
+      return bubble;
+    };
+
+    const initSlider = () => {
+      const windowSize = window.innerWidth;
+      if (windowSize >= 1280 || alreadyLoaded) return;
+      const clonesCount = 4;
+      const nodesWithClones: {
+        data: MobileApplicationSliderData;
+        originalIndex?: number;
+      }[] = [];
+      const dataSize = mobileApplicationData.length;
+
+      for (let i = 0; i < clonesCount; i++) {
+        const originalDataIndex = dataSize - clonesCount + i;
+        const realSlideIndex = originalDataIndex + clonesCount;
+
+        nodesWithClones.push({
+          data: mobileApplicationData[originalDataIndex],
+          originalIndex: realSlideIndex,
+        });
+      }
+
+      for (const data of mobileApplicationData) {
+        nodesWithClones.push({ data });
+      }
+
+      for (let i = 0; i < clonesCount; i++) {
+        const realSlideIndex = i + clonesCount;
+
+        nodesWithClones.push({
+          data: mobileApplicationData[i],
+          originalIndex: realSlideIndex,
+        });
+      }
+
+      for (const [index, x] of Object.entries(nodesWithClones)) {
+        const bubble = createBubble(x.data, parseInt(index), x.originalIndex);
+        trackFragment.appendChild(bubble);
+      }
+      track.appendChild(trackFragment);
+      slideNodes = Array.from(track.children) as HTMLDivElement[];
+
+      alreadyLoaded = true;
+      setActiveSlide(clonesCount, false);
+      setActiveSlide(clonesCount, false);
+    };
+
+    initSlider();
+
+    const options = {
+      root: null, // viewport
+      rootMargin: "0px",
+      threshold: 0.3,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) createInterval();
+        else autoPlayIntervalId && clearInterval(autoPlayIntervalId);
+      }
+    }, options);
+
+    observer.observe(track);
+
+    window.addEventListener("resize", initSlider);
+  });
+</script>
+
+<style is:global>
+  .application-mob-slide {
+  }
+
+  .application-mob-slide.active {
+  }
+
+  .application-mob-bubble {
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    opacity: 0.35;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    overflow: hidden;
+  }
+
+  .application-mob-bubble img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .application-mob-bubble.active {
+    transform: scale(1.42);
+    transform-origin: bottom;
+    opacity: 1;
+  }
+
+  .application-mob-bubble-transition {
+    transition-property: opacity, transform;
+    transition-duration: 0.3s;
+  }
+
+  .active-sceene {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(
+      90deg,
+      var(--alpha-white-10, rgba(255, 255, 255, 0.1)) 0%,
+      var(--alpha-white-5, rgba(255, 255, 255, 0.05)) 100%
+    );
+  }
+</style>
