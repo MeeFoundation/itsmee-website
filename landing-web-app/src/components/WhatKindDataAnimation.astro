@@ -194,7 +194,7 @@
     recalcRadii();
     updatePositions();
 
-    let intervalId: number | null = null;
+    let intervalId: NodeJS.Timeout | null = null;
 
     observeSlider({
       target: scene,
