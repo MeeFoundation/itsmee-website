@@ -34,8 +34,8 @@ jobs:
       - name: configure gcp credentials
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: "projects/1043231896197/locations/global/workloadIdentityPools/github-actions-pool/providers/github"
-          service_account: "github-actions@the-mee-foundation.iam.gserviceaccount.com"
+          workload_identity_provider: "projects/1043231896197/locations/global/workloadIdentityPools/github-actions-pool/providers/global-github-deployment"
+          service_account: "global-github-actions@the-mee-foundation.iam.gserviceaccount.com"
       - name: deploy to bucket
         run: |
           gcloud storage rsync --recursive ${{ env.path_to_app }}/dist gs://${{ env.bucket_name }}
